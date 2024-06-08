@@ -2,6 +2,7 @@
   "name": "classisland-web-vuetify",
   "version": "0.0.0",
   "scripts": {
+    "format": "prettier --write .",
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview",
@@ -26,6 +27,7 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-vue": "^9.22.0",
+    "prettier": "^3.3.1",
     "sass": "^1.71.1",
     "typescript": "^5.4.2",
     "unplugin-fonts": "^1.1.1",

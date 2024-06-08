@@ -1,4 +1,4 @@
-export default interface IFeature{
+export default interface IFeature {
   icon: string;
   title: string;
   description: string;
