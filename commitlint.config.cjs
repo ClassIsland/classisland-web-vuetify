@@ -13,6 +13,7 @@ module.exports = {
     'scope-case': [0],
     'subject-full-stop': [0, 'never'],
     'subject-case': [0, 'never'],
-    'header-max-length': [0, 'always', 72]
+    'header-max-length': [0, 'always', 72],
+    'body-max-line-length': ['0', 'never']
   }
 };
