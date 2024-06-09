@@ -7,10 +7,12 @@
  */
 // 引入必要的路由组建
 import { createRouter, createWebHistory } from 'vue-router/auto';
+import { setupLayouts } from 'virtual:generated-layouts';
 
 // 初始化并配置路由器
 const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL)
+  history: createWebHistory(import.meta.env.BASE_URL),
+  extendRoutes: setupLayouts
 });
 
 // 导出路由器实例
