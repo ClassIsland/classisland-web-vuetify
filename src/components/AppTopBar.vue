@@ -7,8 +7,14 @@
         <v-btn href="https://migrate.classisland.tech/"> 迁移到 ClassIsland </v-btn>
         <v-btn href="https://docs.classisland.tech/"> 文档 </v-btn>
         <v-btn href="https://github.com/ClassIsland/ClassIsland"> GitHub 仓库 </v-btn>
-        <v-btn small variant="flat" color="primary">立即下载</v-btn>
+        <v-btn small variant="flat" color="primary" @click="gotoDownload">立即下载</v-btn>
       </div>
     </template>
   </v-app-bar>
 </template>
+
+<script setup>
+function gotoDownload() {
+  window.open('https://github.com/ClassIsland/ClassIsland/releases/latest/', '_blank');
+}
+</script>

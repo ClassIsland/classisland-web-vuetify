@@ -25,7 +25,7 @@
           </a>
         </div>
         <div class="d-flex ga-4">
-          <v-btn flat large color="primary" prepend-icon="mdi-download" onclick="">
+          <v-btn flat large color="primary" prepend-icon="mdi-download" @click="gotoDownload">
             立即下载
           </v-btn>
           <v-btn
@@ -301,6 +301,10 @@ function unmute_video(event: Event) {
   const video = document.getElementById('notification-demo') as HTMLVideoElement;
   isVideoSoundRestored.value = true;
   video.muted = false;
+}
+
+function gotoDownload() {
+  window.open('https://github.com/ClassIsland/ClassIsland/releases/latest/', '_blank');
 }
 
 const isVideoSoundRestored = ref(false);

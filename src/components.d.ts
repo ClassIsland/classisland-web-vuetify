@@ -7,12 +7,12 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    AppFooter: typeof import('./components/AppFooter.vue')['default']
-    AppTopBar: typeof import('./components/AppTopBar.vue')['default']
-    DownloadDialog: typeof import('./components/DownloadDialog.vue')['default']
-    FeatureCard: typeof import('./components/FeatureCard.vue')['default']
-    RouterLink: typeof import('vue-router')['RouterLink']
-    RouterView: typeof import('vue-router')['RouterView']
-    SvgIcon: typeof import('./components/SvgIcon.vue')['default']
+    AppFooter: (typeof import('./components/AppFooter.vue'))['default'];
+    AppTopBar: (typeof import('./components/AppTopBar.vue'))['default'];
+    DownloadDialog: (typeof import('./components/DownloadDialog.vue'))['default'];
+    FeatureCard: (typeof import('./components/FeatureCard.vue'))['default'];
+    RouterLink: (typeof import('vue-router'))['RouterLink'];
+    RouterView: (typeof import('vue-router'))['RouterView'];
+    SvgIcon: (typeof import('./components/SvgIcon.vue'))['default'];
   }
 }
