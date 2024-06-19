@@ -196,15 +196,10 @@
       <div class="content d-flex flex-column ga-8">
         <span class="text-h5 align-self-center">更多功能留给您自行探索！</span>
         <div class="d-flex flex-row ga-2 align-self-center">
-          <v-btn flat color="primary" prepend-icon="mdi-download" onclick="">
+          <v-btn flat color="primary" prepend-icon="mdi-download" @click="gotoDownload">
             立即下载 ClassIsland
           </v-btn>
-          <v-btn
-            flat
-            prepend-icon="mdi-github"
-            href="https://github.com/ClassIsland/ClassIsland"
-            onclick=""
-          >
+          <v-btn flat prepend-icon="mdi-github" href="https://github.com/ClassIsland/ClassIsland">
             了解更多
           </v-btn>
         </div>
