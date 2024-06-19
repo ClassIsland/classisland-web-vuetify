@@ -19,6 +19,8 @@ import { createApp } from 'vue';
 //导入虚拟模块以注册SVG图标
 import 'virtual:svg-icons-register';
 
+import './styles/main.scss'
+
 // 创建Vue应用实例，指定根组件为App
 const app = createApp(App);
 
