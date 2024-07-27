@@ -40,7 +40,10 @@
       </div>
       <div class="introduction-demo-container">
         <div class="position-absolute desktop-img">
-          <img src="../assets/screenshots/desktop.png" style="height: 75vh; margin-top: 10vb" />
+          <img
+            src="../assets/screenshots/desktop.png"
+            style="height: 75vh; margin-top: 10vb; border-radius: 0.8rem"
+          />
         </div>
       </div>
     </div>
