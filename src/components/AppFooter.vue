@@ -1,5 +1,5 @@
 <template>
-  <v-footer height="40" app>
+  <v-footer height="auto" app>
     <a
       key="ClassIsland"
       href="/"
@@ -27,6 +27,15 @@
     <div class="text-caption text-disabled" style="position: absolute; right: 16px">
       &copy; 2023-{{ new Date().getFullYear() }}
       <span class="d-none d-sm-inline-block">ClassIsland</span>
+      <span class="d-none d-sm-inline-block">&nbsp;|&nbsp;</span>
+      <a
+        href="https://beian.miit.gov.cn/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-caption text-disabled"
+      >
+        沪ICP备2024084943号
+      </a>
     </div>
   </v-footer>
 </template>
