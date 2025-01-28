@@ -1,4 +1,10 @@
 <template>
+  <v-alert
+    icon=""
+    text="ClassIsland 全体开发成员祝您春节快乐！"
+    type="error"
+  ></v-alert>
+
   <!-- 主要介绍 -->
   <div class="position-relative" style="height: 100vh">
     <v-parallax
@@ -293,7 +299,8 @@ h1 {
 
 <script lang="ts" setup>
 import IFeature from '../interfaces/IFeature';
-import { ref } from 'vue';
+import { onMounted, ref } from 'vue';
+
 
 function unmute_video(event: Event) {
   const video = document.getElementById('notification-demo') as HTMLVideoElement;
@@ -329,4 +336,8 @@ const notificationFeatures: Array<IFeature> = [
     description: '清新提醒音效，还可以自定义哦'
   }
 ];
+
+onMounted(() => {
+  checkNewYearAlert();
+});
 </script>
