@@ -14,7 +14,9 @@
   },
   "dependencies": {
     "@mdi/font": "6.2.95",
+    "@sentry/vue": "^8.20.0",
     "core-js": "^3.34.0",
+    "lunisolar": "^2.5.1",
     "roboto-fontface": "*",
     "vite-plugin-svg-icons": "^2.0.1",
     "vite-plugin-vue-layouts": "^0.11.0",
@@ -25,6 +27,7 @@
     "@babel/types": "^7.24.0",
     "@commitlint/cli": "^19.3.0",
     "@commitlint/config-conventional": "^19.2.2",
+    "@sentry/vite-plugin": "^2.21.1",
     "@types/node": "^20.11.25",
     "@vitejs/plugin-vue": "^5.0.4",
     "@vue/eslint-config-typescript": "^13.0.0",
@@ -48,5 +51,6 @@
     "vite-plugin-vuetify": "^2.0.3",
     "vue-router": "^4.3.0",
     "vue-tsc": "^2.0.6"
-  }
+  },
+  "packageManager": "yarn@1.22.21+sha1.1959a18351b811cdeedbd484a8f86c3cc3bbaf72"
 }
