@@ -12,7 +12,14 @@ import { setupLayouts } from 'virtual:generated-layouts';
 // 初始化并配置路由器
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
-  extendRoutes: setupLayouts
+  extendRoutes: setupLayouts,
+  routes:[
+    {
+      path: '/download/thank_you/:version/:artifactId',
+      name: 'thank_you',
+      component: () => import('../pages/download/thank_you/index.vue'),
+    }
+  ]
 });
 
 // 导出路由器实例
