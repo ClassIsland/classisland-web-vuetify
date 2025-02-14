@@ -7,6 +7,7 @@ import vuetify from './vuetify';
 // 导入路由插件
 import router from '../router';
 
+
 /**
  * 为应用程序注册所有必要的插件。
  *

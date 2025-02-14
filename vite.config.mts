@@ -8,6 +8,7 @@ import VueRouter from 'unplugin-vue-router/vite';
 import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import path from 'path';
+import vueDevTools from 'vite-plugin-vue-devtools'
 
 // Utilities
 import { defineConfig } from 'vite';
@@ -73,7 +74,8 @@ export default defineConfig({
        * @default: __svg__icons__dom__
        */
       customDomId: '__svg__icons__dom__'
-    })
+    }),
+    vueDevTools()
   ],
   define: { 'process.env': {} },
   resolve: {

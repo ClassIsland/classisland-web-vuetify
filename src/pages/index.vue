@@ -31,7 +31,7 @@
           </a>
         </div>
         <div class="d-flex ga-4">
-          <v-btn flat large color="primary" prepend-icon="mdi-download" @click="gotoDownload">
+          <v-btn flat large color="blue-lighten-3" prepend-icon="mdi-download" @click="gotoDownload">
             立即下载
           </v-btn>
           <v-btn
@@ -161,7 +161,7 @@
           </p>
           <div class="content-flex-layout ga-4">
             <template v-for="feature in notificationFeatures" :key="feature.title">
-              <v-card variant="outlined" color="primary">
+              <v-card variant="outlined" color="blue-lighten-3">
                 <v-card-item>
                   <v-icon :icon="feature.icon" />
                 </v-card-item>
@@ -185,7 +185,7 @@
               <v-fade-transition>
                 <v-btn
                   variant="elevated"
-                  color="primary"
+                  color="blue-lighten-3"
                   icon="mdi-volume-off"
                   id="button_unmute"
                   title="取消静音"
@@ -205,7 +205,7 @@
       <div class="content d-flex flex-column ga-8">
         <span class="text-h5 align-self-center">更多功能留给您自行探索！</span>
         <div class="d-flex flex-row ga-2 align-self-center">
-          <v-btn flat color="primary" prepend-icon="mdi-download" @click="gotoDownload">
+          <v-btn flat color="blue-lighten-3" prepend-icon="mdi-download" @click="gotoDownload">
             立即下载 ClassIsland
           </v-btn>
           <v-btn flat prepend-icon="mdi-github" href="https://github.com/ClassIsland/ClassIsland">
@@ -300,7 +300,9 @@ h1 {
 <script lang="ts" setup>
 import IFeature from '../interfaces/IFeature';
 import { onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
+const router = useRouter();
 
 function unmute_video(event: Event) {
   const video = document.getElementById('notification-demo') as HTMLVideoElement;
@@ -309,7 +311,7 @@ function unmute_video(event: Event) {
 }
 
 function gotoDownload() {
-  window.open('https://github.com/ClassIsland/ClassIsland/releases/latest/', '_blank');
+  router.push("/download");
 }
 
 const isVideoSoundRestored = ref(false);

@@ -8,8 +8,8 @@ const props = defineProps({
 
 <template>
   <div class="align-content-center d-flex flex-column align-center download-card-root ga-2" >
-    <p class="text-h5">{{ props.platformName }}</p>
     <v-icon :icon="props.platformIcon" class="platform-icon"/>
+    <p class="text-h5 font-weight-medium">{{ props.platformName }}</p>
     <p class="text-center">{{ props.description }}</p>
     <div class="d-flex gc-2">
       <slot/>
@@ -19,7 +19,7 @@ const props = defineProps({
 
 <style scoped>
 .platform-icon {
-  font-size: 72px;
+  font-size: 80px;
 }
 
 .download-card-root {
