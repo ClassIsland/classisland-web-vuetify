@@ -1,14 +1,32 @@
 <script setup lang="ts">
-import {ref} from "vue";
+import {onMounted, ref} from "vue";
 import DownloadPlatformCard from "../../components/DownloadPlatformCard.vue";
+import {IndexIds} from "../../indexIds";
 
 const isLoading = ref(true);
 const downloadIndex = ref();
 const latestVersionInfoMin = ref();
-const latestVersionInfo = ref();
+const latestVersionInfo = ref({
+  Version: "",
+  Title: "",
+});
+
+const downloadIndexNet6 = ref();
+const latestVersionInfoMinNet6 = ref();
+const latestVersionInfoNet6 = ref({
+  Version: "",
+  Title: "",
+});
 
 const downloadLinkWin10SingleFileFull = ref("");
 const downloadLinkWin10SingleFileTrimmed = ref("");
+const downloadLinkWin7SingleFileFull = ref("");
+const downloadLinkWin7SingleFileTrimmed = ref("");
+const channels = ref([]);
+const selectedChannel = ref("stable");
+const isDialogActive = ref(false);
+const isError = ref(false);
+const timeStamp = new Date().getTime();
 
 function compareVersion(a, b) {
   const versionA = a.Version.split('.');
@@ -25,23 +43,85 @@ function compareVersion(a, b) {
 }
 
 async function init(){
-  const result = await fetch("https://get.classisland.tech/d/ClassIsland-Ningbo-S3/classisland/disturb/index.json");
-  const json = await result.json();
+  try{
+    console.log(IndexIds);
+    const result = await fetch( IndexIds.get("main") + "?time=" + timeStamp);
+    const json = await result.json();
+    json.Versions.sort(compareVersion);
+    json.Versions.reverse();
+    downloadIndex.value = json;
+    const resultNet6 = await fetch( IndexIds.get("net-6")+ "?time=" + timeStamp);
+    const jsonNet6 = await resultNet6.json();
+    jsonNet6.Versions.sort(compareVersion);
+    jsonNet6.Versions.reverse();
+    downloadIndexNet6.value = jsonNet6;
+
+    for (let i in json.Channels) {
+      let channel = json.Channels[i];
+      channel.id = i;
+      channels.value.push({
+        id: i,
+        title: i,
+        props: {
+          title: channel.Name,
+          subtitle: channel.Description,
+        }
+      });
+    }
+    // selectedChannel.value = json.Channels.stable;
+
+    await loadCurrentChannel();
+  } catch (e) {
+    isError.value = true;
+    console.error(e);
+  }
   isLoading.value = false;
-  json.Versions.sort(compareVersion);
-  json.Versions.reverse();
-  downloadIndex.value = json;
-  latestVersionInfoMin.value = json.Versions[0];
-  console.log(latestVersionInfoMin.value);
-  const resultVersion = await fetch(latestVersionInfoMin.value.VersionInfoUrl);
-  latestVersionInfo.value = await resultVersion.json();
-  console.log(latestVersionInfo.value);
+}
+
+async function getSelectedVersion(index) {
+  console.log(index);
+  let versionInfoMin = null;
+  for (let i of index.Versions) {
+    // console.log(i);
+    if (i.Channels.includes(selectedChannel.value)) {
+      versionInfoMin = i;
+      break;
+    }
+  }
+  if (versionInfoMin == null) {
+    return null;
+  }
+  console.log(versionInfoMin);
+  return await (await fetch(versionInfoMin.VersionInfoUrl + "?time=" + timeStamp)).json();
+}
+
+async function loadCurrentChannel() {
+  console.log("当前通道：", selectedChannel.value);
+  latestVersionInfo.value = await getSelectedVersion(downloadIndex.value);
+  latestVersionInfoNet6.value = await getSelectedVersion(downloadIndexNet6.value);
 
   downloadLinkWin10SingleFileFull.value = `/download/thank_you/main/${latestVersionInfo.value.Version}/windows_x64_full_singleFile`
   downloadLinkWin10SingleFileTrimmed.value = `/download/thank_you/main/${latestVersionInfo.value.Version}/windows_x64_trimmed_singleFile`
+  downloadLinkWin7SingleFileFull.value = `/download/thank_you/net-6/${latestVersionInfoNet6.value.Version}/windows_x64_full_singleFile`
+  downloadLinkWin7SingleFileTrimmed.value = `/download/thank_you/net-6/${latestVersionInfoNet6.value.Version}/windows_x64_trimmed_singleFile`
 }
 
-init();
+async function updateChannelSelection() {
+  isLoading.value = true;
+  isError.value = false;
+  await loadCurrentChannel();
+  isLoading.value = false;
+}
+
+function showHelpDialog() {
+  isDialogActive.value = true;
+}
+
+function refreshPage() {
+  location.reload();
+}
+
+onMounted(() => init());
 </script>
 
 <template>
@@ -51,27 +131,98 @@ init();
       <v-progress-circular color="blue-lighten-3" size="large"
                            indeterminate class="align-self-center"/>
     </div>
-    <div v-else class="download-container flex-column align-self-center mt-8">
+    <div v-else-if="!isError" class="d-flex download-container flex-column align-self-center mt-8 page-margin-x">
       <h2 class="align-self-center text-center mb-4 text-h3 font-weight-bold">下载 ClassIsland</h2>
       <p class="text-center align-self-center mb-12">首先，选择适合您的平台和打包方式</p>
-      <div class="align-self-center d-flex flex-row gc-12 flex-wrap justify-center">
-        <DownloadPlatformCard platform-name="Windows 10"
+      <v-alert type="warning" variant="outlined"
+               title="" class="mb-4"
+               v-if="downloadIndex.Channels[selectedChannel].Warning"
+               :text="downloadIndex.Channels[selectedChannel].Warning"></v-alert>
+      <div class="align-self-center d-flex flex-row ga-12 flex-wrap justify-center">
+        <DownloadPlatformCard platform-name="Windows 10+"
                               platform-icon="mdi-microsoft-windows"
-                              description="适用于 Windows 10 以及以上的版本。">
+                              description="适用于 Windows 10 以及以上的版本。"
+                              :version="latestVersionInfo.Title">
           <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
-                 :href='downloadLinkWin10SingleFileFull'>单文件完整版</v-btn>
+                 :to='downloadLinkWin10SingleFileFull'>单文件完整版</v-btn>
           <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
-                 :href='downloadLinkWin10SingleFileTrimmed'>单文件精简版</v-btn>
+                 :to='downloadLinkWin10SingleFileTrimmed'>单文件精简版</v-btn>
         </DownloadPlatformCard>
         <DownloadPlatformCard platform-name="Windows 7 兼容版"
                               platform-icon="mdi-microsoft-windows"
-                              description="适用于 Windows 7 SP1 ~ 8.1 版本。部分功能可能不可用。">
-          <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text">单文件完整版</v-btn>
-          <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text">单文件精简版</v-btn>
+                              description="适用于 Windows 7 SP1 ~ 8.1 版本。部分功能可能不可用。"
+                              :version="latestVersionInfoNet6.Title">
+          <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
+                 :to='downloadLinkWin7SingleFileFull'>单文件完整版</v-btn>
+          <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
+                 :to='downloadLinkWin7SingleFileTrimmed'>单文件精简版</v-btn>
+        </DownloadPlatformCard>
+        <DownloadPlatformCard platform-name="Linux"
+                              platform-icon="mdi-linux"
+                              description="ClassIsland 不支持直接在 Linux 系操作系统上运行。您可以根据社区指南在 Linux 上运行 ClassIsland。">
+          <v-btn color="blue-lighten-3" prepend-icon="mdi-book-open-variant" variant="text"
+                 href="https://github.com/ClassIsland/ClassIsland/discussions/675" target="_blank">查看运行指南</v-btn>
         </DownloadPlatformCard>
       </div>
+      <div class="d-flex flex-row flex-wrap ga-4 justify-center align-self-center align-content-center mt-8">
+        <v-select
+          v-model="selectedChannel"
+          label="发行通道"
+          :items="channels"
+          variant="outlined"
+          width="250px"
+          item-title="props.Name"
+          item-value="id"
+          @update:model-value="updateChannelSelection"
+        >
+        </v-select>
+      </div>
+      <div class="d-flex flex-row flex-wrap ga-4 justify-center align-self-center align-content-center mb-4">
+        <v-btn color="blue-lighten-3" variant="text" prepend-icon="mdi-help-circle"
+               @click="showHelpDialog">完整版 vs 精简版</v-btn>
+        <v-btn color="blue-lighten-3" variant="text" prepend-icon="mdi-download"
+               href="https://github.com/ClassIsland/ClassIsland/releases/"
+               target="_blank">查看全部下载</v-btn>
+        <v-btn color="blue-lighten-3" variant="text" prepend-icon="mdi-wrench"
+               href="https://github.com/ClassIsland/ClassIsland/actions/workflows/build_release.yml"
+               target="_blank">下载 CI 构建</v-btn>
+      </div>
     </div>
+    <div v-else-if="isError" class="flex-column mt-12 ">
+      <div class="page-margin-x">
+        <h2 class="align-self-center text-center mb-6 text-h3 font-weight-bold">Σ(っ °Д °;)っ</h2>
+        <h2 class="align-self-center text-center mb-6 text-h4 font-weight-bold">出错啦！</h2>
+        <p class="text-center align-self-center mb-16">无法获取下载信息，可能是下载服务器目前不可用。</p>
+
+        <div class="justify-center d-flex flex-row flex-wrap ga-4">
+          <v-btn color="blue-lighten-3" prepend-icon="mdi-refresh" @click="refreshPage">刷新页面</v-btn>
+          <v-btn prepend-icon="mdi-github" href="https://github.com/ClassIsland/ClassIsland/releases"
+                 target="_blank">前往 GitHub 下载</v-btn>
+        </div>
+      </div>
+
+
+    </div>
+
+    <v-dialog max-width="500" v-model="isDialogActive">
+      <v-card title="完整版 vs 精简版">
+        <v-card-text>
+          精简版与完整版相比，移除了不必要的资源文件（字体、文档等）以缩小应用体积，同时功能保持不变。您可以根据需要选择要使用的版本。
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            text="关闭"
+            @click="isDialogActive = false"
+          ></v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </div>
+
+
 </template>
 
 <style scoped>
@@ -82,5 +233,18 @@ init();
 
 .download-container {
   height: 100%;
+}
+
+.page-margin-x {
+  margin: 0 42px;
+  @media (max-width: 600px) {
+    margin: 0 12px
+  }
+
+  max-width: 1200px;
+  @media (min-width: 1200px) {
+    width: 1200px;
+    justify-self: center;
+  }
 }
 </style>

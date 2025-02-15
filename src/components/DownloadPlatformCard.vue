@@ -2,7 +2,8 @@
 const props = defineProps({
   platformName: String,
   platformIcon: String,
-  description: String
+  description: String,
+  version: String
 });
 </script>
 
@@ -11,6 +12,7 @@ const props = defineProps({
     <v-icon :icon="props.platformIcon" class="platform-icon"/>
     <p class="text-h5 font-weight-medium">{{ props.platformName }}</p>
     <p class="text-center">{{ props.description }}</p>
+    <p class="text-center version" v-if="version">当前版本：{{ props.version }}</p>
     <div class="d-flex gc-2">
       <slot/>
     </div>
@@ -24,5 +26,10 @@ const props = defineProps({
 
 .download-card-root {
   max-width: 320px;
+}
+
+.version {
+  font-size: 14px;
+  opacity: 90%;
 }
 </style>

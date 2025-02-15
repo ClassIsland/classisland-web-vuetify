@@ -18,6 +18,7 @@ const selectedSubChannel = ref({
   DeployMethod: 0
 });
 const isError = ref(false);
+const timeStamp = new Date().getTime();
 
 const route = useRoute();
 const indexId = route.params.indexId;
@@ -27,7 +28,7 @@ const showCopiedSnackbar = ref(false);
 
 async function init(){
   try {
-    const result = await fetch(IndexIds.get(indexId.toString()));
+    const result = await fetch(IndexIds.get(indexId.toString()) + "?time=" + timeStamp);
     const json = await result.json();
     downloadIndex.value = json;
     let versionIndoMin = null;
@@ -43,7 +44,7 @@ async function init(){
       return;
     }
     console.log(versionIndoMin);
-    const resultVersion = await fetch(versionIndoMin.VersionInfoUrl);
+    const resultVersion = await fetch(versionIndoMin.VersionInfoUrl + "?time=" + timeStamp);
 
     let info = await resultVersion.json();
     if (info == null){
@@ -62,7 +63,7 @@ async function init(){
     selectedSubChannel.value = subChannel;
     console.log(selectedSubChannel.value);
 
-    // downloadArchive();
+    downloadArchive();
   } catch (e) {
     console.error(e);
     isError.value = true;
