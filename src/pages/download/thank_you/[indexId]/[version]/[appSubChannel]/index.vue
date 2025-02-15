@@ -63,7 +63,7 @@ async function init(){
     selectedSubChannel.value = subChannel;
     console.log(selectedSubChannel.value);
 
-    // downloadArchive();
+    downloadArchive();
   } catch (e) {
     console.error(e);
     isError.value = true;
