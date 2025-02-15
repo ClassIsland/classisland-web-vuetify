@@ -31,7 +31,7 @@
           </a>
         </div>
         <div class="d-flex ga-4">
-          <v-btn flat large color="blue-lighten-3" prepend-icon="mdi-download" @click="gotoDownload">
+          <v-btn flat large color="blue-lighten-3" prepend-icon="mdi-download" to="/download">
             立即下载
           </v-btn>
           <v-btn
@@ -340,6 +340,6 @@ const notificationFeatures: Array<IFeature> = [
 ];
 
 onMounted(() => {
-  checkNewYearAlert();
+  // checkNewYearAlert();
 });
 </script>

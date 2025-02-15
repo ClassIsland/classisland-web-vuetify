@@ -1,7 +1,7 @@
 <template>
   <v-app-bar class="pr-4">
     <v-app-bar-title class="align-content-center"> ClassIsland </v-app-bar-title>
-
+    
     <template v-slot:append>
       <div class="ga-4">
         <v-btn href="https://migrate.classisland.tech/"> 迁移到 ClassIsland </v-btn>
