@@ -63,7 +63,7 @@ async function init(){
     selectedSubChannel.value = subChannel;
     console.log(selectedSubChannel.value);
 
-    downloadArchive();
+    // downloadArchive();
   } catch (e) {
     console.error(e);
     isError.value = true;
@@ -150,16 +150,20 @@ onMounted(() => init());
                     target="_blank"
                     href="https://docs.classisland.tech/app/"/>
           </div>
+
+          <p>使用过其它课表软件？您可以使用 CSES 或 <a href="https://migrate.classisland.tech/" target="_blank">ClassIsland 迁移向导</a>快速从其它课表软件导入课表。</p>
+
         </div>
       </v-sheet>
 
       <div class="page-margin-x py-4 my-8">
         <h2 class="text-center mb-2">了解更多</h2>
-        <div class="d-flex flex-row justify-center ga-2 flex-wrap">
+        <div class="d-flex flex-row justify-center ga-2 flex-wrap mb-4">
           <v-btn prepend-icon="mdi-github" href="https://github.com/ClassIsland/ClassIsland" target="_blank">查看 GitHub 仓库</v-btn>
           <v-btn prepend-icon="mdi-book-open-variant" href="https://docs.classisland.tech" target="_blank">浏览应用文档</v-btn>
           <v-btn prepend-icon="mdi-message-outline" href="https://docs.classisland.tech/community/" target="_blank">加入讨论社区</v-btn>
         </div>
+        <p class="text-center ">如果这个项目对您有帮助，<a href="https://github.com/ClassIsland/ClassIsland" target="_blank">请点亮 Star ⭐</a></p>
       </div>
     </div>
     <div v-if="!isLoading && isError " class="flex-column mt-12 ">

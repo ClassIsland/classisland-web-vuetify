@@ -1,10 +1,4 @@
 <template>
-  <v-alert
-    icon=""
-    text="ClassIsland 全体开发成员祝您春节快乐！"
-    type="error"
-  ></v-alert>
-
   <!-- 主要介绍 -->
   <div class="position-relative" style="height: 100vh">
     <v-parallax
