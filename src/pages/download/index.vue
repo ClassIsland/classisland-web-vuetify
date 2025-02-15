@@ -131,11 +131,11 @@ onMounted(() => init());
       <v-progress-circular color="blue-lighten-3" size="large"
                            indeterminate class="align-self-center"/>
     </div>
-    <div v-else-if="!isError" class="d-flex download-container flex-column align-self-center mt-8 page-margin-x">
+    <div v-else-if="!isError" class="d-flex flex-column align-self-center mt-8 page-margin-x">
       <h2 class="align-self-center text-center mb-4 text-h3 font-weight-bold">下载 ClassIsland</h2>
       <p class="text-center align-self-center mb-12">首先，选择适合您的平台和打包方式</p>
       <v-alert type="warning" variant="outlined"
-               title="" class="mb-4"
+               class="mb-4 fill-height"
                v-if="downloadIndex.Channels[selectedChannel].Warning"
                :text="downloadIndex.Channels[selectedChannel].Warning"></v-alert>
       <div class="align-self-center d-flex flex-row ga-12 flex-wrap justify-center">

@@ -1,5 +1,5 @@
 <template>
-  <v-app-bar class="pr-4" >
+  <v-app-bar class="pr-4">
     <div class="d-flex ml-4 align-content-center">
       <v-app-bar-title class="align-content-center mr-2"> ClassIsland </v-app-bar-title>
       <v-tabs color="blue-lighten-3">
