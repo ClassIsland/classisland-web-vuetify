@@ -235,16 +235,4 @@ onMounted(() => init());
   height: 100%;
 }
 
-.page-margin-x {
-  margin: 0 42px;
-  @media (max-width: 600px) {
-    margin: 0 12px
-  }
-
-  max-width: 1200px;
-  @media (min-width: 1284px) {
-    width: 1200px;
-    justify-self: center;
-  }
-}
 </style>

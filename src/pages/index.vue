@@ -113,10 +113,10 @@
         <p>ClassIsland 的具有强大的课表管理系统，可以便捷地导入、编辑和调换课表。</p>
         <div class="d-flex flex-column ga-4" >
           <v-card
-            title=" 简洁直观的课表编辑工具"
+            title="灵活的课表启用规则"
             variant="outlined"
-            prepend-icon="mdi-file-document-edit-outline"
-            text="ClassIsland 具有简洁直观的课表编辑工具，可以便利地编辑课表、时间表和科目等信息。"
+            prepend-icon="mdi-tag-multiple-outline"
+            text="ClassIsland 支持为课表设置多周（最高 4 周）轮换启用规则，也支持使用【课表群】分批启用课表。"
             class="flex-grow-1"
           >
           </v-card>
@@ -131,6 +131,14 @@
               可以从学校发布的电子版课表表格文件中导入课表和时间表信息。除此之外，ClassIsland
               也支持<a href="https://migrate.classisland.tech/">从其它课表软件导入课表信息</a>。
             </v-card-text>
+          </v-card>
+          <v-card
+            title=" 简洁直观的课表编辑工具"
+            variant="outlined"
+            prepend-icon="mdi-file-document-edit-outline"
+            text="ClassIsland 具有简洁直观的课表编辑工具，可以便利地编辑课表、时间表和科目等信息。"
+            class="flex-grow-1"
+          >
           </v-card>
           <v-card
             title="换课与临时课表"
@@ -148,19 +156,19 @@
         <v-carousel show-arrows="hover" cycle height="min-content" hide-delimiter-background>
           <v-carousel-item>
             <img
-              src="../assets/screenshots/311477098-29d91bf2-4c8a-4cbd-a778-a9034e7d7420.png"
+              src="../assets/screenshots/1.png"
               width="100%"
             />
           </v-carousel-item>
           <v-carousel-item>
             <img
-              src="../assets/screenshots/311477113-2b3b5c87-c8bb-46f0-8470-01edf3ca52a2.png"
+              src="../assets/screenshots/2.png"
               width="100%"
             />
           </v-carousel-item>
           <v-carousel-item>
             <img
-              src="../assets/screenshots/311477126-a2e64983-dfa0-4565-a45a-31c9f9c298a8.png"
+              src="../assets/screenshots/3.png"
               width="100%"
             />
           </v-carousel-item>
@@ -204,19 +212,6 @@ h1 {
   padding-top: 36px;
   padding-bottom: 32px;
 
-}
-
-.margin-x {
-  margin: 0 42px;
-  @media (max-width: 600px) {
-    margin: 0 12px
-  }
-
-  max-width: 1200px;
-  @media (min-width: 1284px) {
-    width: 1200px;
-    justify-self: center;
-  }
 }
 
 .introduction {

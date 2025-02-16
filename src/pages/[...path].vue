@@ -15,16 +15,5 @@
 </template>
 
 <style scoped>
-.page-margin-x {
-  margin: 0 42px;
-  @media (max-width: 600px) {
-    margin: 0 12px
-  }
 
-  max-width: 1200px;
-  @media (min-width: 1200px) {
-    width: 1200px;
-    justify-self: center;
-  }
-}
 </style>

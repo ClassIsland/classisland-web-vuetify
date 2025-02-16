@@ -210,19 +210,6 @@ onMounted(() => init());
   min-width: 200px;
 }
 
-.page-margin-x {
-  margin: 0 42px;
-  @media (max-width: 600px) {
-    margin: 0 12px
-  }
-
-  max-width: 1200px;
-  @media (min-width: 1284px) {
-    width: 1200px;
-    justify-self: center;
-  }
-}
-
 .elevated-sheet {
   background: linear-gradient(135deg, #26c4ce44, #b3f3c644);
 }
