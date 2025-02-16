@@ -53,6 +53,11 @@ const items = [
     title: 'GitHub',
     icon: `mdi-github`,
     href: 'https://github.com/ClassIsland/ClassIsland'
+  },
+  {
+    title: '电子邮件',
+    icon: `mdi-email-outline`,
+    href: 'mailto:wrc@classisland.tech'
   }
 ];
 </script>

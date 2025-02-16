@@ -1,13 +1,20 @@
 <template>
-  <v-app-bar class="pr-4">
-    <div class="d-flex ml-4 align-content-center">
-      <v-app-bar-title class="align-content-center mr-2"> ClassIsland </v-app-bar-title>
-      <v-tabs color="blue-lighten-3">
-        <v-tab to="/">首页</v-tab>
-        <v-tab to="/download">下载</v-tab>
-        <v-tab href="https://docs.classisland.tech/" target="_blank" append-icon="mdi-open-in-new">文档</v-tab>
-        <v-tab href="https://github.com/ClassIsland/ClassIsland" target="_blank" append-icon="mdi-open-in-new">GitHub 仓库</v-tab>
-      </v-tabs>
+  <v-app-bar class="pr-4  position-fixed">
+    <div class="ml-2 align-content-center d-flex">
+      <div class="d-flex flex-row align-center">
+        <v-app-bar-nav-icon variant="text" class="nav-icon" @click="isNavDrawerOpen = !isNavDrawerOpen"/>
+        <v-app-bar-title class="align-content-center mx-2"> ClassIsland </v-app-bar-title>
+      </div>
+      <div class="app-bar-tabs">
+        <v-tabs color="blue-lighten-3">
+          <v-tab v-for="i in navItems" v-bind:key="i.title"
+                 :append-icon='i.href ? "mdi-open-in-new" : ""'
+                 :to="i.to" :href="i.href"
+                 :target='i.href ? "_blank" : ""'>
+            {{ i.title }}
+          </v-tab>
+        </v-tabs>
+      </div>
     </div>
 
     <template v-slot:append>
@@ -16,10 +23,65 @@
       </div>
     </template>
   </v-app-bar>
+
+  <v-navigation-drawer
+    class="position-fixed"
+    v-model="isNavDrawerOpen"
+    temporary
+  >
+    <v-list
+    >
+      <v-list-item
+        v-for="i in navItems"
+        v-bind:key="i.title"
+        :append-icon='i.href ? "mdi-open-in-new" : ""'
+        :to="i.to" :href="i.href"
+        :target='i.href ? "_blank" : ""'
+        :prepend-icon="i.icon"
+      >
+        {{ i.title }}
+      </v-list-item>
+    </v-list>
+  </v-navigation-drawer>
 </template>
+<style scoped>
+.app-bar-tabs {
+  @media (max-width: 750px) {
+    display: none;
+  }
+}
+
+.nav-icon {
+  @media (min-width: 750px) {
+    display: none;
+  }
+}
+</style>
 
 <script setup>
-import {useRouter} from "vue-router";
-const router = useRouter();
+const isNavDrawerOpen = ref(false);
+
+const navItems = [
+  {
+    icon: "mdi-home",
+    title: "首页",
+    to: "/"
+  },
+  {
+    icon: "mdi-download",
+    title: "下载",
+    to: "/download"
+  },
+  {
+    icon: "mdi-book-open-variant",
+    title: "文档",
+    href: "https://docs.classisland.tech/"
+  },
+  {
+    icon: "mdi-github",
+    title: "GitHub 仓库",
+    href: "https://github.com/ClassIsland/ClassIsland"
+  }
+];
 
 </script>

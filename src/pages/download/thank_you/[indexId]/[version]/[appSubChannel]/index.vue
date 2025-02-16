@@ -217,7 +217,7 @@ onMounted(() => init());
   }
 
   max-width: 1200px;
-  @media (min-width: 1200px) {
+  @media (min-width: 1284px) {
     width: 1200px;
     justify-self: center;
   }
