@@ -604,7 +604,7 @@ const notificationFeatures: Array<IFeature> = [
 
 onMounted(() => {
   setInterval(() =>{
-    console.log(featureTags);
+    // console.log(featureTags);
     let ft = featureTags.value;
     let b = false;
     for (let i in ft) {
