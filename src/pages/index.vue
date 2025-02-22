@@ -24,7 +24,7 @@
             <img src="https://img.shields.io/github/license/HelloWRC/ClassIsland?style=flat-square" alt="开源许可证">
           </a>
         </div>
-        <div class="d-flex ga-2 flex-wrap mt-2">
+        <div class="d-flex ga-4 flex-wrap mt-2">
           <v-btn to="/download" color="blue-lighten-3" prepend-icon="mdi-download" size="large">立即下载</v-btn>
           <v-btn href="https://github.com/ClassIsland/ClassIsland"
                  color="blue-lighten-3" variant="text"
@@ -39,14 +39,12 @@
           <span class="gradient-base"
                 style="background-image: linear-gradient(135deg, #00FFED, #00bdfd)">直观</span>
       <span>的信息显示</span></h2>
-    <div class="d-flex flex-1-1 flex-wrap margin-x flex-wrap">
-      <div class="d-flex flex-column ga-4 mr-4">
-        <h3 class="text-h5">组件</h3>
-        <p>您可以通过【组件】自定义界面上显示的内容，并且支持组件轮播和多行组件，各种信息一目了然。</p>
-
-      </div>
-      <div class="ml-4">
-
+    <div class="margin-x ga-4">
+      <h3 class="text-h5">组件</h3>
+      <p class="mt-4">您可以通过【组件】自定义界面上显示的内容，并且支持组件轮播和多行组件，各种信息一目了然。</p>
+      <div class="d-flex flex-column align-content-center ">
+        <v-img class="mt-8 mx-auto" src="../assets/screenshots/comps.png" width="100%" max-width="900px"/>
+        <v-img src="../assets/screenshots/comp-settings.png" width="100%"  max-width="60%" class="justify-center mx-auto mt-4"/>
       </div>
     </div>
 
@@ -61,7 +59,7 @@
             width="100%"
             id="notification-demo"
           />
-          <div class="position-absolute" style="bottom: 16px; left: 8px">
+          <div class="position-absolute" style="bottom: 16px; right: 8px">
             <v-fade-transition>
               <v-btn
                 variant="elevated"
@@ -73,7 +71,7 @@
                 v-show="!isVideoSoundRestored"
               >
                 <v-icon>mdi-volume-off</v-icon>
-                <v-tooltip activator="parent" location="start"> 解除静音 </v-tooltip>
+                <v-tooltip activator="parent" location="end"> 解除静音 </v-tooltip>
               </v-btn>
             </v-fade-transition>
           </div>
@@ -110,11 +108,11 @@
     <div class="d-flex flex-1-1 align-content-center margin-x flex-wrap ga-8">
       <div class="d-flex flex-column ga-4 flex-grow-1 flex-wrap" style="flex-basis: 375px">
         <h3 class="text-h5">强大的课表系统</h3>
-        <p>ClassIsland 的具有强大的课表管理系统，可以便捷地导入、编辑和调换课表。</p>
+        <p>ClassIsland 具有强大的课表管理系统，可以便捷地导入、编辑和调换课表。</p>
         <div class="d-flex flex-column ga-4" >
           <v-card
             title="灵活的课表启用规则"
-            variant="outlined"
+            variant="flat"
             prepend-icon="mdi-tag-multiple-outline"
             text="ClassIsland 支持为课表设置多周（最高 4 周）轮换启用规则，也支持使用【课表群】分批启用课表。"
             class="flex-grow-1"
@@ -122,7 +120,7 @@
           </v-card>
           <v-card
             title="课表导入"
-            variant="outlined"
+            variant="flat"
             prepend-icon="mdi-file-import-outline"
             class="flex-grow-1"
           >
@@ -134,21 +132,11 @@
           </v-card>
           <v-card
             title=" 简洁直观的课表编辑工具"
-            variant="outlined"
+            variant="flat"
             prepend-icon="mdi-file-document-edit-outline"
             text="ClassIsland 具有简洁直观的课表编辑工具，可以便利地编辑课表、时间表和科目等信息。"
             class="flex-grow-1"
           >
-          </v-card>
-          <v-card
-            title="换课与临时课表"
-            variant="outlined"
-            prepend-icon="mdi-swap-horizontal"
-            class="flex-grow-1"
-          >
-            <v-card-text>
-              ClassIsland 支持调换当天的课程，同时也支持临时启用某个课表。
-            </v-card-text>
           </v-card>
         </div>
       </div>
@@ -172,23 +160,155 @@
               width="100%"
             />
           </v-carousel-item>
+          <v-carousel-item>
+            <img
+              src="../assets/screenshots/4.png"
+              width="100%"
+            />
+          </v-carousel-item>
         </v-carousel>
       </div>
     </div>
 
-    <v-sheet>
-    </v-sheet>
-    <div class="">
-      <div class="content d-flex flex-column ga-8 margin-x">
-        <span class="text-h5 align-self-center">更多功能留给您自行探索！</span>
-        <div class="d-flex flex-row ga-2 align-self-center">
-          <v-btn flat color="blue-lighten-3" prepend-icon="mdi-download" @click="gotoDownload">
-            立即下载 ClassIsland
-          </v-btn>
-          <v-btn flat prepend-icon="mdi-github" href="https://github.com/ClassIsland/ClassIsland">
-            了解更多
-          </v-btn>
+    <div class="d-flex flex-1-1 align-content-start margin-x flex-wrap ga-8 mt-12">
+      <div class="flex-grow-1 " style="flex-basis: 375px">
+        <h3 class="text-h5 mb-2">换课</h3>
+        <p  class="mb-4">ClassIsland 支持当日和跨天换课，灵活应对调课情景。</p>
+        <v-img src="../assets/screenshots/5.png"/>
+      </div>
+      <div class="flex-grow-1 align-self-center" style="flex-basis: 375px; width: 100%">
+        <h3 class="text-h5 mb-2">提前预定课表</h3>
+        <p class="mb-4">ClassIsland 也支持提前预定要启用的课表，提前安排调休课表。</p>
+        <v-img src="../assets/screenshots/6.png" />
+      </div>
+    </div>
+
+
+  </div>
+
+  <v-sheet class="content">
+    <h2 class="headline-feature text-center" >
+          <span class="gradient-base"
+                style="background-image: linear-gradient(135deg, #C93BFF, #8B3BFF)">智能</span>
+      <span>的自动行为</span></h2>
+
+    <div class="d-flex flex-1-1 align-content-center margin-x flex-wrap ga-8 flex-wrap-reverse">
+      <div class="flex-grow-1 align-self-center" style="flex-basis: 375px; width: 100%">
+        <v-img src="../assets/screenshots/ruleset.png"/>
+      </div>
+      <div class="d-flex flex-column ga-4 flex-grow-1 flex-wrap" style="flex-basis: 375px">
+        <h3 class="text-h5">规则集</h3>
+        <p>ClassIsland 的部分状态可以通过定义自定义的规则实现自动修改，如比如在上课且前台是全屏/最大化窗口时隐藏主界面等。ClassIsland 内置了课程、窗口、天气等规则，同时支持插件扩展规则，灵活应对各种情景。</p>
+      </div>
+    </div>
+
+    <div class="d-flex flex-1-1 align-content-center margin-x flex-wrap ga-8 mt-16">
+      <div class="d-flex flex-column ga-4 flex-grow-1 flex-wrap" style="flex-basis: 375px">
+        <h3 class="text-h5">自动化</h3>
+        <p>自动化功能可以让 ClassIsland 在一些特定的时间节点执行一些特定的操作，比如切换组件配置，运行程序等，显示提醒等等。总的来说，就是“当 XX 发生”，并且“满足 XX 规则”时“做什么”。</p>
+      </div>
+      <div class="flex-grow-1 align-self-center" style="flex-basis: 375px; width: 100%">
+        <v-img src="../assets/screenshots/automatic1.png"/>
+      </div>
+
+    </div>
+  </v-sheet>
+
+  <div class="content">
+    <h2 class="headline-feature text-center" >
+          <span class="gradient-base"
+                style="background-image: linear-gradient(135deg, #FCF33A, #FFDD3B)">自由</span>
+      <span>的定制能力</span></h2>
+
+    <div class="d-flex flex-1-1 margin-x flex-wrap ga-8 flex-column">
+      <div class="d-flex flex-column flex-wrap ga-4 flex-lg-wrap">
+        <h3 class="text-h5">插件</h3>
+        <p>ClassIsland 支持通过安装插件的方式扩展应用的功能，如添加组件、提醒提供方、自动化行动、规则集规则、认证提供方等等，并且已经形成了相对丰富的插件生态。您可以在应用内的插件市场中安装插件。</p>
+        <div class="d-flex ga-2 flex-wrap align-content-start ">
+          <PluginCard title="ExtraIsland" author="LiPolymer" url="https://github.com/LiPolymer/ExtraIsland"
+                      description="为 ClassIsland 提供多种扩展功能！" icon="https://github.com/LiPolymer/ExtraIsland/raw/master/ExtraIsland/icon.png"/>
+          <PluginCard title="ClassIsland 主题加载器" author="ClassIsland" url="https://github.com/ClassIsland/ClassIsland.ThemeLoader/"
+                      description="向 ClassIsland 加载自定义的主题，个性化您的界面。"/>
+          <PluginCard title="地震预警" author="电排骨" url="https://github.com/denglihong2007/EarthquakeWarningForClassIsLand"
+                      description="防范于未然，争取宝贵的避险时间" icon="https://github.com/denglihong2007/EarthquakeWarningForClassIsLand/raw/master/EarthquakeWarning/icon.png"/>
+          <PluginCard title="UIAccess 提权" author="HelloWRC, Doubx690i" url="https://github.com/HelloWRC/GrantUiAccess"
+                      description="本插件可以为 ClassIsland 提升 UIAccess 令牌，使 ClassIsland 可以置顶到全屏 UWP 应用和系统界面上。"/>
         </div>
+        <p>同时 ClassIsland 也对插件开放了<a href="https://api.docs.classisland.tech/api/ClassIsland.Core.Abstractions.Services.html"
+             target="_blank">丰富的 API</a>，您可以查看<a href="https://docs.classisland.tech/dev" target="_blank">开发文档</a>来了解如何开发插件。</p>
+      </div>
+    </div>
+
+    <div class="d-flex flex-1-1 align-content-center margin-x flex-wrap-reverse ga-8 mt-16">
+      <div class="flex-grow-1 align-self-center" style="flex-basis: 375px; width: 100%">
+        <v-img src="../assets/screenshots/themes.png"/>
+      </div>
+      <div class="d-flex flex-column ga-4 flex-grow-1 flex-wrap-reverse" style="flex-basis: 375px">
+        <h3 class="text-h5">主题</h3>
+        <p>ClassIsland 支持通过主题功能自定义主界面的外观，甚至完全覆盖原来的主界面样式，高度个性化您的界面。</p>
+      </div>
+
+    </div>
+  </div>
+
+  <v-sheet class="content">
+    <h2 class="headline-feature text-center" >
+          <span class="gradient-base"
+                style="background-image: linear-gradient(135deg, #FF7900, #FFA100)">可靠</span>
+      <span>的运行保障</span></h2>
+
+    <div class="d-flex flex-1-1 align-content-center margin-x flex-wrap ga-8">
+      <div class="d-flex flex-column ga-4 flex-grow-1 flex-wrap">
+        <p>ClassIsland 在设计时充分考虑了在教学环境下，用户维护应用时间不足的情况。因此 ClassIsland 在开发时尽可能地提升了应用的可靠性，并添加了一系列提升维护效率的功能，减轻用户维护压力。</p>
+
+        <div class="d-flex ga-4 flex-wrap" >
+          <v-card
+            title="健壮的程序设计"
+            variant="outlined"
+            prepend-icon="mdi-xml"
+            text="ClassIsland 具有较强的稳定性，尽力减少在运行时发生崩溃错误的概率。同时支持在发生崩溃时自动退出，不影响教学任务。"
+            class="feature-card-divided"
+          >
+          </v-card>
+          <v-card
+            title="自动时间同步"
+            variant="outlined"
+            prepend-icon="mdi-clock-check-outline"
+            text="ClassIsland 支持自动从公开的 NTP 服务器或学校广播服务器的 NTP 服务同步时间，提高提醒等功能与学校铃声的同步性。同时支持自定义时间偏移和自动调整时间偏移。"
+            class="feature-card-divided"
+          >
+          </v-card>
+          <v-card
+            title="密码保护"
+            variant="outlined"
+            prepend-icon="mdi-lock-outline"
+            text="ClassIsland 支持为部分功能设置密码，比如编辑应用设置、档案等，减小应用配置被篡改的可能性。"
+            class="feature-card-divided"
+          >
+          </v-card>
+          <v-card
+            title="集控管理（即将发布）"
+            variant="outlined"
+            prepend-icon="mdi-briefcase-outline"
+            text="ClassIsland 支持通过集控统一下发档案配置、集控策略等，提高管理多个 ClassIsland 实例的便利性。"
+            class="feature-card-divided"
+          >
+          </v-card>
+        </div>
+      </div>
+    </div>
+  </v-sheet>
+
+  <div class="">
+    <div class="content d-flex flex-column ga-8 margin-x">
+      <span class="text-h5 align-self-center">更多功能留给您自行探索！</span>
+      <div class="d-flex flex-row ga-2 align-self-center">
+        <v-btn flat color="blue-lighten-3" prepend-icon="mdi-download" to="/download">
+          立即下载 ClassIsland
+        </v-btn>
+        <v-btn flat prepend-icon="mdi-github" href="https://github.com/ClassIsland/ClassIsland" target="_blank">
+          了解更多
+        </v-btn>
       </div>
     </div>
   </div>
@@ -209,9 +329,8 @@ h1 {
 }
 
 .content {
-  padding-top: 36px;
-  padding-bottom: 32px;
-
+  padding-top: 42px;
+  padding-bottom: 42px;
 }
 
 .introduction {
@@ -308,7 +427,7 @@ h1 {
 .headline-feature {
   font-size: 42px;
   font-weight: 600;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 @keyframes labelSlideOut {
@@ -371,12 +490,29 @@ h1 {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.feature-card-divided {
+  flex-basis: 480px;
+  flex-grow: 1;
+}
+
+@keyframes content-in {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
 </style>
 
 <script lang="ts" setup>
 import IFeature from '../interfaces/IFeature';
 import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
+import PluginCard from "../components/PluginCard.vue";
 
 const router = useRouter();
 

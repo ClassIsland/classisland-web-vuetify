@@ -12,6 +12,7 @@ declare module 'vue' {
     DownloadDialog: typeof import('./components/DownloadDialog.vue')['default']
     DownloadPlatformCard: typeof import('./components/DownloadPlatformCard.vue')['default']
     FeatureCard: typeof import('./components/FeatureCard.vue')['default']
+    PluginCard: typeof import('./components/PluginCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SvgIcon: typeof import('./components/SvgIcon.vue')['default']
