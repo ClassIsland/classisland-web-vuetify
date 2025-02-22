@@ -4,8 +4,6 @@
 
 // 导入Vuetify插件
 import vuetify from './vuetify';
-// 导入路由插件
-import router from '../router';
 
 
 /**
@@ -18,5 +16,5 @@ import router from '../router';
  */
 export function registerPlugins(app: App) {
   // 向应用程序实例注册Vuetify插件，然后注册路由器插件
-  app.use(vuetify).use(router);
+  app.use(vuetify);
 }

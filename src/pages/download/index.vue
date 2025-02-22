@@ -28,6 +28,18 @@ const isDialogActive = ref(false);
 const isError = ref(false);
 const timeStamp = new Date().getTime();
 
+import { useHead } from '@unhead/vue'
+
+useHead({
+  title: '下载 ClassIsland | ClassIsland',
+  meta: [
+    {
+      name: 'description',
+      content: 'ClassIsland 是一款适用于班级大屏的课表信息显示工具，可以一目了然地显示各种信息。',
+    },
+  ],
+})
+
 function compareVersion(a, b) {
   const versionA = a.Version.split('.');
   const versionB = b.Version.split('.');

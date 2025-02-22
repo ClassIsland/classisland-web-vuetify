@@ -12,20 +12,20 @@ import { registerPlugins } from '@/plugins';
 // Components
 import App from './App.vue';
 
-// 导入Vue创建应用的函数
-// Composables
-import { createApp } from 'vue';
-
 //导入虚拟模块以注册SVG图标
 import 'virtual:svg-icons-register';
 
 import './styles/main.scss';
+import {ViteSSG} from "vite-ssg";
+import {routes} from "vue-router/auto-routes";
+
 
 // 创建Vue应用实例，指定根组件为App
-const app = createApp(App);
-
-// 注册插件
-registerPlugins(app);
-
-// 将应用实例挂载到HTML元素上，元素的id为'app'
-app.mount('#app');
+export const createApp = ViteSSG(
+  App,
+  { routes },
+  ({ app, router, routes, isClient, initialState }) => {
+    // 在这里使用例如 app.use(pinia) 或者 router.use()
+    registerPlugins(app);
+  }
+)

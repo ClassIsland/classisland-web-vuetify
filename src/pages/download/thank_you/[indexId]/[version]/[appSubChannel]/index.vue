@@ -2,6 +2,23 @@
 import {onMounted, ref} from "vue";
 import { useRoute } from 'vue-router';
 import {IndexIds} from "../../../../../../indexIds";
+import { useHead } from '@unhead/vue';
+
+const pageMeta = [
+  {
+    name: 'description',
+    content: 'ClassIsland 是一款适用于班级大屏的课表信息显示工具，可以一目了然地显示各种信息。',
+  },
+  {
+    name: 'robots',
+    content: 'none'
+  }
+]
+
+useHead({
+  title: '感谢下载 ClassIsland！ | ClassIsland',
+  meta: pageMeta
+})
 
 const isLoading = ref(true);
 const downloadIndex = ref();
@@ -64,6 +81,10 @@ async function init(){
     console.log(selectedSubChannel.value);
 
     downloadArchive();
+    useHead({
+      title: `感谢下载 ClassIsland ${latestVersionInfo.value.Title}！ | ClassIsland`,
+      meta: pageMeta
+    })
   } catch (e) {
     console.error(e);
     isError.value = true;

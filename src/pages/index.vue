@@ -424,6 +424,12 @@ h1 {
   align-self: center;
 }
 
+.selected-pill-static {
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  align-self: center;
+}
+
 .headline-feature {
   font-size: 42px;
   font-weight: 600;
@@ -514,6 +520,18 @@ import { onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import PluginCard from "../components/PluginCard.vue";
 
+import { useHead } from '@unhead/vue'
+
+useHead({
+  title: 'ClassIsland - 适用于班级大屏的课表信息显示工具',
+  meta: [
+    {
+      name: 'description',
+      content: 'ClassIsland 是一款适用于班级大屏的课表信息显示工具，可以一目了然地显示各种信息。',
+    },
+  ],
+})
+
 const router = useRouter();
 
 function unmute_video(event: Event) {
@@ -585,29 +603,27 @@ const notificationFeatures: Array<IFeature> = [
 ];
 
 onMounted(() => {
-  // checkNewYearAlert();
+  setInterval(() =>{
+    console.log(featureTags);
+    let ft = featureTags.value;
+    let b = false;
+    for (let i in ft) {
+      if (b == true) {
+        b = false;
+        ft[i].selected = true;
+        break;
+      }
+
+      if (ft[i].selected) {
+        b = true;
+        ft[i].selected = false;
+      }
+    }
+    if (b) {
+      ft[0].selected = true;
+    }
+    featureTags.value = ft;
+  }, 2250);
 });
-
-setInterval(() =>{
-  console.log(featureTags);
-  let ft = featureTags.value;
-  let b = false;
-  for (let i in ft) {
-    if (b == true) {
-      b = false;
-      ft[i].selected = true;
-      break;
-    }
-
-    if (ft[i].selected) {
-      b = true;
-      ft[i].selected = false;
-    }
-  }
-  if (b) {
-    ft[0].selected = true;
-  }
-  featureTags.value = ft;
-}, 2250);
 
 </script>

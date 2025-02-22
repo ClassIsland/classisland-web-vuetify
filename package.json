@@ -2,11 +2,12 @@
   "name": "classisland-web-vuetify",
   "version": "1.0.0",
   "license": "MIT",
+  "type": "module",
   "scripts": {
     "preinstall": "node -e \"if (process.env.npm_execpath.indexOf('yarn') === -1) throw new Error('Use yarn for installing: https://yarnpkg.com/en/docs/install')\"",
     "format": "prettier --write .",
     "dev": "vite",
-    "build": "vue-tsc --noEmit && vite build",
+    "build": "vite-ssg build",
     "preview": "vite preview",
     "lint": "eslint . --fix --ignore-path .gitignore",
     "prepare": "husky install",
@@ -49,6 +50,7 @@
     "vite": "^5.1.5",
     "vite-plugin-vue-devtools": "^7.7.2",
     "vite-plugin-vuetify": "^2.0.3",
+    "vite-ssg": "^25.2.0",
     "vue-router": "^4.3.0",
     "vue-tsc": "^2.0.6"
   },
