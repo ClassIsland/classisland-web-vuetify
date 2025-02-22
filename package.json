@@ -52,6 +52,7 @@
     "vite-plugin-vuetify": "^2.0.3",
     "vite-ssg": "^25.2.0",
     "vue-router": "^4.3.0",
+    "vue-router-sitemap": "^0.0.4",
     "vue-tsc": "^2.0.6"
   },
   "packageManager": "yarn@1.22.21+sha1.1959a18351b811cdeedbd484a8f86c3cc3bbaf72"

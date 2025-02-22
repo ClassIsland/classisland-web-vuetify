@@ -19,7 +19,6 @@ import './styles/main.scss';
 import {ViteSSG} from "vite-ssg";
 import {routes} from "vue-router/auto-routes";
 
-
 // 创建Vue应用实例，指定根组件为App
 export const createApp = ViteSSG(
   App,
