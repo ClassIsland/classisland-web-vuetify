@@ -1,40 +1,39 @@
 <template>
-  <v-footer height="auto" app>
-    <a
-      key="ClassIsland"
-      href="/"
-      title="ClassIsland"
-      class="d-inline-block mx-2 social-link"
-      rel="noopener noreferrer"
-    >
-      <v-icon :size="24" class="ci-logo">
-        <SvgIcon name="logo-cilogo" size="24px" />
-      </v-icon>
-    </a>
-
-    <a
-      v-for="item in items"
-      :key="item.title"
-      :href="item.href"
-      :title="item.title"
-      class="d-inline-block mx-2 social-link"
-      rel="noopener noreferrer"
-      target="_blank"
-    >
-      <v-icon :icon="item.icon" :size="item.icon === '$vuetify' ? 24 : 16" />
-    </a>
-
-    <div class="text-caption text-disabled" style="position: absolute; right: 16px">
+  <v-footer height="auto" app class="d-flex flex-wrap ga-4 px-4">
+    <div class="text-caption text-disabled" style="">
       &copy; 2023-{{ new Date().getFullYear() }}
-      <span class="d-none d-sm-inline-block">ClassIsland</span>
-      <span class="d-none d-sm-inline-block">&nbsp;|&nbsp;</span>
+      <span class="">ClassIsland</span>
+
+
+    </div>
+    <a
+      href="https://beian.miit.gov.cn/"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="text-caption text-disabled"
+    >
+      沪ICP备2024084943号
+    </a>
+
+    <div class="d-flex">
+      <img src="https://www.beian.gov.cn/img/new/gongan.png" class=""/>
+      <a href="https://beian.mps.gov.cn/#/query/webSearch"
+         target="_blank"
+         rel="noopener noreferrer"
+         class="text-caption text-disabled text-center">沪公网安备31012002006157号</a>
+    </div>
+
+    <div class="d-flex flex-row-reverse flex-grow-1">
       <a
-        href="https://beian.miit.gov.cn/"
-        target="_blank"
+        v-for="item in items"
+        :key="item.title"
+        :href="item.href"
+        :title="item.title"
+        class="d-inline-block mx-2 social-link"
         rel="noopener noreferrer"
-        class="text-caption text-disabled"
+        target="_blank"
       >
-        沪ICP备2024084943号
+        <v-icon :icon="item.icon" :size="item.icon === '$vuetify' ? 24 : 16" />
       </a>
     </div>
   </v-footer>
