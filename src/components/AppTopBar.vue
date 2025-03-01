@@ -3,7 +3,9 @@
     <div class="ml-2 align-content-center d-flex">
       <div class="d-flex flex-row align-center">
         <v-app-bar-nav-icon variant="text" class="nav-icon" @click="isNavDrawerOpen = !isNavDrawerOpen"/>
-        <v-app-bar-title class="align-content-center mx-2"> ClassIsland </v-app-bar-title>
+        <RouterLink to="/" class="text-decoration-none" style="color: rgba(var(--v-theme-on-background), var(--v-high-emphasis-opacity));">
+          <v-app-bar-title class="align-content-center mx-2"> ClassIsland </v-app-bar-title>
+        </RouterLink>
       </div>
       <div class="app-bar-tabs">
         <v-tabs color="blue-lighten-3">

@@ -41,7 +41,7 @@
       <span>的信息显示</span></h2>
     <div class="margin-x ga-4">
       <h3 class="text-h5">组件</h3>
-      <p class="mt-4">您可以通过【组件】自定义界面上显示的内容，并且支持组件轮播和多行组件，各种信息一目了然。</p>
+      <p class="mt-4">您可以通过【组件】自定义界面上显示的内容，并且支持组件轮播和多行组件。课表组件支持显示当天的课表和当前进行课程的信息。各种信息一目了然。</p>
       <div class="d-flex flex-column align-content-center ">
         <v-img class="mt-8 mx-auto" src="../assets/screenshots/comps.png" width="100%" max-width="900px"/>
         <v-img src="../assets/screenshots/comp-settings.png" width="100%"  max-width="60%" class="justify-center mx-auto mt-4"/>
@@ -228,7 +228,7 @@
           <PluginCard title="ExtraIsland" author="LiPolymer" url="https://github.com/LiPolymer/ExtraIsland"
                       description="为 ClassIsland 提供多种扩展功能！" icon="https://github.com/LiPolymer/ExtraIsland/raw/master/ExtraIsland/icon.png"/>
           <PluginCard title="ClassIsland 主题加载器" author="ClassIsland" url="https://github.com/ClassIsland/ClassIsland.ThemeLoader/"
-                      description="向 ClassIsland 加载自定义的主题，个性化您的界面。"/>
+                      description="向 ClassIsland 加载自定义的主题，个性化您的界面。" icon="https://github.com/ClassIsland/ClassIsland.ThemeLoader/raw/master/ClassIsland.ThemeLoader/icon.png"/>
           <PluginCard title="地震预警" author="电排骨" url="https://github.com/denglihong2007/EarthquakeWarningForClassIsLand"
                       description="防范于未然，争取宝贵的避险时间" icon="https://github.com/denglihong2007/EarthquakeWarningForClassIsLand/raw/master/EarthquakeWarning/icon.png"/>
           <PluginCard title="UIAccess 提权" author="HelloWRC, Doubx690i" url="https://github.com/HelloWRC/GrantUiAccess"
