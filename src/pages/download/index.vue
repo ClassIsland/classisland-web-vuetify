@@ -35,7 +35,7 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'ClassIsland 是一款适用于班级大屏的课表信息显示工具，可以一目了然地显示各种信息。',
+      content: 'ClassIsland 是一款适用于班级大屏的课表信息显示工具。在此处下载 ClassIsland。',
     },
   ],
 })
@@ -155,19 +155,53 @@ onMounted(() => init());
                               platform-icon="mdi-microsoft-windows"
                               description="适用于 Windows 10 以及以上的版本。"
                               :version="latestVersionInfo.Title">
-          <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
-                 :to='downloadLinkWin10SingleFileFull'>单文件完整版</v-btn>
-          <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
-                 :to='downloadLinkWin10SingleFileTrimmed'>单文件精简版</v-btn>
+          <div class="d-flex flex-column align-center">
+            <span >
+              单文件完整版
+            </span>
+            <div class="d-flex flex-wrap ga-1">
+
+              <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
+                     :to='"/download/thank_you/main/" + latestVersionInfo.Version + "/windows_x64_full_singleFile"'>x64</v-btn>
+              <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
+                     :to='"/download/thank_you/main/" + latestVersionInfo.Version + "/windows_x86_full_singleFile"'>x86</v-btn>
+              <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
+                     :to='"/download/thank_you/main/" + latestVersionInfo.Version + "/windows_arm64_full_singleFile"'>ARM64</v-btn>
+            </div>
+            <span class="mt-2 text-center justify-center">
+              单文件精简版
+            </span>
+            <div class="d-flex flex-wrap ga-1">
+              <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
+                     :to='"/download/thank_you/main/" + latestVersionInfo.Version + "/windows_x64_trimmed_singleFile"'>x64</v-btn>
+            </div>
+          </div>
         </DownloadPlatformCard>
         <DownloadPlatformCard platform-name="Windows 7 兼容版"
                               platform-icon="mdi-microsoft-windows"
                               description="适用于 Windows 7 SP1 ~ 8.1 版本。部分功能可能不可用。"
                               :version="latestVersionInfoNet6.Title">
-          <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
-                 :to='downloadLinkWin7SingleFileFull'>单文件完整版</v-btn>
-          <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
-                 :to='downloadLinkWin7SingleFileTrimmed'>单文件精简版</v-btn>
+          <div class="d-flex flex-column align-center">
+            <span >
+              单文件完整版
+            </span>
+            <div class="d-flex flex-wrap ga-1">
+
+              <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
+                     :to='"/download/thank_you/net-6/" + latestVersionInfo.Version + "/windows_x64_full_singleFile"'>x64</v-btn>
+              <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
+                     :to='"/download/thank_you/net-6/" + latestVersionInfo.Version + "/windows_x86_full_singleFile"'>x86</v-btn>
+              <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
+                     :to='"/download/thank_you/net-6/" + latestVersionInfo.Version + "/windows_arm64_full_singleFile"'>ARM64</v-btn>
+            </div>
+            <span class="mt-2 text-center justify-center">
+              单文件精简版
+            </span>
+            <div class="d-flex flex-wrap ga-1">
+              <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
+                     :to='"/download/thank_you/net-6/" + latestVersionInfo.Version + "/windows_x64_trimmed_singleFile"'>x64</v-btn>
+            </div>
+          </div>
         </DownloadPlatformCard>
         <DownloadPlatformCard platform-name="Linux"
                               platform-icon="mdi-linux"

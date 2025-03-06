@@ -523,7 +523,7 @@ import PluginCard from "../components/PluginCard.vue";
 import { useHead } from '@unhead/vue'
 
 useHead({
-  title: 'ClassIsland - 适用于班级大屏的课表信息显示工具',
+  title: 'ClassIsland - 适用于班级大屏的课表信息显示工具 - 大屏桌面课表',
   meta: [
     {
       name: 'description',
