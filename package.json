@@ -16,6 +16,7 @@
   "dependencies": {
     "@mdi/font": "6.2.95",
     "@sentry/vue": "^9.5.0",
+    "chalk": "^5.4.1",
     "core-js": "^3.34.0",
     "lunisolar": "^2.5.1",
     "roboto-fontface": "*",
