@@ -15,6 +15,7 @@ declare module 'vue' {
     PluginCard: typeof import('./components/PluginCard.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
+    SplitDownloadButton: typeof import('./components/SplitDownloadButton.vue')['default']
     SvgIcon: typeof import('./components/SvgIcon.vue')['default']
   }
 }

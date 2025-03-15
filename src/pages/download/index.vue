@@ -18,17 +18,33 @@ const latestVersionInfoNet6 = ref({
   Title: "",
 });
 
-const downloadLinkWin10SingleFileFull = ref("");
-const downloadLinkWin10SingleFileTrimmed = ref("");
-const downloadLinkWin7SingleFileFull = ref("");
-const downloadLinkWin7SingleFileTrimmed = ref("");
 const channels = ref([]);
 const selectedChannel = ref("stable");
 const isDialogActive = ref(false);
 const isError = ref(false);
 const timeStamp = new Date().getTime();
 
+const currentOs = ref("windows-10");
+const currentArch = ref("x64");
+const downloadInfos = {
+  "windows_x64_full_singleFile": {
+    title: "单文件完整版 x64"
+  },
+  "windows_x64_trimmed_singleFile": {
+    title: "单文件精简版 x64"
+  },
+  "windows_x86_full_singleFile": {
+    title: "单文件完整版 x86"
+  },
+  "windows_arm64_full_singleFile": {
+    title: "单文件完整版 ARM64"
+  }
+}
+const selectedPlatform = ref("");
+const selectedDownloadInfoId = ref("windows_x64_full_singleFile");
+
 import { useHead } from '@unhead/vue'
+import SplitDownloadButton from '../../components/SplitDownloadButton.vue';
 
 useHead({
   title: '下载 ClassIsland | ClassIsland',
@@ -39,6 +55,36 @@ useHead({
     },
   ],
 })
+
+function getCPUArchitecture() {
+  const ua = navigator.userAgent.toLowerCase();
+
+  // 检测ARM架构
+  if (/\b(arm|aarch64)\b/.test(ua)) return 'arm64';
+
+  // 检测x86-64架构
+  if (/\b(x64|x86_64|win64|amd64|wow64)\b/.test(ua)) return 'x64';
+
+  // 检测x86架构
+  if (/\b(x86|i686|win32)\b/.test(ua)) return 'x86';
+
+
+  // 移动设备默认ARM
+  if (/mobi|android|iphone|ipad|ipod/.test(ua)) return 'arm64';
+
+  // 默认 x64
+  return 'x64';
+}
+
+function getWindowsVersion() {
+  const userAgent = navigator.userAgent;
+  if (userAgent.indexOf("Windows NT 10.0") !== -1) return "10.0";
+  if (userAgent.indexOf("Windows NT 6.2") !== -1) return "6.2";
+  if (userAgent.indexOf("Windows NT 6.1") !== -1) return "6.1";
+  if (userAgent.indexOf("Windows NT 6.0") !== -1) return "6.0";
+  return null;
+}
+
 
 function compareVersion(a, b) {
   const versionA = a.Version.split('.');
@@ -112,10 +158,15 @@ async function loadCurrentChannel() {
   latestVersionInfo.value = await getSelectedVersion(downloadIndex.value);
   latestVersionInfoNet6.value = await getSelectedVersion(downloadIndexNet6.value);
 
-  downloadLinkWin10SingleFileFull.value = `/download/thank_you/main/${latestVersionInfo.value.Version}/windows_x64_full_singleFile`
-  downloadLinkWin10SingleFileTrimmed.value = `/download/thank_you/main/${latestVersionInfo.value.Version}/windows_x64_trimmed_singleFile`
-  downloadLinkWin7SingleFileFull.value = `/download/thank_you/net-6/${latestVersionInfoNet6.value.Version}/windows_x64_full_singleFile`
-  downloadLinkWin7SingleFileTrimmed.value = `/download/thank_you/net-6/${latestVersionInfoNet6.value.Version}/windows_x64_trimmed_singleFile`
+  let platform = getWindowsVersion();
+  if (platform != null) {
+    selectedPlatform.value = platform === "10.0" ? "windows10" : "windows7";
+    let infoId = `windows_${getCPUArchitecture()}_full_singleFile`;
+    console.log("infoId: ", infoId)
+    if (downloadInfos[infoId] != undefined){
+      selectedDownloadInfoId.value = infoId;
+    }
+  }
 }
 
 async function updateChannelSelection() {
@@ -155,52 +206,25 @@ onMounted(() => init());
                               platform-icon="mdi-microsoft-windows"
                               description="适用于 Windows 10 以及以上的版本。"
                               :version="latestVersionInfo.Title">
-          <div class="d-flex flex-column align-center">
-            <span >
-              单文件完整版
-            </span>
-            <div class="d-flex flex-wrap ga-1">
-
-              <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
-                     :to='"/download/thank_you/main/" + latestVersionInfo.Version + "/windows_x64_full_singleFile"'>x64</v-btn>
-              <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
-                     :to='"/download/thank_you/main/" + latestVersionInfo.Version + "/windows_x86_full_singleFile"'>x86</v-btn>
-              <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
-                     :to='"/download/thank_you/main/" + latestVersionInfo.Version + "/windows_arm64_full_singleFile"'>ARM64</v-btn>
-            </div>
-            <span class="mt-2 text-center justify-center">
-              单文件精简版
-            </span>
-            <div class="d-flex flex-wrap ga-1">
-              <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
-                     :to='"/download/thank_you/main/" + latestVersionInfo.Version + "/windows_x64_trimmed_singleFile"'>x64</v-btn>
-            </div>
+          <div class="d-flex flex-column align-center mt-2">
+            <SplitDownloadButton :download-infos="downloadInfos"
+                                 title="下载便携版"
+                                 :is-selected='selectedPlatform === "windows10"'
+                                 :selectedDownloadInfo="selectedDownloadInfoId"
+                                 :download-route-root='"/download/thank_you/main/" + latestVersionInfo.Version + "/"'/>
           </div>
+
         </DownloadPlatformCard>
         <DownloadPlatformCard platform-name="Windows 7 兼容版"
                               platform-icon="mdi-microsoft-windows"
                               description="适用于 Windows 7 SP1 ~ 8.1 版本。部分功能可能不可用。"
                               :version="latestVersionInfoNet6.Title">
-          <div class="d-flex flex-column align-center">
-            <span >
-              单文件完整版
-            </span>
-            <div class="d-flex flex-wrap ga-1">
-
-              <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
-                     :to='"/download/thank_you/net-6/" + latestVersionInfo.Version + "/windows_x64_full_singleFile"'>x64</v-btn>
-              <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
-                     :to='"/download/thank_you/net-6/" + latestVersionInfo.Version + "/windows_x86_full_singleFile"'>x86</v-btn>
-              <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
-                     :to='"/download/thank_you/net-6/" + latestVersionInfo.Version + "/windows_arm64_full_singleFile"'>ARM64</v-btn>
-            </div>
-            <span class="mt-2 text-center justify-center">
-              单文件精简版
-            </span>
-            <div class="d-flex flex-wrap ga-1">
-              <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
-                     :to='"/download/thank_you/net-6/" + latestVersionInfo.Version + "/windows_x64_trimmed_singleFile"'>x64</v-btn>
-            </div>
+          <div class="d-flex flex-column align-center mt-2">
+            <SplitDownloadButton :download-infos="downloadInfos"
+                                 title="下载便携版"
+                                 :is-selected='selectedPlatform === "windows7"'
+                                 :selectedDownloadInfo="selectedDownloadInfoId"
+                                 :download-route-root='"/download/thank_you/net-6/" + latestVersionInfo.Version + "/"'/>
           </div>
         </DownloadPlatformCard>
         <DownloadPlatformCard platform-name="Linux"
@@ -280,5 +304,6 @@ onMounted(() => init());
 .download-container {
   height: 100%;
 }
+
 
 </style>
