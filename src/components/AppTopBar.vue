@@ -80,6 +80,11 @@ const navItems = [
     href: "https://docs.classisland.tech/"
   },
   {
+    icon: "mdi-arrow-right-bold-circle-outline",
+    title: "迁移到 ClassIsland",
+    href: "https://migrate.classisland.tech/"
+  },
+  {
     icon: "mdi-github",
     title: "GitHub 仓库",
     href: "https://github.com/ClassIsland/ClassIsland"
