@@ -2,8 +2,8 @@ name: Deploy prod
 
 on:
   push:
-    branches:
-      - main
+    tags:
+      - "*.*.**"
   workflow_dispatch:  # 测试目的使用
 
 permissions:
