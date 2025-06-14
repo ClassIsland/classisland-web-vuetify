@@ -224,7 +224,7 @@ onMounted(() => init());
                                  title="下载便携版"
                                  :is-selected='selectedPlatform === "windows7"'
                                  :selectedDownloadInfo="selectedDownloadInfoId"
-                                 :download-route-root='"/download/thank_you/net-6/" + latestVersionInfo.Version + "/"'/>
+                                 :download-route-root='"/download/thank_you/net-6/" + latestVersionInfoNet6.Version + "/"'/>
           </div>
         </DownloadPlatformCard>
         <DownloadPlatformCard platform-name="Linux"
