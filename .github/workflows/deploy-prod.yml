@@ -1,0 +1,75 @@
+name: Deploy prod
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:  # 测试目的使用
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
+    permissions:
+      pages: write      # to deploy to Pages
+      id-token: write   # to verify the deployment originates from an appropriate source
+
+    concurrency:
+      group: "web-deploy"
+      cancel-in-progress: false
+    environment:
+      name: classisland-web-prod
+    name: "Build & Deploy"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: 设置 Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: yarn
+
+      - name: Run install
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: install
+
+      - name: Build Production
+        uses: borales/actions-yarn@v4
+        with:
+          cmd: build
+
+      - name: Deploy
+        uses: easingthemes/ssh-deploy@main
+        with:
+          SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_WEB_PRIVATEKEY }}
+          # 复制操作的参数。"-avzr --delete"意味部署时清空服务器目标目录下的文件
+          ARGS: "-avz --delete --no-times --no-perms"
+          # 源目录
+          SOURCE: "./dist/"
+          # 部署目标主机
+          REMOTE_HOST: ${{ secrets.DEPLOY_WEB_IP }}
+          # 部署目标主机端口
+          REMOTE_PORT: ${{ secrets.DEPLOY_WEB_PORT }}
+          # 登录用户
+          REMOTE_USER: ${{ secrets.DEPLOY_WEB_USERNAME }}
+          # 部署目标目录
+          TARGET: ${{ secrets.DEPLOY_WEB_TARGET }}
+# TODO: INDEX NOW 支持
+#      - name: 提交 IndexNow
+#        uses: bojieyang/indexnow-action@v1
+#        with:
+#          sitemap-location: "https://classisland.tech/sitemap.xml"  # change it
+#          endpoint: "www.bing.com"
+#          since: 1
+#          # minite, hour, day, week, month, year
+#          since-unit: "day"
+#          limit: 100
+#          key: ${{ secrets.INDEXNOW_KEY }}
+#          key-location: ${{ secrets.INDEXNOW_KEY_LOCATION }}
