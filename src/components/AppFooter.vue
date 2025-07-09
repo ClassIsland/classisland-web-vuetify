@@ -12,16 +12,8 @@
       rel="noopener noreferrer"
       class="text-caption text-disabled"
     >
-      沪ICP备2024084943号
+      津ICP备2025035356号
     </a>
-
-    <div class="d-flex">
-      <img src="https://www.beian.gov.cn/img/new/gongan.png" class=""/>
-      <a href="https://beian.mps.gov.cn/#/query/webSearch"
-         target="_blank"
-         rel="noopener noreferrer"
-         class="text-caption text-disabled text-center">沪公网安备31012002006157号</a>
-    </div>
 
     <a
       href="https://status.classisland.tech/"
