@@ -55,7 +55,8 @@ export const createApp = ViteSSG(
         replaysOnErrorSampleRate: 1.0, // If you're not already sampling the entire session, change the sample rate to 100% when sampling sessions where errors occur.
       });
 
-      console.log(chalk.hex("#00bfff")(asciiLogo) + '\n' + chalk.hex("#FF9AFC")("⌈不想前进的时候，就暂且停下脚步吧。⌋"))
+      console.log(chalk.hex("#00bfff")(asciiLogo) + '\n' + chalk.hex("#FF9AFC")("⌈不想前进的时候，就暂且停下脚步吧。⌋") + '\n'
+        + chalk.hex("#81ddff")("⌈愿我们在那鲜花芬芳的西风尽头重逢。⌋"))
 
     }
   }
