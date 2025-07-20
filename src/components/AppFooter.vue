@@ -3,8 +3,9 @@
     <div class="text-caption text-disabled" style="">
       &copy; 2023-{{ new Date().getFullYear() }}
       <span class="">ClassIsland</span>
-
-
+    </div>
+    <div class="text-caption text-disabled" style="">
+      Build_{{ gitTag }}
     </div>
     <a
       href="https://beian.miit.gov.cn/"
@@ -60,6 +61,8 @@ const items = [
     href: 'mailto:wrc@classisland.tech'
   }
 ];
+const gitTag = __GIT_TAG__;
+
 </script>
 
 <style scoped lang="sass">

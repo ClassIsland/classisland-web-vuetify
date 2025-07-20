@@ -9,10 +9,19 @@ import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import path from 'path';
 import vueDevTools from 'vite-plugin-vue-devtools'
-
 // Utilities
 import { defineConfig } from 'vite';
 import { fileURLToPath, URL } from 'node:url';
+import { execSync } from 'node:child_process';
+
+function getGitTag() {
+  try {
+    return execSync('git describe --tags --abbrev=0').toString().trim();
+  } catch (error) {
+    console.warn('Failed to get Git tag:', error);
+    return 'unknown';
+  }
+}
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -77,7 +86,10 @@ export default defineConfig({
     }),
     vueDevTools()
   ],
-  define: { 'process.env': {} },
+  define: {
+    'process.env': {},
+    __GIT_TAG__: JSON.stringify(getGitTag()),
+  },
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

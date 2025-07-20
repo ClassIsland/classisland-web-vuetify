@@ -6008,6 +6008,11 @@ vite-hot-client@^2.0.4:
   resolved "https://registry.npmmirror.com/vite-hot-client/-/vite-hot-client-2.1.0.tgz#88f8469875e0121eae2f460cbf35cb528c049961"
   integrity sha512-7SpgZmU7R+dDnSmvXE1mfDtnHLHQSisdySVR7lO8ceAXvM0otZeuQQ6C8LrS5d/aYyP/QZ0hI0L+dIPrm4YlFQ==
 
+vite-plugin-build-info@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.npmmirror.com/vite-plugin-build-info/-/vite-plugin-build-info-0.1.2.tgz#b2ba63f80ac445e3ae2b680b669a87abbbb12756"
+  integrity sha512-vijaFHBySkTtPxlh4E7cWbdvpSqlpDo2d7NJOWkPV6uu7qry3gWGUle547b8N8okqh61KPngRWMinHZEZORS6w==
+
 vite-plugin-inspect@0.8.9:
   version "0.8.9"
   resolved "https://registry.npmmirror.com/vite-plugin-inspect/-/vite-plugin-inspect-0.8.9.tgz#01a7e484ccbc12a8c86ee8bc90efe13aeb0fed1b"
