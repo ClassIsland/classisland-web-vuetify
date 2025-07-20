@@ -229,9 +229,9 @@ onMounted(() => init());
         </DownloadPlatformCard>
         <DownloadPlatformCard platform-name="Linux"
                               platform-icon="mdi-linux"
-                              description="ClassIsland 不支持直接在 Linux 系操作系统上运行。您可以根据社区指南在 Linux 上运行 ClassIsland。">
-          <v-btn color="blue-lighten-3" prepend-icon="mdi-book-open-variant" variant="text"
-                 href="https://github.com/ClassIsland/ClassIsland/discussions/675" target="_blank">查看运行指南</v-btn>
+                              description="ClassIsland 2.0 目前正在展开对 Linux 的适配，点击下方链接以了解更多信息。">
+          <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
+                 href="https://github.com/ClassIsland/ClassIsland/releases" target="_blank">查看 2.0 测试版发行信息</v-btn>
         </DownloadPlatformCard>
       </div>
       <div class="d-flex flex-row flex-wrap ga-4 justify-center align-self-center align-content-center mt-8">
