@@ -138,6 +138,13 @@ onMounted(() => init());
         <v-text-field label="校验和（SHA256）" variant="outlined" readonly v-model="selectedSubChannel.ArchiveSHA256" append-icon="mdi-content-copy" @click:append="copyChecksum"/>
 
         <p>请注意核对文件 SHA256 是否正确。</p>
+
+        <v-alert type="warning" variant="outlined" class="mt-4 mb-4" color="orange-lighten-1">
+          <div class="font-weight-bold mb-2">⚠️ 重要提醒</div>
+          <p class="mb-1">• 下载的压缩包内的 <code>ClassIsland.exe</code> <strong>不是安装程序</strong>，而是直接运行的应用程序</p>
+          <p class="mb-1">• 请将程序解压到一个<strong>有读写权限的文件夹</strong>中（建议避免中文路径）</p>
+          <p class="mb-0">• 程序的配置、档案文件、缓存、插件等所有数据都会存储在程序所在的目录中</p>
+        </v-alert>
       </div>
 
       <div class="page-margin-x py-4 mt-8">
@@ -147,6 +154,10 @@ onMounted(() => init());
             <v-img src="../../../../../../assets/setup/singleFile/1.png" class="mb-4"/>
             <h3>第一步：解压应用</h3>
             <p>在一个合适的地方（比如 D 盘等）新建一个文件夹，将下载的压缩包中的文件解压到文件夹中。</p>
+            <p class="text-caption text-orange-darken-2 mt-2">
+              <v-icon size="small" class="mr-1">mdi-alert-circle</v-icon>
+              注意：请选择有读写权限的位置，避免中文路径，程序所有数据将存储在此目录中。
+            </p>
           </div>
           <div class="setup-step">
             <v-img src="../../../../../../assets/setup/singleFile/2.png" class="mb-4"/>
@@ -159,8 +170,11 @@ onMounted(() => init());
             <p>完成上述步骤后，再次运行应用，根据应用弹出的欢迎向导即可完成应用设置。</p>
           </div>
         </div>
-        <v-alert type="info" variant="outlined" text="Tips：本软件会在安装文件夹中储存所有配置。在配置完成后，您可以直接将该文件夹带到学校使用。"
-                 class="mb-4" color="blue-lighten-3"/>
+        <v-alert type="info" variant="outlined" class="mb-4" color="blue-lighten-3">
+          <div class="font-weight-bold">💡 便携版说明</div>
+          <p class="mb-1">• 本软件为便携版，会在程序文件夹中储存所有配置和数据</p>
+          <p class="mb-0">• 配置完成后，您可以直接将整个文件夹复制到学校使用</p>
+        </v-alert>
         <p>更详细的安装说明请参见文档<a href="https://docs.classisland.tech/app/setup.html" target="_blank">安装与开始</a>。</p>
       </div>
 
