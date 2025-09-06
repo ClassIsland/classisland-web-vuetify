@@ -249,6 +249,7 @@ onMounted(() => init());
         </v-expansion-panels>
       </div>
 
+      <div class="page-margin-x py-4 my-8">
         <h2 class="text-center mb-2">了解更多</h2>
         <div class="d-flex flex-row justify-center ga-2 flex-wrap mb-4">
           <v-btn prepend-icon="mdi-github" href="https://github.com/ClassIsland/ClassIsland" target="_blank">查看 GitHub 仓库</v-btn>
