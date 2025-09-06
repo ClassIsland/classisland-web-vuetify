@@ -15,8 +15,10 @@ const pageMeta = [
   }
 ]
 
+const pageTitle = ref('感谢下载 ClassIsland！ | ClassIsland')
+
 useHead({
-  title: '感谢下载 ClassIsland！ | ClassIsland',
+  title: pageTitle,
   meta: pageMeta
 })
 
@@ -45,34 +47,40 @@ const showCopiedSnackbar = ref(false);
 
 async function init(){
   try {
+    console.log('Route params:', { indexId: indexId.toString(), version: version.toString(), appSubChannel: appSubChannel.toString() });
+
     const result = await fetch(IndexIds.get(indexId.toString()) + "?time=" + timeStamp);
     const json = await result.json();
     downloadIndex.value = json;
-    let versionIndoMin = null;
+    let versionInfoMin: any = null;
     for (var x in json.Versions) {
       if (json.Versions[x].Version == version.toString()) {
-        versionIndoMin = json.Versions[x];
+        versionInfoMin = json.Versions[x];
         break;
       }
     }
-    if (versionIndoMin == null) {
+    if (versionInfoMin == null) {
+      console.error('Version not found:', version.toString());
       isError.value = true;
       isLoading.value = false;
       return;
     }
-    console.log(versionIndoMin);
-    const resultVersion = await fetch(versionIndoMin.VersionInfoUrl + "?time=" + timeStamp);
+    console.log(versionInfoMin);
+    const resultVersion = await fetch(versionInfoMin.VersionInfoUrl + "?time=" + timeStamp);
 
     let info = await resultVersion.json();
     if (info == null){
+      console.error('Version info is null');
       isError.value = true;
       isLoading.value = false;
       return;
     }
     latestVersionInfo.value = info;
     console.log(latestVersionInfo.value);
+    console.log('Available download infos:', Object.keys(latestVersionInfo.value.DownloadInfos));
     let subChannel = latestVersionInfo.value.DownloadInfos[appSubChannel.toString()];
     if (subChannel == null){
+      console.error('SubChannel not found:', appSubChannel.toString(), 'Available:', Object.keys(latestVersionInfo.value.DownloadInfos));
       isError.value = true;
       isLoading.value = false;
       return;
@@ -80,11 +88,10 @@ async function init(){
     selectedSubChannel.value = subChannel;
     console.log(selectedSubChannel.value);
 
+    // 更新页面标题
+    pageTitle.value = `感谢下载 ClassIsland ${latestVersionInfo.value.Title}！ | ClassIsland`;
+
     downloadArchive();
-    useHead({
-      title: `感谢下载 ClassIsland ${latestVersionInfo.value.Title}！ | ClassIsland`,
-      meta: pageMeta
-    })
   } catch (e) {
     console.error(e);
     isError.value = true;
