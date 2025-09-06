@@ -145,6 +145,13 @@ onMounted(() => init());
           <p class="mb-1">• 请将程序解压到一个<strong>有读写权限的文件夹</strong>中（建议避免中文路径）</p>
           <p class="mb-0">• 程序的配置、档案文件、缓存、插件等所有数据都会存储在程序所在的目录中</p>
         </v-alert>
+
+        <v-alert type="info" variant="outlined" class="mb-4" color="blue-lighten-3">
+          <div class="font-weight-bold mb-2">系统要求</div>
+          <p class="mb-1">• <strong>Windows 10+</strong>：支持所有功能</p>
+          <p class="mb-1">• <strong>Windows 7/8.1</strong>：请下载兼容版，部分功能可能不可用</p>
+          <p class="mb-0">• 需要安装 .NET 运行时（首次运行时会自动提示安装）</p>
+        </v-alert>
       </div>
 
       <div class="page-margin-x py-4 mt-8">
@@ -176,18 +183,25 @@ onMounted(() => init());
           <p class="mb-0">• 配置完成后，您可以直接将整个文件夹复制到学校使用</p>
         </v-alert>
         <p>更详细的安装说明请参见文档<a href="https://docs.classisland.tech/app/setup.html" target="_blank">安装与开始</a>。</p>
+
       </div>
 
       <v-sheet class="elevated-sheet">
         <div class="page-margin-x py-4 mt-8">
-          <h2>快速上手 ClassIsland</h2>
+          <h2>🚀 快速上手 ClassIsland</h2>
           <p class="mt-2">通过以下资源快速上手 ClassIsland，编排/导入您的第一个课表。</p>
+
           <div class="d-flex flex-row my-4 ga-6 flex-wrap">
-            <v-card text="在 BiliBili 上观看 ClassIsland 入门教程视频，十分钟入门 ClassIsland。" variant="outlined" class="setup-step" title="观看入门教程视频"
+            <v-card variant="outlined" class="setup-step" title="🎬 观看入门教程视频"
                     prepend-icon="mdi-video"
                     target="_blank"
-                    href="https://www.bilibili.com/video/BV1fA4m1A7uZ/"/>
-            <v-card text="深入了解 ClassIsland。" variant="outlined" class="setup-step" title="浏览帮助文档"
+                    href="https://www.bilibili.com/video/BV1fA4m1A7uZ/">
+              <template v-slot:text>
+                <div class="text-yellow-darken-2 font-weight-medium">推荐新用户优先观看</div>
+                在 BiliBili 上观看 ClassIsland 入门教程视频，十分钟入门 ClassIsland。
+              </template>
+            </v-card>
+            <v-card text="深入了解 ClassIsland。" variant="outlined" class="setup-step" title="📚 浏览帮助文档"
                     prepend-icon="mdi-book-open-variant"
                     target="_blank"
                     href="https://docs.classisland.tech/app/"/>
@@ -198,7 +212,43 @@ onMounted(() => init());
         </div>
       </v-sheet>
 
-      <div class="page-margin-x py-4 my-8">
+      <div class="page-margin-x py-4 mt-8">
+        <h2>❓ 常见问题解答</h2>
+        <v-expansion-panels class="mt-4">
+          <v-expansion-panel title="🤔 下载后找不到安装程序？">
+            <v-expansion-panel-text>
+              ClassIsland 是便携版软件，<strong>没有安装程序</strong>。下载后解压 zip 文件，直接运行 <code>ClassIsland.exe</code> 即可使用。
+            </v-expansion-panel-text>
+          </v-expansion-panel>
+
+          <v-expansion-panel title="⚡ 程序启动后提示安装 .NET？">
+            <v-expansion-panel-text>
+              这是正常现象。首次运行时，程序会检测并提示安装 .NET 运行时。
+              <br>• 点击安装按钮，程序会自动跳转到 .NET 官方网站下载安装程序
+              <br>• 安装完成后重新运行 ClassIsland 即可
+            </v-expansion-panel-text>
+          </v-expansion-panel>
+
+          <v-expansion-panel title="📁 建议放在哪个文件夹？">
+            <v-expansion-panel-text>
+              推荐放置位置：
+              <br>• <code>D:\ClassIsland\</code>（推荐）
+              <br>• <code>C:\Users\你的用户名\ClassIsland\</code>
+              <br><strong>避免放在：</strong>桌面、下载文件夹、含中文路径的位置
+            </v-expansion-panel-text>
+          </v-expansion-panel>
+
+          <v-expansion-panel title="🎯 如何开始使用？">
+            <v-expansion-panel-text>
+              1. 首次运行会弹出欢迎向导，跟随引导完成基本设置
+              <br>2. <strong>强烈建议先观看上方的视频教程</strong>
+              <br>3. 在档案编辑器中添加您的课表和时间表
+              <br>4. 根据需要调整组件和插件
+            </v-expansion-panel-text>
+          </v-expansion-panel>
+        </v-expansion-panels>
+      </div>
+
         <h2 class="text-center mb-2">了解更多</h2>
         <div class="d-flex flex-row justify-center ga-2 flex-wrap mb-4">
           <v-btn prepend-icon="mdi-github" href="https://github.com/ClassIsland/ClassIsland" target="_blank">查看 GitHub 仓库</v-btn>
