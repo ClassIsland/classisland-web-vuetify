@@ -219,11 +219,11 @@ onMounted(() => init());
                                  :is-selected='selectedPlatform === "windows10"'
                                  :selectedDownloadInfo="selectedDownloadInfoIds.windowsPortable"
                                  :download-route-root='"/download/thank_you/v2/" + latestVersionInfo.latestVersionId + "/"'/>
-            <SplitDownloadButton :download-infos="downloadInfosInstaller.windows"
-                                 title="下载安装版"
-                                 :is-selected='selectedPlatform === "windows10"'
-                                 :selectedDownloadInfo="selectedDownloadInfoIds.windowsInstaller"
-                                 :download-route-root='"/download/thank_you/v2/" + latestVersionInfo.latestVersionId + "/"'/>
+<!--            <SplitDownloadButton :download-infos="downloadInfosInstaller.windows"-->
+<!--                                 title="下载安装版"-->
+<!--                                 :is-selected='selectedPlatform === "windows10"'-->
+<!--                                 :selectedDownloadInfo="selectedDownloadInfoIds.windowsInstaller"-->
+<!--                                 :download-route-root='"/download/thank_you/v2/" + latestVersionInfo.latestVersionId + "/"'/>-->
           </div>
 
         </DownloadPlatformCard>
