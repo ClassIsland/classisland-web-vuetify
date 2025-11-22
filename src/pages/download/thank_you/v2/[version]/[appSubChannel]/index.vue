@@ -55,7 +55,7 @@ async function init(){
     // 更新页面标题
     pageTitle.value = `感谢下载 ClassIsland ${downloadInfo.value.version}！ | ClassIsland`;
 
-    // downloadArchive();
+    downloadArchive();
   } catch (e) {
     console.error(e);
     isError.value = true;
