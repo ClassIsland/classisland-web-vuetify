@@ -5,43 +5,87 @@ import {IndexIds} from "../../indexIds";
 
 const isLoading = ref(true);
 const downloadIndex = ref();
-const latestVersionInfoMin = ref();
 const latestVersionInfo = ref({
-  Version: "",
-  Title: "",
-});
-
-const downloadIndexNet6 = ref();
-const latestVersionInfoMinNet6 = ref();
-const latestVersionInfoNet6 = ref({
-  Version: "",
-  Title: "",
+  latestVersion: "",
+  latestVersionId: "",
 });
 
 const channels = ref([]);
-const selectedChannel = ref("stable");
+const selectedChannel = ref("");
 const isDialogActive = ref(false);
 const isError = ref(false);
-const timeStamp = new Date().getTime();
 
 const currentOs = ref("windows-10");
 const currentArch = ref("x64");
-const downloadInfos = {
-  "windows_x64_full_singleFile": {
-    title: "单文件完整版 x64"
+const downloadInfosPortable = {
+  windows: {
+    "windows_x64_selfContained_folder": {
+      title: "含运行时 x64 .zip"
+    },
+    "windows_x86_selfContained_folder": {
+      title: "含运行时 x86 .zip"
+    },
+    "windows_arm64_selfContained_folder": {
+      title: "含运行时 ARM64 .zip"
+    },
+    "windows_x64_full_folder": {
+      title: "依赖框架 x64 .zip"
+    },
+    "windows_x86_full_folder": {
+      title: "依赖框架 x86 .zip"
+    },
+    "windows_arm64_full_folder": {
+      title: "依赖框架 ARM64 .zip"
+    }
   },
-  "windows_x64_trimmed_singleFile": {
-    title: "单文件精简版 x64"
+  macOS: {
   },
-  "windows_x86_full_singleFile": {
-    title: "单文件完整版 x86"
+  linux: {
+    "linux_x64_selfContained_folder": {
+      title: "含运行时 x64 .zip"
+    },
+    "linux_arm64_selfContained_folder": {
+      title: "含运行时 ARM64 .zip"
+    },
   },
-  "windows_arm64_full_singleFile": {
-    title: "单文件完整版 ARM64"
-  }
+}
+const downloadInfosInstaller = {
+  windows: {
+    "windows_x64_selfContained_installer": {
+      title: "含运行时 x64 .exe"
+    },
+    "windows_x86_selfContained_installer": {
+      title: "含运行时 x86 .exe"
+    },
+    "windows_arm64_selfContained_installer": {
+      title: "含运行时 ARM64 .exe"
+    }
+  },
+  macOS: {
+    "macos_x64_selfContained_pkg": {
+      title: "含运行时 Intel .pkg"
+    },
+    "macos_arm64_selfContained_pkg": {
+      title: "含运行时 Apple Silicon .pkg"
+    }
+  },
+  linux: {
+    "linux_x64_selfContained_deb": {
+      title: "含运行时 x64 .deb"
+    },
+    "linux_arm64_selfContained_dev": {
+      title: "含运行时 ARM64 .deb"
+    },
+  },
 }
 const selectedPlatform = ref("");
-const selectedDownloadInfoId = ref("windows_x64_full_singleFile");
+const selectedDownloadInfoIds = ref({
+  windowsPortable: "windows_x64_full_folder",
+  windowsInstaller: "windows_x64_selfContained_installer",
+  macOSInstaller: "macos_arm64_selfContained_pkg",
+  linuxPortable: "linux_x64_selfContained_folder",
+  linuxInstaller: "linux_x64_selfContained_deb",
+});
 
 import { useHead } from '@unhead/vue'
 import SplitDownloadButton from '../../components/SplitDownloadButton.vue';
@@ -85,48 +129,28 @@ function getWindowsVersion() {
   return null;
 }
 
-
-function compareVersion(a, b) {
-  const versionA = a.Version.split('.');
-  const versionB = b.Version.split('.');
-  for  (let i = 0; i < Math.min(versionA.length, versionB.length); i++) {
-    if (versionA[i] > versionB[i]) {
-      return versionA[i] - versionB[i];
-    }
-    if (versionA[i] < versionB[i]) {
-      return versionA[i] - versionB[i];
-    }
-  }
-  return versionA.length - versionB.length;
-}
-
 async function init(){
   try{
-    console.log(IndexIds);
-    const result = await fetch( IndexIds.get("main") + "?time=" + timeStamp);
-    const json = await result.json();
-    json.Versions.sort(compareVersion);
-    json.Versions.reverse();
-    downloadIndex.value = json;
-    const resultNet6 = await fetch( IndexIds.get("net-6")+ "?time=" + timeStamp);
-    const jsonNet6 = await resultNet6.json();
-    jsonNet6.Versions.sort(compareVersion);
-    jsonNet6.Versions.reverse();
-    downloadIndexNet6.value = jsonNet6;
 
-    for (let i in json.Channels) {
-      let channel = json.Channels[i];
+    console.log(IndexIds);
+    const result = await fetch( "https://distribution.classisland.tech/api/v1/public/distributions/web");
+    const { code, content, message } = await result.json();
+    downloadIndex.value = content;
+
+    for (let i in content.channels) {
+      let channel = content.channels[i];
       channel.id = i;
       channels.value.push({
         id: i,
         title: i,
         props: {
-          title: channel.Name,
-          subtitle: channel.Description,
+          title: channel.channelName,
+          subtitle: channel.channelDescription,
         }
       });
     }
     // selectedChannel.value = json.Channels.stable;
+    selectedChannel.value = content.defaultChannel;
 
     await loadCurrentChannel();
   } catch (e) {
@@ -137,43 +161,16 @@ async function init(){
 }
 
 async function getSelectedVersion(index) {
-  console.log(index);
-  let versionInfoMin = null;
-  for (let i of index.Versions) {
-    // console.log(i);
-    if (i.Channels.includes(selectedChannel.value)) {
-      versionInfoMin = i;
-      break;
-    }
-  }
-  if (versionInfoMin == null) {
-    return null;
-  }
-  console.log(versionInfoMin);
-  return await (await fetch(versionInfoMin.VersionInfoUrl + "?time=" + timeStamp)).json();
+  return downloadIndex.value.channels[selectedChannel.value];
 }
 
 async function loadCurrentChannel() {
   console.log("当前通道：", selectedChannel.value);
   latestVersionInfo.value = await getSelectedVersion(downloadIndex.value);
-  latestVersionInfoNet6.value = await getSelectedVersion(downloadIndexNet6.value);
-
-  let platform = getWindowsVersion();
-  if (platform != null) {
-    selectedPlatform.value = platform === "10.0" ? "windows10" : "windows7";
-    let infoId = `windows_${getCPUArchitecture()}_full_singleFile`;
-    console.log("infoId: ", infoId)
-    if (downloadInfos[infoId] != undefined){
-      selectedDownloadInfoId.value = infoId;
-    }
-  }
 }
 
 async function updateChannelSelection() {
-  isLoading.value = true;
-  isError.value = false;
   await loadCurrentChannel();
-  isLoading.value = false;
 }
 
 function showHelpDialog() {
@@ -197,70 +194,94 @@ onMounted(() => init());
     <div v-else-if="!isError" class="d-flex flex-column mt-8">
       <h2 class="align-self-center text-center mb-4 text-h3 font-weight-bold">下载 ClassIsland</h2>
       <p class="text-center align-self-center mb-12">首先，选择适合您的平台和打包方式</p>
-      <v-alert type="warning" variant="outlined"
-               class="mb-4 fill-height"
-               v-if="downloadIndex.Channels[selectedChannel].Warning"
-               :text="downloadIndex.Channels[selectedChannel].Warning"></v-alert>
-      <div class="align-self-stretch d-flex ga-4 justify-center platforms-container flex-column flex-md-row flex-row
+<!--      <v-alert type="warning" variant="outlined"-->
+<!--               class="mb-4 fill-height"-->
+<!--               v-if="downloadIndex.Channels[selectedChannel].Warning"-->
+<!--               :text="downloadIndex.Channels[selectedChannel].Warning"></v-alert>-->
+      <div class="align-self-stretch d-flex ga-2 justify-center platforms-container flex-column flex-md-row flex-row
                    align-content-start">
         <DownloadPlatformCard platform-name="Windows"
                               platform-icon="mdi-microsoft-windows"
                               description="Windows 10 及更高版本"
                               class="flex-grow-1 platform"
-                              :version="latestVersionInfo.Title">
-          <div class="d-flex flex-column align-center mt-2">
-            <SplitDownloadButton :download-infos="downloadInfos"
+                              :version="latestVersionInfo.latestVersion">
+          <div class="d-flex flex-row flex-wrap align-center justify-center mt-2 ga-1">
+            <SplitDownloadButton :download-infos="downloadInfosPortable.windows"
                                  title="下载便携版"
                                  :is-selected='selectedPlatform === "windows10"'
-                                 :selectedDownloadInfo="selectedDownloadInfoId"
-                                 :download-route-root='"/download/thank_you/main/" + latestVersionInfo.Version + "/"'/>
+                                 :selectedDownloadInfo="selectedDownloadInfoIds.windowsPortable"
+                                 :download-route-root='"/download/thank_you/v2/" + latestVersionInfo.latestVersionId + "/"'/>
+            <SplitDownloadButton :download-infos="downloadInfosInstaller.windows"
+                                 title="下载安装版"
+                                 :is-selected='selectedPlatform === "windows10"'
+                                 :selectedDownloadInfo="selectedDownloadInfoIds.windowsInstaller"
+                                 :download-route-root='"/download/thank_you/v2/" + latestVersionInfo.latestVersionId + "/"'/>
           </div>
 
-        </DownloadPlatformCard>
-        <DownloadPlatformCard platform-name="Mac"
-                              platform-icon="mdi-apple"
-                              description="MacOS Big Sur 11 及更高版本"
-                              class="flex-grow-1 platform"
-
-                              :version="latestVersionInfoNet6.Title">
-          <div class="d-flex flex-column align-center mt-2">
-            <SplitDownloadButton :download-infos="downloadInfos"
-                                 title="下载便携版"
-                                 :is-selected='selectedPlatform === "windows7"'
-                                 :selectedDownloadInfo="selectedDownloadInfoId"
-                                 :download-route-root='"/download/thank_you/net-6/" + latestVersionInfoNet6.Version + "/"'/>
-          </div>
         </DownloadPlatformCard>
         <DownloadPlatformCard platform-name="Linux"
                               platform-icon="mdi-linux"
                               description="Debian 10 或其衍生版"
                               class="flex-grow-1 platform"
+                              :version="latestVersionInfo.latestVersion"
         >
-          <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
-                 href="https://github.com/ClassIsland/ClassIsland/releases" target="_blank">查看 2.0 测试版发行信息</v-btn>
+          <div class="d-flex flex-row flex-wrap align-center justify-center mt-2 ga-1">
+            <SplitDownloadButton :download-infos="downloadInfosPortable.linux"
+                                 title="下载便携版"
+                                 :is-selected='selectedPlatform === "linux"'
+                                 :selectedDownloadInfo="selectedDownloadInfoIds.linuxPortable"
+                                 :download-route-root='"/download/thank_you/v2/" + latestVersionInfo.latestVersionId + "/"'/>
+            <SplitDownloadButton :download-infos="downloadInfosInstaller.linux"
+                                 title="下载安装版"
+                                 :is-selected='selectedPlatform === "linux"'
+                                 :selectedDownloadInfo="selectedDownloadInfoIds.linuxInstaller"
+                                 :download-route-root='"/download/thank_you/v2/" + latestVersionInfo.latestVersionId + "/"'/>
+          </div>
         </DownloadPlatformCard>
+        <DownloadPlatformCard platform-name="Mac"
+                              platform-icon="mdi-apple"
+                              description="MacOS Big Sur 11 及更高版本"
+                              class="flex-grow-1 platform"
+                              :version="latestVersionInfo.latestVersion">
+          <div class="d-flex flex-row flex-wrap align-center justify-center mt-2">
+            <SplitDownloadButton :download-infos="downloadInfosInstaller.macOS"
+                                 title="下载安装版"
+                                 :is-selected='selectedPlatform === "macOS"'
+                                 :selectedDownloadInfo="selectedDownloadInfoIds.macOSInstaller"
+                                 :download-route-root='"/download/thank_you/v2/" + latestVersionInfo.latestVersionId + "/"'/>
+          </div>
+        </DownloadPlatformCard>
+
       </div>
-      <div class="d-flex flex-row flex-wrap ga-4 justify-center align-self-center align-content-center mt-8">
-        <v-select
-          v-model="selectedChannel"
-          label="发行通道"
-          :items="channels"
-          variant="outlined"
-          width="250px"
-          item-title="props.Name"
-          item-value="id"
-          @update:model-value="updateChannelSelection"
-        >
-        </v-select>
+
+      <div class="bottom-operations">
+        <div/>
+        <div class="d-flex flex-row flex-wrap ga-4 justify-center align-self-center align-content-center">
+          <v-btn color="blue-lighten-3" variant="text" prepend-icon="mdi-download"
+                 href="https://github.com/ClassIsland/ClassIsland/releases/"
+                 target="_blank">查看全部下载</v-btn>
+          <v-btn color="blue-lighten-3" variant="text" prepend-icon="mdi-wrench"
+                 href="https://github.com/ClassIsland/ClassIsland/actions/workflows/build_release.yml"
+                 target="_blank">下载 CI 构建</v-btn>
+        </div>
+        <div class="d-flex flex-col flex-wrap ga-4 mt-6 justify-end">
+          <div class="align-self-end justify-end">
+            <v-select
+              v-model="selectedChannel"
+              label="发行通道"
+              :items="channels"
+              variant="outlined"
+              width="250px"
+              item-title="props.Name"
+              item-value="id"
+              class=""
+              @update:model-value="updateChannelSelection"
+            >
+            </v-select>
+          </div>
+        </div>
       </div>
-      <div class="d-flex flex-row flex-wrap ga-4 justify-center align-self-center align-content-center mb-4">
-        <v-btn color="blue-lighten-3" variant="text" prepend-icon="mdi-download"
-               href="https://github.com/ClassIsland/ClassIsland/releases/"
-               target="_blank">查看全部下载</v-btn>
-        <v-btn color="blue-lighten-3" variant="text" prepend-icon="mdi-wrench"
-               href="https://github.com/ClassIsland/ClassIsland/actions/workflows/build_release.yml"
-               target="_blank">下载 CI 构建</v-btn>
-      </div>
+
     </div>
     <div v-else-if="isError" class="flex-column mt-12 ">
       <div class="page-margin-x">
@@ -315,5 +336,16 @@ onMounted(() => init());
 
 .platform {
   flex-basis: 33.3333%;
+}
+
+.bottom-operations {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+
+  @media (max-width: 1040px) {
+    display: flex;
+    flex-direction: column;
+    margin-top: 12px;
+  }
 }
 </style>
