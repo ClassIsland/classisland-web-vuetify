@@ -113,24 +113,40 @@ onMounted(() => init());
       <div class="page-margin-x py-4 mt-8">
         <h2>三步安装 ClassIsland</h2>
         <div class="d-flex flex-row my-4 ga-6 flex-wrap">
-          <div class="setup-step">
-            <v-img src="../../../../../../assets/setup/singleFile/1.png" class="mb-4"/>
+          <div class="setup-step" v-if="scPackage == 'folder'">
+            <v-img v-if="scOs == 'windows'" src="../../../../../../assets/setup/windows/1.png" class="mb-4"/>
+            <v-img v-if="scOs == 'linux'" src="../../../../../../assets/setup/linux/6.png" class="mb-4"/>
             <h3>第一步：解压应用</h3>
-            <p>在一个合适的地方（比如 D 盘等）新建一个文件夹，将下载的压缩包中的文件解压到文件夹中。</p>
+            <p>在一个合适的地方<span v-if="scOs == 'windows'">（比如 D 盘等）</span><span v-else>（比如用户目录等）</span>新建一个文件夹，将下载的压缩包中的文件解压到文件夹中。</p>
             <p class="text-caption text-orange-darken-2 mt-2">
               <v-icon size="small" class="mr-1">mdi-alert-circle</v-icon>
               注意：请选择有读写权限的位置，避免中文路径，程序所有数据将存储在此目录中。
             </p>
           </div>
-          <div class="setup-step">
-            <v-img src="../../../../../../assets/setup/singleFile/2.png" class="mb-4"/>
+          <div class="setup-step" v-else>
+            <v-img v-if="scOs == 'macos'" src="../../../../../../assets/setup/macos/7.png" class="mb-4"/>
+            <v-img v-if="scOs == 'linux'" src="../../../../../../assets/setup/linux/4.png" class="mb-4"/>
+            <h3>第一步：安装应用</h3>
+            <p>下载完成后，运行刚刚下载的安装包并按照提示完成安装。</p>
+          </div>
+          <div class="setup-step" v-if="scBuildType == 'full'">
+            <v-img v-if="scOs == 'windows'" src="../../../../../../assets/setup/windows/2.png" class="mb-4"/>
             <h3>第二步：安装 .NET 运行时</h3>
             <p>运行应用，如果您的设备没有安装 .NET 运行时，可以根据启动应用后的弹窗的指示安装 .NET 运行时。</p>
           </div>
           <div class="setup-step">
-            <v-img src="../../../../../../assets/setup/singleFile/3.png" class="mb-4"/>
-            <h3>第三步：开始使用</h3>
-            <p>完成上述步骤后，再次运行应用，根据应用弹出的欢迎向导即可完成应用设置。</p>
+            <v-img v-if="scOs == 'windows'" src="../../../../../../assets/setup/windows/3.png" class="mb-4"/>
+            <v-img v-if="scOs == 'linux'" src="../../../../../../assets/setup/linux/5.png" class="mb-4"/>
+            <v-img v-if="scOs == 'macos'" src="../../../../../../assets/setup/macos/8.png" class="mb-4"/>
+            <h3 v-if="scBuildType == 'full'">第三步：开始使用</h3>
+            <h3 v-else>第二步：开始使用</h3>
+            <p v-if="scBuildType == 'full'">完成上述步骤后，再次运行应用，根据应用弹出的欢迎向导即可完成应用设置。</p>
+            <p v-else>完成上述步骤后运行应用，根据应用弹出的欢迎向导即可完成应用设置。</p>
+          </div>
+          <div class="setup-step" v-if="scBuildType != 'full'">
+            <v-img src="../../../../../../assets/setup/completed.png" class="mb-4"/>
+            <h3>第三步：大功告成</h3>
+            <p>大功告成，开始您的 ClassIsland 之旅吧！</p>
           </div>
         </div>
         <v-alert type="info" variant="outlined" class="mb-4" color="blue-lighten-3"
@@ -173,13 +189,8 @@ onMounted(() => init());
       <div class="page-margin-x py-4 mt-8">
         <h2>❓ 常见问题解答</h2>
         <v-expansion-panels class="mt-4">
-          <v-expansion-panel title="🤔 下载后找不到安装程序？">
-            <v-expansion-panel-text>
-              ClassIsland 是便携版软件，<strong>没有安装程序</strong>。下载后解压 zip 文件，直接运行 <code>ClassIsland.exe</code> 即可使用。
-            </v-expansion-panel-text>
-          </v-expansion-panel>
 
-          <v-expansion-panel title="⚡ 程序启动后提示安装 .NET？">
+          <v-expansion-panel title="⚡ 程序启动后提示安装 .NET？" v-if="scBuildType=='full'">
             <v-expansion-panel-text>
               这是正常现象。首次运行时，程序会检测并提示安装 .NET 运行时。
               <br>• 点击安装按钮，程序会自动跳转到 .NET 官方网站下载安装程序
@@ -187,12 +198,13 @@ onMounted(() => init());
             </v-expansion-panel-text>
           </v-expansion-panel>
 
-          <v-expansion-panel title="📁 建议放在哪个文件夹？">
+          <v-expansion-panel title="📁 建议放在哪个文件夹？" v-if="scPackage=='folder'">
             <v-expansion-panel-text>
-              推荐放置位置：
-              <br>• <code>D:\ClassIsland\</code>（推荐）
-              <br>• <code>C:\Users\你的用户名\ClassIsland\</code>
-              <br><strong>避免放在：</strong>桌面、下载文件夹、含中文路径的位置
+              推荐放置位置：<br/>
+              <span v-if="scOs=='windows'">• <code>D:\ClassIsland\</code>（推荐）<br/></span>
+              <span v-if="scOs=='windows'">• <code>C:\Users\你的用户名\ClassIsland\</code><br/></span>
+              <span v-if="scOs=='linux'">• <code>~/ClassIsland</code>（推荐）<br/></span>
+              <strong>避免放在：</strong>桌面、下载文件夹、含中文路径的位置
             </v-expansion-panel-text>
           </v-expansion-panel>
 
