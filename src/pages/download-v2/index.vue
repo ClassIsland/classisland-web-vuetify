@@ -203,10 +203,10 @@ onMounted(() => init());
                :text="downloadIndex.Channels[selectedChannel].Warning"></v-alert>
       <div class="align-self-stretch d-flex ga-4 justify-center platforms-container flex-column flex-md-row flex-row
                    align-content-start">
-        <DownloadPlatformCard platform-name="Windows 10+"
+        <DownloadPlatformCard platform-name="Windows"
                               platform-icon="mdi-microsoft-windows"
-                              description="适用于 Windows 10 以及以上的版本。"
-                              class="platform"
+                              description="Windows 10 及更高版本"
+                              class="flex-grow-1 platform"
                               :version="latestVersionInfo.Title">
           <div class="d-flex flex-column align-center mt-2">
             <SplitDownloadButton :download-infos="downloadInfos"
@@ -217,10 +217,11 @@ onMounted(() => init());
           </div>
 
         </DownloadPlatformCard>
-        <DownloadPlatformCard platform-name="Windows 7 兼容版"
-                              platform-icon="mdi-microsoft-windows"
-                              description="适用于 Windows 7 SP1 ~ 8.1 版本。部分功能可能不可用。"
-                              class="platform"
+        <DownloadPlatformCard platform-name="Mac"
+                              platform-icon="mdi-apple"
+                              description="MacOS Big Sur 11 及更高版本"
+                              class="flex-grow-1 platform"
+
                               :version="latestVersionInfoNet6.Title">
           <div class="d-flex flex-column align-center mt-2">
             <SplitDownloadButton :download-infos="downloadInfos"
@@ -232,8 +233,9 @@ onMounted(() => init());
         </DownloadPlatformCard>
         <DownloadPlatformCard platform-name="Linux"
                               platform-icon="mdi-linux"
-                              class="platform"
-                              description="ClassIsland 2.0 目前正在展开对 Linux 的适配，点击下方链接以了解更多信息。">
+                              description="Debian 10 或其衍生版"
+                              class="flex-grow-1 platform"
+        >
           <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
                  href="https://github.com/ClassIsland/ClassIsland/releases" target="_blank">查看 2.0 测试版发行信息</v-btn>
         </DownloadPlatformCard>
@@ -252,8 +254,6 @@ onMounted(() => init());
         </v-select>
       </div>
       <div class="d-flex flex-row flex-wrap ga-4 justify-center align-self-center align-content-center mb-4">
-        <v-btn color="blue-lighten-3" variant="text" prepend-icon="mdi-help-circle"
-               @click="showHelpDialog">完整版 vs 精简版</v-btn>
         <v-btn color="blue-lighten-3" variant="text" prepend-icon="mdi-download"
                href="https://github.com/ClassIsland/ClassIsland/releases/"
                target="_blank">查看全部下载</v-btn>
@@ -299,7 +299,7 @@ onMounted(() => init());
 
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .loading-mask {
   align-self: center;
   height: 100%;
@@ -309,6 +309,9 @@ onMounted(() => init());
   height: 100%;
 }
 
+.platforms-container {
+  flex-grow: 1;
+}
 
 .platform {
   flex-basis: 33.3333%;

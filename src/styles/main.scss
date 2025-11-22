@@ -15,3 +15,17 @@
     margin: 0 auto;
   }
 }
+
+.page-margin-x-wide, .margin-x-wide {
+  margin: 0 42px;
+  @media (max-width: 600px) {
+    margin: 0 12px
+  }
+
+  max-width: 1400px;
+  @media (min-width: 1484px) {
+    width: 1400px;
+    justify-self: center;
+    margin: 0 auto;
+  }
+}
