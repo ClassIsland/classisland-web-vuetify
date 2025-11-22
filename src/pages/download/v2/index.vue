@@ -1,8 +1,6 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
-import DownloadPlatformCard from "../../components/DownloadPlatformCard.vue";
-import {IndexIds} from "../../indexIds";
-
+import DownloadPlatformCard from "../../../components/DownloadPlatformCard.vue";
 const isLoading = ref(true);
 const downloadIndex = ref();
 const latestVersionInfo = ref({
@@ -88,7 +86,7 @@ const selectedDownloadInfoIds = ref({
 });
 
 import { useHead } from '@unhead/vue'
-import SplitDownloadButton from '../../components/SplitDownloadButton.vue';
+import SplitDownloadButton from '../../../components/SplitDownloadButton.vue';
 
 useHead({
   title: '下载 ClassIsland | ClassIsland',
@@ -131,8 +129,6 @@ function getWindowsVersion() {
 
 async function init(){
   try{
-
-    console.log(IndexIds);
     const result = await fetch( "https://distribution.classisland.tech/api/v1/public/distributions/web");
     const { code, content, message } = await result.json();
     downloadIndex.value = content;
@@ -194,10 +190,22 @@ onMounted(() => init());
     <div v-else-if="!isError" class="d-flex flex-column mt-8">
       <h2 class="align-self-center text-center mb-4 text-h3 font-weight-bold">下载 ClassIsland</h2>
       <p class="text-center align-self-center mb-12">首先，选择适合您的平台和打包方式</p>
+
 <!--      <v-alert type="warning" variant="outlined"-->
 <!--               class="mb-4 fill-height"-->
 <!--               v-if="downloadIndex.Channels[selectedChannel].Warning"-->
 <!--               :text="downloadIndex.Channels[selectedChannel].Warning"></v-alert>-->
+      <div class="d-flex">
+        <v-alert type="info" variant="outlined"
+                 class="mb-4 "
+                 color="cyan-lighten-3">
+          <p style="margin:  0;">目前 ClassIsland 2 还不是非常稳定，且相关生态也需要一些时间完善，部分插件和主题可能尚不支持 ClassIsland 2。建议您优先考虑安装 ClassIsland 1。</p>
+          <template v-slot:append>
+            <v-btn variant="text"
+                   to="/download/v1">前往下载</v-btn>
+          </template>
+        </v-alert>
+      </div>
       <div class="align-self-stretch d-flex ga-2 justify-center platforms-container flex-column flex-md-row flex-row
                    align-content-start">
         <DownloadPlatformCard platform-name="Windows"
@@ -320,7 +328,7 @@ onMounted(() => init());
 
 </template>
 
-<style scoped lang="scss">
+<style scoped>
 .loading-mask {
   align-self: center;
   height: 100%;

@@ -24,6 +24,7 @@ declare module 'vue-router/auto-routes' {
     '/download/': RouteRecordInfo<'/download/', '/download', Record<never, never>, Record<never, never>>,
     '/download/thank_you/[indexId]/[version]/[appSubChannel]/': RouteRecordInfo<'/download/thank_you/[indexId]/[version]/[appSubChannel]/', '/download/thank_you/:indexId/:version/:appSubChannel', { indexId: ParamValue<true>, version: ParamValue<true>, appSubChannel: ParamValue<true> }, { indexId: ParamValue<false>, version: ParamValue<false>, appSubChannel: ParamValue<false> }>,
     '/download/thank_you/v2/[version]/[appSubChannel]/': RouteRecordInfo<'/download/thank_you/v2/[version]/[appSubChannel]/', '/download/thank_you/v2/:version/:appSubChannel', { version: ParamValue<true>, appSubChannel: ParamValue<true> }, { version: ParamValue<false>, appSubChannel: ParamValue<false> }>,
-    '/download-v2/': RouteRecordInfo<'/download-v2/', '/download-v2', Record<never, never>, Record<never, never>>,
+    '/download/v1/': RouteRecordInfo<'/download/v1/', '/download/v1', Record<never, never>, Record<never, never>>,
+    '/download/v2/': RouteRecordInfo<'/download/v2/', '/download/v2', Record<never, never>, Record<never, never>>,
   }
 }
