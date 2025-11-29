@@ -71,7 +71,7 @@ const downloadInfosInstaller = {
     "linux_x64_selfContained_deb": {
       title: "含运行时 x64 .deb"
     },
-    "linux_arm64_selfContained_dev": {
+    "linux_arm64_selfContained_deb": {
       title: "含运行时 ARM64 .deb"
     },
   },
