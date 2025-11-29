@@ -206,7 +206,7 @@ onMounted(() => init());
           </template>
         </v-alert>
       </div>
-      <div class="align-self-stretch d-flex ga-2 justify-center platforms-container flex-column flex-md-row flex-row
+      <div class="align-self-stretch d-flex ga-4 justify-center platforms-container flex-column flex-md-row flex-row
                    align-content-start">
         <DownloadPlatformCard platform-name="Windows"
                               platform-icon="mdi-microsoft-windows"
