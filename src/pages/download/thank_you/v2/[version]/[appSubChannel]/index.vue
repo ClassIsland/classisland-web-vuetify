@@ -3,6 +3,8 @@ import {onMounted, ref} from "vue";
 import { useRoute } from 'vue-router';
 import {IndexIds} from "../../../../../../indexIds";
 import { useHead } from '@unhead/vue';
+import tracedFetch from '../../../../../../utils/tracedFetch';
+
 
 const pageMeta = [
   {
@@ -45,7 +47,7 @@ async function init(){
   try {
     console.log('Route params:', { version: version.toString(), appSubChannel: appSubChannel.toString() });
 
-    const result = await fetch( `https://distribution.classisland.tech/api/v1/public/distributions/web/${version}/${appSubChannel}`);
+    const result = await tracedFetch( `https://distribution.classisland.tech/api/v1/public/distributions/web/${version}/${appSubChannel}`);
     const { code, content, message } = await result.json();
     if (code != 0){
       throw new Error(`获取下载数据失败：${message} (${code})`);

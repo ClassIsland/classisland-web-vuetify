@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {onMounted, ref} from "vue";
 import DownloadPlatformCard from "../../../components/DownloadPlatformCard.vue";
+import "../../../utils/tracedFetch";
 const isLoading = ref(true);
 const downloadIndex = ref();
 const latestVersionInfo = ref({
@@ -87,6 +88,7 @@ const selectedDownloadInfoIds = ref({
 
 import { useHead } from '@unhead/vue'
 import SplitDownloadButton from '../../../components/SplitDownloadButton.vue';
+import tracedFetch from '../../../utils/tracedFetch';
 
 useHead({
   title: '下载 ClassIsland | ClassIsland',
@@ -129,7 +131,7 @@ function getWindowsVersion() {
 
 async function init(){
   try{
-    const result = await fetch( "https://distribution.classisland.tech/api/v1/public/distributions/web");
+    const result = await tracedFetch( "https://distribution.classisland.tech/api/v1/public/distributions/web");
     const { code, content, message } = await result.json();
     downloadIndex.value = content;
 

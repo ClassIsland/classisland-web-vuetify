@@ -43,7 +43,7 @@ export const createApp = ViteSSG(
         app,
         dsn: "https://5f8b7ae1646638a671474219382cfb7b@todayeatsentry.classisland.tech:21815/8",
         integrations: [
-          Sentry.browserTracingIntegration(),
+          Sentry.browserTracingIntegration({ router }),
           Sentry.replayIntegration(),
         ],
         // Tracing
