@@ -3,8 +3,8 @@ name: Deploy prod
 on:
   push:
     tags:
-      - "*.*.**"
-  workflow_dispatch:  # 测试目的使用
+      - '*.*.**'
+  workflow_dispatch: # 测试目的使用
 
 permissions:
   contents: write
@@ -13,15 +13,15 @@ jobs:
   build:
     # Grant GITHUB_TOKEN the permissions required to make a Pages deployment
     permissions:
-      pages: write      # to deploy to Pages
-      id-token: write   # to verify the deployment originates from an appropriate source
+      pages: write # to deploy to Pages
+      id-token: write # to verify the deployment originates from an appropriate source
 
     concurrency:
-      group: "web-deploy"
+      group: 'web-deploy'
       cancel-in-progress: false
     environment:
       name: classisland-web-prod
-    name: "Build & Deploy"
+    name: 'Build & Deploy'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -50,9 +50,9 @@ jobs:
         with:
           SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_WEB_PRIVATEKEY }}
           # 复制操作的参数。"-avzr --delete"意味部署时清空服务器目标目录下的文件
-          ARGS: "-avz --delete --no-times --no-perms"
+          ARGS: '-avz --delete --no-times --no-perms'
           # 源目录
-          SOURCE: "./dist/"
+          SOURCE: './dist/'
           # 部署目标主机
           REMOTE_HOST: ${{ secrets.DEPLOY_WEB_IP }}
           # 部署目标主机端口

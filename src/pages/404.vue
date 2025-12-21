@@ -1,6 +1,4 @@
-<script setup lang="ts">
-
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="page-margin-x mt-12">
@@ -14,6 +12,4 @@
   </div>
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

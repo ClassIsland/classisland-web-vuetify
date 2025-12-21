@@ -8,7 +8,7 @@ import VueRouter from 'unplugin-vue-router/vite';
 import Vuetify, { transformAssetUrls } from 'vite-plugin-vuetify';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import path from 'path';
-import vueDevTools from 'vite-plugin-vue-devtools'
+import vueDevTools from 'vite-plugin-vue-devtools';
 // Utilities
 import { defineConfig } from 'vite';
 import { fileURLToPath, URL } from 'node:url';
@@ -88,7 +88,7 @@ export default defineConfig({
   ],
   define: {
     'process.env': {},
-    __GIT_TAG__: JSON.stringify(getGitTag()),
+    __GIT_TAG__: JSON.stringify(getGitTag())
   },
   resolve: {
     alias: {
@@ -105,7 +105,7 @@ export default defineConfig({
   ssgOptions: {
     includedRoutes(paths, routes) {
       paths.push('/download/thank_you/_/_/_/');
-      return paths.filter(i => !i.includes(':') || i === '/download/thank_you');
-    },
-  },
+      return paths.filter((i) => !i.includes(':') || i === '/download/thank_you');
+    }
+  }
 });

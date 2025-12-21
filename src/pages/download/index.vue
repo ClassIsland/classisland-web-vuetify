@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import V1 from './v1/index.vue';
+import V2 from './v2/index.vue';
 </script>
 
 <template>
-<v1/>
+  <v2 />
 </template>
 
-<style scoped>
-
-</style>
+<style scoped></style>

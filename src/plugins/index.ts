@@ -5,7 +5,6 @@
 // 导入Vuetify插件
 import vuetify from './vuetify';
 
-
 /**
  * 为应用程序注册所有必要的插件。
  *
