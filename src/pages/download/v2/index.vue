@@ -22,18 +22,18 @@ const downloadInfosPortable = {
     "windows_x64_selfContained_folder": {
       title: "含运行时 x64 .zip"
     },
-    "windows_x86_selfContained_folder": {
-      title: "含运行时 x86 .zip"
-    },
+    // "windows_x86_selfContained_folder": {
+    //   title: "含运行时 x86 .zip"
+    // },
     "windows_arm64_selfContained_folder": {
       title: "含运行时 ARM64 .zip"
     },
     "windows_x64_full_folder": {
       title: "依赖框架 x64 .zip"
     },
-    "windows_x86_full_folder": {
-      title: "依赖框架 x86 .zip"
-    },
+    // "windows_x86_full_folder": {
+    //   title: "依赖框架 x86 .zip"
+    // },
     "windows_arm64_full_folder": {
       title: "依赖框架 ARM64 .zip"
     }
