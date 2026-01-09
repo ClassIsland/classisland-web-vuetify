@@ -11,6 +11,7 @@ const latestVersionInfo = ref({
 
 const channels = ref([]);
 const selectedChannel = ref("");
+const defaultChannel = ref("");
 const isDialogActive = ref(false);
 const isError = ref(false);
 
@@ -85,6 +86,7 @@ const selectedDownloadInfoIds = ref({
   linuxPortable: "linux_x64_selfContained_folder",
   linuxInstaller: "linux_x64_selfContained_deb",
 });
+const isChannelChangingDialogOpen = ref(false);
 
 import { useHead } from '@unhead/vue'
 import SplitDownloadButton from '../../../components/SplitDownloadButton.vue';
@@ -149,6 +151,7 @@ async function init(){
     }
     // selectedChannel.value = json.Channels.stable;
     selectedChannel.value = content.defaultChannel;
+    defaultChannel.value = content.defaultChannel;
 
     await loadCurrentChannel();
   } catch (e) {
@@ -168,6 +171,9 @@ async function loadCurrentChannel() {
 }
 
 async function updateChannelSelection() {
+  if (selectedChannel.value != defaultChannel.value) {
+    isChannelChangingDialogOpen.value = true;
+  }
   await loadCurrentChannel();
 }
 
@@ -201,20 +207,36 @@ onMounted(() => init());
         <v-alert type="info" variant="outlined"
                  class="mb-4 "
                  color="cyan-lighten-3">
-          <p style="margin:  0;">目前 ClassIsland 2 还不是非常稳定，且相关生态也需要一些时间完善，部分插件和主题可能尚不支持 ClassIsland 2。建议您优先考虑安装 ClassIsland 1。</p>
+          <p style="margin:  0;">目前 ClassIsland 2 还不是非常稳定，且相关生态也需要一些时间完善，部分插件和主题可能尚不支持 ClassIsland 2。如有需要，您可以考虑安装 ClassIsland 1。</p>
           <template v-slot:append>
             <v-btn variant="text"
                    to="/download/v1">前往下载</v-btn>
           </template>
         </v-alert>
       </div>
+      <v-btn-toggle
+        class="mb-2 align-self-center"
+        rounded="xl"
+        color="blue-lighten-3"
+        v-model="selectedChannel"
+        variant="outlined"
+        mandatory
+        divided
+        @update:model-value="updateChannelSelection"
+      >
+        <v-btn v-for="i in channels" :value="i.id">
+          <span>{{ i.props.title }}</span>
+          <span style="opacity: 50%; font-size: 12px; align-self: end;">{{ downloadIndex.channels[i.id].latestVersion }}</span>
+        </v-btn>
+      </v-btn-toggle>
+      <p class="mb-4 align-self-center"
+         style="opacity: 75%; font-size: 13px; ">{{downloadIndex.channels[selectedChannel == "" ? defaultChannel : selectedChannel]?.channelDescription}}</p>
       <div class="align-self-stretch d-flex ga-4 justify-center platforms-container flex-column flex-md-row flex-row
                    align-content-start">
         <DownloadPlatformCard platform-name="Windows"
                               platform-icon="mdi-microsoft-windows"
                               description="Windows 10 及更高版本"
-                              class="flex-grow-1 platform"
-                              :version="latestVersionInfo.latestVersion">
+                              class="flex-grow-1 platform">
           <div class="d-flex flex-row flex-wrap align-center justify-center mt-2 ga-1">
             <SplitDownloadButton :download-infos="downloadInfosPortable.windows"
                                  title="下载便携版"
@@ -233,7 +255,6 @@ onMounted(() => init());
                               platform-icon="mdi-linux"
                               description="Debian 10 或其衍生版"
                               class="flex-grow-1 platform"
-                              :version="latestVersionInfo.latestVersion"
         >
           <div class="d-flex flex-row flex-wrap align-center justify-center mt-2 ga-1">
             <SplitDownloadButton :download-infos="downloadInfosPortable.linux"
@@ -251,8 +272,7 @@ onMounted(() => init());
         <DownloadPlatformCard platform-name="Mac"
                               platform-icon="mdi-apple"
                               description="MacOS Big Sur 11 及更高版本"
-                              class="flex-grow-1 platform"
-                              :version="latestVersionInfo.latestVersion">
+                              class="flex-grow-1 platform">
           <div class="d-flex flex-row flex-wrap align-center justify-center mt-2">
             <SplitDownloadButton :download-infos="downloadInfosInstaller.macOS"
                                  title="下载安装版"
@@ -264,7 +284,7 @@ onMounted(() => init());
 
       </div>
 
-      <div class="bottom-operations">
+      <div class="bottom-operations my-4">
         <div/>
         <div class="d-flex flex-row flex-wrap ga-4 justify-center align-self-center align-content-center">
           <v-btn color="blue-lighten-3" variant="text" prepend-icon="mdi-download"
@@ -274,22 +294,7 @@ onMounted(() => init());
                  href="https://github.com/ClassIsland/ClassIsland/actions/workflows/build_release.yml"
                  target="_blank">下载 CI 构建</v-btn>
         </div>
-        <div class="d-flex flex-col flex-wrap ga-4 mt-6 justify-end">
-          <div class="align-self-end justify-end">
-            <v-select
-              v-model="selectedChannel"
-              label="发行通道"
-              :items="channels"
-              variant="outlined"
-              width="250px"
-              item-title="props.Name"
-              item-value="id"
-              class=""
-              @update:model-value="updateChannelSelection"
-            >
-            </v-select>
-          </div>
-        </div>
+
       </div>
 
     </div>
@@ -325,6 +330,7 @@ onMounted(() => init());
         </v-card-actions>
       </v-card>
     </v-dialog>
+
   </div>
 
 
