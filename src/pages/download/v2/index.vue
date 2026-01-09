@@ -190,12 +190,7 @@ onMounted(() => init());
 
 <template>
   <div class="d-flex download-container flex-column page-margin-x-wide">
-    <div class="loading-mask d-flex"
-         v-if="isLoading">
-      <v-progress-circular color="blue-lighten-3" size="large"
-                           indeterminate class="align-self-center"/>
-    </div>
-    <div v-else-if="!isError" class="d-flex flex-column mt-8">
+    <div v-if="!isError" class="d-flex flex-column mt-8">
       <h2 class="align-self-center text-center mb-4 text-h3 font-weight-bold">下载 ClassIsland</h2>
       <p class="text-center align-self-center mb-12">首先，选择适合您的平台和打包方式</p>
 
@@ -203,34 +198,43 @@ onMounted(() => init());
 <!--               class="mb-4 fill-height"-->
 <!--               v-if="downloadIndex.Channels[selectedChannel].Warning"-->
 <!--               :text="downloadIndex.Channels[selectedChannel].Warning"></v-alert>-->
-      <div class="d-flex">
-        <v-alert type="info" variant="outlined"
-                 class="mb-4 "
-                 color="cyan-lighten-3">
-          <p style="margin:  0;">目前 ClassIsland 2 还不是非常稳定，且相关生态也需要一些时间完善，部分插件和主题可能尚不支持 ClassIsland 2。如有需要，您可以考虑安装 ClassIsland 1。</p>
-          <template v-slot:append>
-            <v-btn variant="text"
-                   to="/download/v1">前往下载</v-btn>
-          </template>
-        </v-alert>
+<!--      <div class="d-flex">-->
+<!--        <v-alert type="info" variant="outlined"-->
+<!--                 class="mb-4 "-->
+<!--                 color="cyan-lighten-3">-->
+<!--          <p style="margin:  0;">目前 ClassIsland 2 还不是非常稳定，且相关生态也需要一些时间完善，部分插件和主题可能尚不支持 ClassIsland 2。如有需要，您可以考虑安装 ClassIsland 1。</p>-->
+<!--          <template v-slot:append>-->
+<!--            <v-btn variant="text"-->
+<!--                   to="/download/v1">前往下载</v-btn>-->
+<!--          </template>-->
+<!--        </v-alert>-->
+<!--      </div>-->
+
+      <div class="mb-2 align-self-center">
+        <v-skeleton-loader v-if="isLoading" width="450px" height="48px"
+                           rounded="xl"/>
+        <v-btn-toggle v-else
+                      rounded="xl"
+                      color="blue-lighten-3"
+                      v-model="selectedChannel"
+                      variant="outlined"
+                      mandatory
+                      divided
+                      @update:model-value="updateChannelSelection"
+        >
+          <v-btn v-for="i in channels" :value="i.id">
+            <span>{{ i.props.title }}</span>
+            <span style="opacity: 50%; font-size: 12px; align-self: end;">{{ downloadIndex.channels[i.id].latestVersion }}</span>
+          </v-btn>
+        </v-btn-toggle>
       </div>
-      <v-btn-toggle
-        class="mb-2 align-self-center"
-        rounded="xl"
-        color="blue-lighten-3"
-        v-model="selectedChannel"
-        variant="outlined"
-        mandatory
-        divided
-        @update:model-value="updateChannelSelection"
-      >
-        <v-btn v-for="i in channels" :value="i.id">
-          <span>{{ i.props.title }}</span>
-          <span style="opacity: 50%; font-size: 12px; align-self: end;">{{ downloadIndex.channels[i.id].latestVersion }}</span>
-        </v-btn>
-      </v-btn-toggle>
-      <p class="mb-4 align-self-center"
-         style="opacity: 75%; font-size: 13px; ">{{downloadIndex.channels[selectedChannel == "" ? defaultChannel : selectedChannel]?.channelDescription}}</p>
+
+
+      <div class="mb-4 align-self-center">
+        <v-skeleton-loader v-if="isLoading" width="400px" height="19.5px"/>
+        <p v-else
+           style="opacity: 75%; font-size: 13px; ">{{downloadIndex.channels[selectedChannel == "" ? defaultChannel : selectedChannel]?.channelDescription}}</p>
+      </div>
       <div class="align-self-stretch d-flex ga-4 justify-center platforms-container flex-column flex-md-row flex-row
                    align-content-start">
         <DownloadPlatformCard platform-name="Windows"
@@ -238,7 +242,9 @@ onMounted(() => init());
                               description="Windows 10 及更高版本"
                               class="flex-grow-1 platform">
           <div class="d-flex flex-row flex-wrap align-center justify-center mt-2 ga-1">
-            <SplitDownloadButton :download-infos="downloadInfosPortable.windows"
+            <v-skeleton-loader v-if="isLoading" width="200px" height="48px"/>
+            <SplitDownloadButton v-else
+                                 :download-infos="downloadInfosPortable.windows"
                                  title="下载便携版"
                                  :is-selected='selectedPlatform === "windows10"'
                                  :selectedDownloadInfo="selectedDownloadInfoIds.windowsPortable"
@@ -257,12 +263,16 @@ onMounted(() => init());
                               class="flex-grow-1 platform"
         >
           <div class="d-flex flex-row flex-wrap align-center justify-center mt-2 ga-1">
-            <SplitDownloadButton :download-infos="downloadInfosPortable.linux"
+            <v-skeleton-loader v-if="isLoading" width="200px" height="48px"/>
+            <SplitDownloadButton v-else
+                                 :download-infos="downloadInfosPortable.linux"
                                  title="下载便携版"
                                  :is-selected='selectedPlatform === "linux"'
                                  :selectedDownloadInfo="selectedDownloadInfoIds.linuxPortable"
                                  :download-route-root='"/download/thank_you/v2/" + latestVersionInfo.latestVersionId + "/"'/>
-            <SplitDownloadButton :download-infos="downloadInfosInstaller.linux"
+            <v-skeleton-loader v-if="isLoading" width="200px" height="48px"/>
+            <SplitDownloadButton v-else
+                                 :download-infos="downloadInfosInstaller.linux"
                                  title="下载安装版"
                                  :is-selected='selectedPlatform === "linux"'
                                  :selectedDownloadInfo="selectedDownloadInfoIds.linuxInstaller"
@@ -274,7 +284,9 @@ onMounted(() => init());
                               description="MacOS Big Sur 11 及更高版本"
                               class="flex-grow-1 platform">
           <div class="d-flex flex-row flex-wrap align-center justify-center mt-2">
-            <SplitDownloadButton :download-infos="downloadInfosInstaller.macOS"
+            <v-skeleton-loader v-if="isLoading" width="275px" height="48px"/>
+            <SplitDownloadButton v-else
+                                 :download-infos="downloadInfosInstaller.macOS"
                                  title="下载安装版"
                                  :is-selected='selectedPlatform === "macOS"'
                                  :selectedDownloadInfo="selectedDownloadInfoIds.macOSInstaller"
@@ -284,8 +296,7 @@ onMounted(() => init());
 
       </div>
 
-      <div class="bottom-operations my-4">
-        <div/>
+      <div class="my-4">
         <div class="d-flex flex-row flex-wrap ga-4 justify-center align-self-center align-content-center">
           <v-btn color="blue-lighten-3" variant="text" prepend-icon="mdi-download"
                  href="https://github.com/ClassIsland/ClassIsland/releases/"
@@ -293,6 +304,8 @@ onMounted(() => init());
           <v-btn color="blue-lighten-3" variant="text" prepend-icon="mdi-wrench"
                  href="https://github.com/ClassIsland/ClassIsland/actions/workflows/build_release.yml"
                  target="_blank">下载 CI 构建</v-btn>
+          <v-btn color="blue-lighten-3" variant="text" prepend-icon="mdi-archive-arrow-down"
+                 to="/download/v1">下载 ClassIsland 1</v-btn>
         </div>
 
       </div>

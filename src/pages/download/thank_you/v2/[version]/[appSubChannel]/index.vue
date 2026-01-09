@@ -90,18 +90,21 @@ onMounted(() => init());
 
 <template>
   <div class="d-flex download-container flex-column">
-    <div class="loading-mask d-flex"
-         v-if="isLoading">
-      <v-progress-circular color="blue-lighten-3" size="large"
-                           indeterminate class="align-self-center"/>
-    </div>
-    <div v-show="!isLoading && !isError" class="flex-column mt-12 ">
+    <div v-if="!isError" class="flex-column mt-12 ">
       <div class="page-margin-x">
-        <h2 class="align-self-center text-center mb-6 text-h2 font-weight-bold download-main-title">感谢下载 ClassIsland {{ downloadInfo.version }} ！</h2>
-        <p class="text-center align-self-center mb-16">您的下载即将开始。如果下载在 30 秒内没有开始，请点击<a :href="downloadInfo.archiveUrl" id="downloadLink" :download='"ClassIsland_" + appSubChannel + "_" + downloadInfo.version + ".zip"'>此处</a>手动开始下载。</p>
+        <div v-if="isLoading" class="d-flex flex-column">
+          <v-skeleton-loader class="align-self-center mb-6" width="750px" height="60px"/>
+          <v-skeleton-loader class="align-self-center mb-16" width="500px" height="24px"/>
+          <v-skeleton-loader class="align-self-stretch mb-6" height="56px"/>
+          <v-skeleton-loader class="align-self-stretch mb-6"  height="56px"/>
+        </div>
+        <div v-else>
+          <h2 class="align-self-center text-center mb-6 text-h2 font-weight-bold download-main-title">感谢下载 ClassIsland {{ downloadInfo.version }} ！</h2>
+          <p class="text-center align-self-center mb-16">您的下载即将开始。如果下载在 30 秒内没有开始，请点击<a :href="downloadInfo.archiveUrl" id="downloadLink" :download='"ClassIsland_" + appSubChannel + "_" + downloadInfo.version + ".zip"'>此处</a>手动开始下载。</p>
 
-        <v-text-field label="直接下载链接" variant="outlined" readonly v-model="downloadInfo.archiveUrl" append-icon="mdi-content-copy" @click:append="copyDownloadUrl"/>
-        <v-text-field label="校验和（SHA512）" variant="outlined" readonly v-model="downloadInfo.archiveSHA512" append-icon="mdi-content-copy" @click:append="copyChecksum"/>
+          <v-text-field label="直接下载链接" variant="outlined" readonly v-model="downloadInfo.archiveUrl" append-icon="mdi-content-copy" @click:append="copyDownloadUrl"/>
+          <v-text-field label="校验和（SHA512）" variant="outlined" readonly v-model="downloadInfo.archiveSHA512" append-icon="mdi-content-copy" @click:append="copyChecksum"/>
+        </div>
 
         <p>请注意核对文件 SHA512 是否正确。</p>
 

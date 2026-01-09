@@ -9,7 +9,7 @@ const props = defineProps({
 
 <template>
   <v-card class="justify-center d-flex card " variant="flat">
-    <div class="align-content-center d-flex flex-column align-center download-card-root ga-2 py-8 px-4 align-self-center flex-grow-1" >
+    <div class="align-content-center d-flex flex-column align-center download-card-root ga-2 py-8 px-4 align-self-center flex-grow-1">
       <div class="align-content-center d-flex flex-column align-center ga-2 flex-grow-1">
         <v-icon :icon="props.platformIcon" class="platform-icon"/>
         <p class="text-h4 font-weight-medium">{{ props.platformName }}</p>
@@ -17,7 +17,7 @@ const props = defineProps({
         <p class="text-center version" v-if="version">当前版本：{{ props.version }}</p>
       </div>
 
-      <div class="d-flex gc-2">
+      <div class="d-flex gc-2 mt-6">
         <slot/>
       </div>
     </div>
@@ -30,7 +30,7 @@ const props = defineProps({
 }
 
 .download-card-root {
-  height: 320px
+  //height: 320px
 }
 
 .version {
