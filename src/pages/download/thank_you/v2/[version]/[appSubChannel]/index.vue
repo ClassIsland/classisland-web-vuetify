@@ -93,8 +93,8 @@ onMounted(() => init());
     <div v-if="!isError" class="flex-column mt-12 ">
       <div class="page-margin-x">
         <div v-if="isLoading" class="d-flex flex-column">
-          <v-skeleton-loader class="align-self-center mb-6" width="750px" height="60px"/>
-          <v-skeleton-loader class="align-self-center mb-16" width="500px" height="24px"/>
+          <v-skeleton-loader class="align-self-stretch mb-6" height="60px"/>
+          <v-skeleton-loader class="align-self-stretch mb-16" height="24px"/>
           <v-skeleton-loader class="align-self-stretch mb-6" height="56px"/>
           <v-skeleton-loader class="align-self-stretch mb-6"  height="56px"/>
         </div>

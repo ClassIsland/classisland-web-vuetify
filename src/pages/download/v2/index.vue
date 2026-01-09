@@ -210,7 +210,7 @@ onMounted(() => init());
 <!--        </v-alert>-->
 <!--      </div>-->
 
-      <div class="mb-2 align-self-center">
+      <div class="mb-2 align-self-center d-none d-md-block ">
         <v-skeleton-loader v-if="isLoading" width="450px" height="48px"
                            rounded="xl"/>
         <v-btn-toggle v-else
@@ -229,10 +229,29 @@ onMounted(() => init());
         </v-btn-toggle>
       </div>
 
+      <div class="align-self-center d-block d-md-none ">
+        <v-skeleton-loader v-if="isLoading" class="mb-5" width="250px" height="56px"
+                           rounded="xl"/>
+        <v-select
+          v-else
+          v-model="selectedChannel"
+          label="发行通道"
+          :items="channels"
+          variant="outlined"
+          width="250px"
+          item-title="props.Name"
+          item-value="id"
+          class=""
+          @update:model-value="updateChannelSelection"
+        >
+        </v-select>
+      </div>
 
-      <div class="mb-4 align-self-center">
-        <v-skeleton-loader v-if="isLoading" width="400px" height="19.5px"/>
+
+      <div class="mb-4 align-self-center d-flex flex-column">
+        <v-skeleton-loader v-if="isLoading" width="200px" height="19.5px"/>
         <p v-else
+           class="text-center"
            style="opacity: 75%; font-size: 13px; ">{{downloadIndex.channels[selectedChannel == "" ? defaultChannel : selectedChannel]?.channelDescription}}</p>
       </div>
       <div class="align-self-stretch d-flex ga-4 justify-center platforms-container flex-column flex-md-row flex-row
