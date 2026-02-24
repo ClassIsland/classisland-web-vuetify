@@ -4,7 +4,7 @@
     <v-main>
       <router-view />
     </v-main>
-    <AppFooter class="position-absolute"/>
+    <AppFooter />
   </v-app>
 </template>
 

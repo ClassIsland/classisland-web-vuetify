@@ -1,5 +1,6 @@
 .main-content {
   overflow-x: hidden;
+  padding-top: 64px; /* Height of FluentAppBar */
 }
 
 .page-margin-x, .margin-x {
@@ -28,4 +29,153 @@
     justify-self: center;
     margin: 0 auto;
   }
+}
+
+:root {
+  --font-family-base: "Segoe UI Variable", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+  --font-family-icon: "Segoe Fluent Icons", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+}
+
+/* Light Theme (Default fallback or explicit class) */
+:root, .v-theme--light {
+  --fill-color-accent-default: #005fb8;
+  --fill-color-accent-secondary: #005a9e;
+  --fill-color-accent-tertiary: #004578;
+  --fill-color-text-on-accent-primary: #ffffff;
+  --fill-color-control-default: #ffffffb2;
+  --fill-color-control-alt-secondary: #00000006;
+  --fill-color-text-primary: #000000e4;
+  --fill-color-text-secondary: #0000009b;
+  --fill-color-accent-text-primary: #003e92;
+  --fill-color-control-strong-default: #00000072;
+  --fill-color-control-solid-default: #ffffff;
+  
+  --stroke-color-control-strong-stroke-default: #0000009b;
+  --stroke-color-control-stroke-default: #0000000f;
+  --stroke-color-surface-stroke-default: #75757566;
+  
+  --background-fill-color-smoke-default: #0000004d;
+  --background-fill-color-solid-background-base: #f3f3f3;
+  --background-fill-color-layer-alt: #ffffff;
+  --background-fill-color-layer-default: #ffffff;
+  
+  --shadow-dialog: 0px 32px 64px 0px #00000030, 0px 2px 21px 0px #00000026;
+  --shadow-flyout: 0px 8px 16px 0px #00000024, 0px 0px 2px 0px #0000001f;
+
+  /* InfoBar Colors */
+  --fill-color-system-attention: #005fb7;
+  --fill-color-system-success: #107c10;
+  --fill-color-system-caution: #9d5d00;
+  --fill-color-system-critical: #c50f1f;
+  
+  --background-fill-color-card-background-secondary: #f6f6f6;
+  --background-fill-color-success-background: #dff6dd;
+  --background-fill-color-warning-background: #fff4ce;
+  --background-fill-color-error-background: #fde7e9;
+  
+  --stroke-color-card-stroke-default: rgba(0, 0, 0, 0.06);
+  --stroke-color-success-stroke: #107c10;
+  --stroke-color-warning-stroke: #797775;
+  --stroke-color-error-stroke: #a80000;
+}
+
+///* Dark Theme */
+//@media (prefers-color-scheme: dark) {
+//  :root {
+//    --fill-color-accent-default: #60cdff;
+//    --fill-color-accent-secondary: #60ccfe;
+//    --fill-color-accent-tertiary: #98ecfe;
+//    --fill-color-text-on-accent-primary: #000000;
+//    --fill-color-control-default: #2d2d2d;
+//    --fill-color-control-alt-secondary: #ffffff0f;
+//    --fill-color-text-primary: #ffffff;
+//    --fill-color-text-secondary: #ffffff8b;
+//    --fill-color-accent-text-primary: #60cdff;
+//    --fill-color-control-strong-default: #ffffff8b;
+//    --fill-color-control-solid-default: #2d2d2d;
+//
+//    --stroke-color-control-strong-stroke-default: #ffffff8b;
+//    --stroke-color-control-stroke-default: #ffffff12;
+//    --stroke-color-surface-stroke-default: #ffffff12;
+//
+//    --background-fill-color-smoke-default: #0000004d;
+//    --background-fill-color-solid-background-base: #202020;
+//    --background-fill-color-layer-alt: #2c2c2c;
+//    --background-fill-color-layer-default: #2c2c2c;
+//
+//    --shadow-dialog: 0px 32px 64px 0px #0000005e, 0px 2px 21px 0px #0000004d;
+//    --shadow-flyout: 0px 8px 16px 0px #0000004d, 0px 0px 2px 0px #0000004d;
+//
+//    /* InfoBar Colors */
+//    --fill-color-system-attention: #60cdff;
+//    --fill-color-system-success: #6cc46a;
+//    --fill-color-system-caution: #fce100;
+//    --fill-color-system-critical: #ff99a4;
+//
+//    --background-fill-color-card-background-secondary: #202020;
+//    --background-fill-color-success-background: #393d1b;
+//    --background-fill-color-warning-background: #433519;
+//    --background-fill-color-error-background: #442726;
+//
+//    --stroke-color-card-stroke-default: rgba(255, 255, 255, 0.08);
+//    --stroke-color-success-stroke: #6cc46a;
+//    --stroke-color-warning-stroke: #fce100;
+//    --stroke-color-error-stroke: #ff99a4;
+//  }
+//}
+
+.v-theme--dark {
+  --fill-color-accent-default: #60CDFF;
+  --fill-color-accent-secondary: rgba(96, 205, 255, 0.90);
+  --fill-color-accent-tertiary: rgba(96, 205, 255, 0.80);
+  --fill-color-accent-text-default: #60cdff;
+  --fill-color-accent-text-secondary: rgba(96, 205, 255, 0.90);
+  --fill-color-accent-text-tertiary: rgba(96, 205, 255, 0.80);
+  --fill-color-subtle-secondary: rgba(255, 255, 255, 0.06);
+  --fill-color-subtle-tertiary: rgba(255, 255, 255, 0.04);
+  --fill-color-text-on-accent-primary: #000000;
+  --fill-color-text-on-accent-secondary: #00000080;
+  --fill-color-text-on-accent-tertiary: rgba(0, 0, 0, 0.22);;
+  --fill-color-control-default: #2d2d2d;
+  --fill-color-control-alt-secondary: #ffffff0f;
+  --fill-color-text-primary: #ffffff;
+  --fill-color-text-secondary: #ffffff8b;
+  --fill-color-accent-text-primary: #60cdff;
+  --fill-color-control-strong-default: #ffffff8b;
+  --fill-color-control-solid-default: #454545;
+  
+  --stroke-color-control-strong-stroke-default: #ffffff8b;
+  --stroke-color-control-stroke-default: #ffffff12;
+  --stroke-color-surface-stroke-default: #ffffff12;
+  --stroke-color-accent-border: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 90.67%, rgba(0, 0, 0, 0.14) 100%);
+
+  --background-fill-color-smoke-default: #0000004d;
+  --background-fill-color-solid-background-base: #202020;
+  --background-fill-color-layer-alt: #2c2c2c;
+  --background-fill-color-layer-default: #2c2c2c;
+
+  --shadow-dialog: 0px 32px 64px 0px #0000005e, 0px 2px 21px 0px #0000004d;
+  --shadow-flyout: 0px 8px 16px 0px #0000004d, 0px 0px 2px 0px #0000004d;
+
+  /* InfoBar Colors */
+  --fill-color-system-attention: #60cdff;
+  --fill-color-system-success: #6cc46a;
+  --fill-color-system-caution: #fce100;
+  --fill-color-system-critical: #ff99a4;
+  
+  --background-fill-color-card-background-secondary: #202020;
+  --background-fill-color-success-background: #393d1b;
+  --background-fill-color-warning-background: #433519;
+  --background-fill-color-error-background: #442726;
+  
+  --stroke-color-card-stroke-default: rgba(255, 255, 255, 0.08);
+  --stroke-color-success-stroke: #6cc46a;
+  --stroke-color-warning-stroke: #fce100;
+  --stroke-color-error-stroke: #ff99a4;
+}
+
+/* Apply Fluent variables to Vuetify application root */
+.v-application {
+  background: var(--background-fill-color-solid-background-base) !important;
+  color: var(--fill-color-text-primary) !important;
 }

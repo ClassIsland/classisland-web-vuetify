@@ -84,7 +84,9 @@ export default defineConfig({
        */
       customDomId: '__svg__icons__dom__'
     }),
-    vueDevTools()
+    vueDevTools({
+      launchEditor: 'webstorm'
+    })
   ],
   define: {
     'process.env': {},

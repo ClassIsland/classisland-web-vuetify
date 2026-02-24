@@ -1,15 +1,24 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
+import {onMounted, ref, computed} from "vue";
 import DownloadPlatformCard from "../../../components/DownloadPlatformCard.vue";
 import "../../../utils/tracedFetch";
+import { useHead } from '@unhead/vue'
+import SplitDownloadButton from '../../../components/SplitDownloadButton.vue';
+import tracedFetch from '../../../utils/tracedFetch';
+import FluentButton from '../../../components/fluent/FluentButton.vue';
+import FluentSegmentedControl from '../../../components/fluent/FluentSegmentedControl.vue';
+import FluentComboBox from '../../../components/fluent/FluentComboBox.vue';
+import FluentDialog from '../../../components/fluent/FluentDialog.vue';
+import FluentCard from '../../../components/fluent/FluentCard.vue';
+
 const isLoading = ref(true);
-const downloadIndex = ref();
+const downloadIndex = ref<any>({ channels: {} });
 const latestVersionInfo = ref({
   latestVersion: "",
   latestVersionId: "",
 });
 
-const channels = ref([]);
+const channels = ref<any[]>([]);
 const selectedChannel = ref("");
 const defaultChannel = ref("");
 const isDialogActive = ref(false);
@@ -88,10 +97,6 @@ const selectedDownloadInfoIds = ref({
 });
 const isChannelChangingDialogOpen = ref(false);
 
-import { useHead } from '@unhead/vue'
-import SplitDownloadButton from '../../../components/SplitDownloadButton.vue';
-import tracedFetch from '../../../utils/tracedFetch';
-
 useHead({
   title: '下载 ClassIsland | ClassIsland',
   meta: [
@@ -105,17 +110,17 @@ useHead({
 function getCPUArchitecture() {
   const ua = navigator.userAgent.toLowerCase();
 
-  // 检测ARM架构
+  // 检测 ARM 架构
   if (/\b(arm|aarch64)\b/.test(ua)) return 'arm64';
 
-  // 检测x86-64架构
+  // 检测 x86-64 架构
   if (/\b(x64|x86_64|win64|amd64|wow64)\b/.test(ua)) return 'x64';
 
-  // 检测x86架构
+  // 检测 x86 架构
   if (/\b(x86|i686|win32)\b/.test(ua)) return 'x86';
 
 
-  // 移动设备默认ARM
+  // 移动设备默认 ARM
   if (/mobi|android|iphone|ipad|ipod/.test(ua)) return 'arm64';
 
   // 默认 x64
@@ -161,13 +166,15 @@ async function init(){
   isLoading.value = false;
 }
 
-async function getSelectedVersion(index) {
+async function getSelectedVersion(index: any) {
   return downloadIndex.value.channels[selectedChannel.value];
 }
 
 async function loadCurrentChannel() {
   console.log("当前通道：", selectedChannel.value);
-  latestVersionInfo.value = await getSelectedVersion(downloadIndex.value);
+  if (downloadIndex.value && downloadIndex.value.channels && selectedChannel.value) {
+    latestVersionInfo.value = await getSelectedVersion(downloadIndex.value);
+  }
 }
 
 async function updateChannelSelection() {
@@ -186,72 +193,60 @@ function refreshPage() {
 }
 
 onMounted(() => init());
+
+const segmentedControlItems = computed(() => {
+  return channels.value.map(c => ({
+    label: c.props.title,
+    value: c.id
+  }));
+});
+
+const comboBoxItems = computed(() => {
+  return channels.value.map(c => ({
+    text: c.props.title,
+    value: c.id
+  }));
+});
+
 </script>
 
 <template>
   <div class="d-flex download-container flex-column page-margin-x-wide">
     <div v-if="!isError" class="d-flex flex-column mt-8">
-      <h2 class="align-self-center text-center mb-4 text-h3 font-weight-bold">下载 ClassIsland</h2>
-      <p class="text-center align-self-center mb-12">首先，选择适合您的平台和打包方式</p>
-
-<!--      <v-alert type="warning" variant="outlined"-->
-<!--               class="mb-4 fill-height"-->
-<!--               v-if="downloadIndex.Channels[selectedChannel].Warning"-->
-<!--               :text="downloadIndex.Channels[selectedChannel].Warning"></v-alert>-->
-<!--      <div class="d-flex">-->
-<!--        <v-alert type="info" variant="outlined"-->
-<!--                 class="mb-4 "-->
-<!--                 color="cyan-lighten-3">-->
-<!--          <p style="margin:  0;">目前 ClassIsland 2 还不是非常稳定，且相关生态也需要一些时间完善，部分插件和主题可能尚不支持 ClassIsland 2。如有需要，您可以考虑安装 ClassIsland 1。</p>-->
-<!--          <template v-slot:append>-->
-<!--            <v-btn variant="text"-->
-<!--                   to="/download/v1">前往下载</v-btn>-->
-<!--          </template>-->
-<!--        </v-alert>-->
-<!--      </div>-->
+      <h2 class="align-self-center text-center mb-4 text-h3 font-weight-bold fluent-title">下载 ClassIsland</h2>
+      <p class="text-center align-self-center mb-12 fluent-subtitle">首先，选择适合您的平台和打包方式</p>
 
       <div class="mb-2 align-self-center d-none d-md-block ">
         <v-skeleton-loader v-if="isLoading" width="450px" height="48px"
                            rounded="xl"/>
-        <v-btn-toggle v-else
-                      rounded="xl"
-                      color="blue-lighten-3"
-                      v-model="selectedChannel"
-                      variant="outlined"
-                      mandatory
-                      divided
-                      @update:model-value="updateChannelSelection"
-        >
-          <v-btn v-for="i in channels" :value="i.id">
-            <span>{{ i.props.title }}</span>
-            <span style="opacity: 50%; font-size: 12px; align-self: end;">{{ downloadIndex.channels[i.id].latestVersion }}</span>
-          </v-btn>
-        </v-btn-toggle>
+        <FluentSegmentedControl
+          v-else
+          v-model="selectedChannel"
+          :items="segmentedControlItems"
+          @update:model-value="updateChannelSelection"
+        />
       </div>
 
       <div class="align-self-center d-block d-md-none ">
         <v-skeleton-loader v-if="isLoading" class="mb-5" width="250px" height="56px"
                            rounded="xl"/>
-        <v-select
+        <FluentComboBox
           v-else
           v-model="selectedChannel"
-          label="发行通道"
-          :items="channels"
-          variant="outlined"
-          width="250px"
-          item-title="props.Name"
-          item-value="id"
+          :items="comboBoxItems"
+          item-text="text"
+          item-value="value"
+          placeholder="发行通道"
           class=""
           @update:model-value="updateChannelSelection"
-        >
-        </v-select>
+        />
       </div>
 
 
       <div class="mb-4 align-self-center d-flex flex-column">
         <v-skeleton-loader v-if="isLoading" width="200px" height="19.5px"/>
         <p v-else
-           class="text-center"
+           class="text-center fluent-description"
            style="opacity: 75%; font-size: 13px; ">{{downloadIndex.channels[selectedChannel == "" ? defaultChannel : selectedChannel]?.channelDescription}}</p>
       </div>
       <div class="align-self-stretch d-flex ga-4 justify-center platforms-container flex-column flex-md-row flex-row
@@ -259,10 +254,12 @@ onMounted(() => init());
         <DownloadPlatformCard platform-name="Windows"
                               platform-icon="mdi-microsoft-windows"
                               description="Windows 10 及更高版本"
+                              :version="latestVersionInfo?.latestVersion"
                               class="flex-grow-1 platform">
           <div class="d-flex flex-row flex-wrap align-center justify-center mt-2 ga-1">
             <v-skeleton-loader v-if="isLoading" width="200px" height="48px"/>
             <SplitDownloadButton v-else
+                                 variant="primary"
                                  :download-infos="downloadInfosPortable.windows"
                                  title="下载便携版"
                                  :is-selected='selectedPlatform === "windows10"'
@@ -279,6 +276,7 @@ onMounted(() => init());
         <DownloadPlatformCard platform-name="Linux"
                               platform-icon="mdi-linux"
                               description="Debian 10 或其衍生版"
+                              :version="latestVersionInfo?.latestVersion"
                               class="flex-grow-1 platform"
         >
           <div class="d-flex flex-row flex-wrap align-center justify-center mt-2 ga-1">
@@ -286,6 +284,7 @@ onMounted(() => init());
             <SplitDownloadButton v-else
                                  :download-infos="downloadInfosPortable.linux"
                                  title="下载便携版"
+                                 variant="primary"
                                  :is-selected='selectedPlatform === "linux"'
                                  :selectedDownloadInfo="selectedDownloadInfoIds.linuxPortable"
                                  :download-route-root='"/download/thank_you/v2/" + latestVersionInfo.latestVersionId + "/"'/>
@@ -293,6 +292,7 @@ onMounted(() => init());
             <SplitDownloadButton v-else
                                  :download-infos="downloadInfosInstaller.linux"
                                  title="下载安装版"
+                                 variant="primary"
                                  :is-selected='selectedPlatform === "linux"'
                                  :selectedDownloadInfo="selectedDownloadInfoIds.linuxInstaller"
                                  :download-route-root='"/download/thank_you/v2/" + latestVersionInfo.latestVersionId + "/"'/>
@@ -301,12 +301,14 @@ onMounted(() => init());
         <DownloadPlatformCard platform-name="Mac"
                               platform-icon="mdi-apple"
                               description="MacOS Big Sur 11 及更高版本"
+                              :version="latestVersionInfo?.latestVersion"
                               class="flex-grow-1 platform">
           <div class="d-flex flex-row flex-wrap align-center justify-center mt-2">
             <v-skeleton-loader v-if="isLoading" width="275px" height="48px"/>
             <SplitDownloadButton v-else
                                  :download-infos="downloadInfosInstaller.macOS"
                                  title="下载安装版"
+                                 variant="primary"
                                  :is-selected='selectedPlatform === "macOS"'
                                  :selectedDownloadInfo="selectedDownloadInfoIds.macOSInstaller"
                                  :download-route-root='"/download/thank_you/v2/" + latestVersionInfo.latestVersionId + "/"'/>
@@ -317,14 +319,23 @@ onMounted(() => init());
 
       <div class="my-4">
         <div class="d-flex flex-row flex-wrap ga-4 justify-center align-self-center align-content-center">
-          <v-btn color="blue-lighten-3" variant="text" prepend-icon="mdi-download"
+          <FluentButton variant="hyperlink"
                  href="https://github.com/ClassIsland/ClassIsland/releases/"
-                 target="_blank">查看全部下载</v-btn>
-          <v-btn color="blue-lighten-3" variant="text" prepend-icon="mdi-wrench"
+                 target="_blank">
+            <template #prepend><span class="mdi mdi-download"></span></template>
+            查看全部下载
+          </FluentButton>
+          <FluentButton variant="hyperlink"
                  href="https://github.com/ClassIsland/ClassIsland/actions/workflows/build_release.yml"
-                 target="_blank">下载 CI 构建</v-btn>
-          <v-btn color="blue-lighten-3" variant="text" prepend-icon="mdi-archive-arrow-down"
-                 to="/download/v1">下载 ClassIsland 1</v-btn>
+                 target="_blank">
+            <template #prepend><span class="mdi mdi-wrench"></span></template>
+            下载 CI 构建
+          </FluentButton>
+          <FluentButton variant="hyperlink"
+                 to="/download/v1">
+            <template #prepend><span class="mdi mdi-archive-arrow-down"></span></template>
+            下载 ClassIsland 1
+          </FluentButton>
         </div>
 
       </div>
@@ -332,43 +343,40 @@ onMounted(() => init());
     </div>
     <div v-else-if="isError" class="flex-column mt-12 ">
       <div class="page-margin-x">
-        <h2 class="align-self-center text-center mb-6 text-h3 font-weight-bold">Σ(っ °Д °;)っ</h2>
-        <h2 class="align-self-center text-center mb-6 text-h4 font-weight-bold">出错啦！</h2>
-        <p class="text-center align-self-center mb-16">无法获取下载信息，可能是下载服务器目前不可用。</p>
+        <h2 class="align-self-center text-center mb-6 text-h3 font-weight-bold fluent-title">Σ(っ °Д °;) っ</h2>
+        <h2 class="align-self-center text-center mb-6 text-h4 font-weight-bold fluent-title">出错啦！</h2>
+        <p class="text-center align-self-center mb-16 fluent-description">无法获取下载信息，可能是下载服务器目前不可用。</p>
 
         <div class="justify-center d-flex flex-row flex-wrap ga-4">
-          <v-btn color="blue-lighten-3" prepend-icon="mdi-refresh" @click="refreshPage">刷新页面</v-btn>
-          <v-btn prepend-icon="mdi-github" href="https://github.com/ClassIsland/ClassIsland/releases"
-                 target="_blank">前往 GitHub 下载</v-btn>
+          <FluentButton variant="primary" @click="refreshPage">
+            <template #prepend><span class="mdi mdi-refresh"></span></template>
+            刷新页面
+          </FluentButton>
+          <FluentButton href="https://github.com/ClassIsland/ClassIsland/releases" target="_blank">
+            <template #prepend><span class="mdi mdi-github"></span></template>
+            前往 GitHub 下载
+          </FluentButton>
         </div>
       </div>
 
 
     </div>
 
-    <v-dialog max-width="500" v-model="isDialogActive">
-      <v-card title="完整版 vs 精简版">
-        <v-card-text>
-          精简版与完整版相比，移除了不必要的资源文件（字体、文档等）以缩小应用体积，同时功能保持不变。您可以根据需要选择要使用的版本。
-        </v-card-text>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-
-          <v-btn
-            text="关闭"
-            @click="isDialogActive = false"
-          ></v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <FluentDialog v-model="isDialogActive" title="完整版 vs 精简版">
+      <div class="fluent-dialog-body">
+        精简版与完整版相比，移除了不必要的资源文件（字体、文档等）以缩小应用体积，同时功能保持不变。您可以根据需要选择要使用的版本。
+      </div>
+      <template #footer>
+        <FluentButton @click="isDialogActive = false">关闭</FluentButton>
+      </template>
+    </FluentDialog>
 
   </div>
 
 
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .loading-mask {
   align-self: center;
   height: 100%;
@@ -395,5 +403,38 @@ onMounted(() => init());
     flex-direction: column;
     margin-top: 12px;
   }
+}
+
+.fluent-title {
+  font-family: var(--font-family-base);
+  color: var(--fill-color-text-primary);
+}
+
+.fluent-subtitle {
+  font-family: var(--font-family-base);
+  color: var(--fill-color-text-secondary);
+}
+
+.fluent-description {
+  font-family: var(--font-family-base);
+  color: var(--fill-color-text-secondary);
+}
+
+.skeleton-loader {
+  background-color: var(--fill-color-control-alt-secondary);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+.fluent-dialog-body {
+  font-family: var(--font-family-base);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--fill-color-text-primary);
 }
 </style>

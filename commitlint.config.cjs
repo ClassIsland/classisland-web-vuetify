@@ -15,5 +15,6 @@ module.exports = {
     'subject-case': [0, 'never'],
     'header-max-length': [0, 'always', 72],
     'body-max-line-length': [0, 'never']
-  }
+  },
+  ignores: [(commit) => commit.includes('[skip ci]')]
 };

@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { defineProps } from 'vue';
+import FluentCard from './fluent/FluentCard.vue';
+
 const props = defineProps({
   platformName: String,
   platformIcon: String,
@@ -8,40 +11,76 @@ const props = defineProps({
 </script>
 
 <template>
-  <v-card class="justify-center d-flex card " variant="flat">
-    <div class="align-content-center d-flex flex-column align-center download-card-root ga-2 py-8 px-4 align-self-center flex-grow-1">
-      <div class="align-content-center d-flex flex-column align-center ga-2 flex-grow-1">
-        <v-icon :icon="props.platformIcon" class="platform-icon"/>
-        <p class="text-h4 font-weight-medium">{{ props.platformName }}</p>
-        <p class="text-center description">{{ props.description }}</p>
-        <p class="text-center version" v-if="version">当前版本：{{ props.version }}</p>
+  <FluentCard class="download-platform-card">
+    <div class="download-card-content">
+      <div class="icon-container">
+        <span :class="['mdi', props.platformIcon]" class="platform-icon"></span>
       </div>
-
-      <div class="d-flex gc-2 mt-6">
+      <h3 class="platform-name">{{ props.platformName }}</h3>
+      <p class="description">{{ props.description }}</p>
+      <p class="version" v-if="version">当前版本：{{ props.version }}</p>
+      <div class="actions">
         <slot/>
       </div>
     </div>
-  </v-card>
+  </FluentCard>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
+.download-platform-card {
+  height: 100%;
+}
+
+.download-card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0; /* Adjusted padding */
+  gap: 8px;
+  flex-grow: 1;
+}
+
+.icon-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8px;
+}
+
 .platform-icon {
   font-size: 56px;
+  color: var(--fill-color-text-primary);
 }
 
-.download-card-root {
-  //height: 320px
-}
-
-.version {
-  font-size: 13px;
-  opacity: 75%;
+.platform-name {
+  font-size: 24px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--fill-color-text-primary);
+  font-family: var(--font-family-base);
 }
 
 .description {
   font-size: 14px;
-  opacity: 75%;
+  opacity: 0.75;
+  text-align: center;
+  color: var(--fill-color-text-secondary);
+  font-family: var(--font-family-base);
 }
 
+.version {
+  font-size: 13px;
+  opacity: 0.75;
+  text-align: center;
+  color: var(--fill-color-text-secondary);
+  font-family: var(--font-family-base);
+}
 
+.actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 14px;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+}
 </style>

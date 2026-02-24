@@ -1,7 +1,14 @@
 <script setup lang="ts">
-import {onMounted, ref} from "vue";
+import {onMounted, ref, computed} from "vue";
 import DownloadPlatformCard from "../../../components/DownloadPlatformCard.vue";
 import {IndexIds} from "../../../indexIds";
+import { useHead } from '@unhead/vue'
+import SplitDownloadButton from '../../../components/SplitDownloadButton.vue';
+import FluentButton from '../../../components/fluent/FluentButton.vue';
+import FluentComboBox from '../../../components/fluent/FluentComboBox.vue';
+import FluentDialog from '../../../components/fluent/FluentDialog.vue';
+import FluentInfoBar from '../../../components/fluent/FluentInfoBar.vue';
+import FluentProgressRing from '../../../components/fluent/FluentProgressRing.vue';
 
 const isLoading = ref(true);
 const downloadIndex = ref();
@@ -18,7 +25,7 @@ const latestVersionInfoNet6 = ref({
   Title: "",
 });
 
-const channels = ref([]);
+const channels = ref<any[]>([]);
 const selectedChannel = ref("stable");
 const isDialogActive = ref(false);
 const isError = ref(false);
@@ -42,9 +49,6 @@ const downloadInfos = {
 }
 const selectedPlatform = ref("");
 const selectedDownloadInfoId = ref("windows_x64_full_singleFile");
-
-import { useHead } from '@unhead/vue'
-import SplitDownloadButton from '../../../components/SplitDownloadButton.vue';
 
 useHead({
   title: '下载 ClassIsland | ClassIsland',
@@ -86,7 +90,7 @@ function getWindowsVersion() {
 }
 
 
-function compareVersion(a, b) {
+function compareVersion(a: any, b: any) {
   const versionA = a.Version.split('.');
   const versionB = b.Version.split('.');
   for  (let i = 0; i < Math.min(versionA.length, versionB.length); i++) {
@@ -136,7 +140,7 @@ async function init(){
   isLoading.value = false;
 }
 
-async function getSelectedVersion(index) {
+async function getSelectedVersion(index: any) {
   console.log(index);
   let versionInfoMin = null;
   for (let i of index.Versions) {
@@ -163,6 +167,7 @@ async function loadCurrentChannel() {
     selectedPlatform.value = platform === "10.0" ? "windows10" : "windows7";
     let infoId = `windows_${getCPUArchitecture()}_full_singleFile`;
     console.log("infoId: ", infoId)
+    // @ts-ignore
     if (downloadInfos[infoId] != undefined){
       selectedDownloadInfoId.value = infoId;
     }
@@ -185,32 +190,39 @@ function refreshPage() {
 }
 
 onMounted(() => init());
+
+const comboBoxItems = computed(() => {
+  return channels.value.map(c => ({
+    text: c.props.title,
+    value: c.id
+  }));
+});
 </script>
 
 <template>
   <div class="d-flex download-container flex-column page-margin-x-wide">
     <div class="loading-mask d-flex"
          v-if="isLoading">
-      <v-progress-circular color="blue-lighten-3" size="large"
-                           indeterminate class="align-self-center"/>
+      <div class="align-self-center">
+        <FluentProgressRing size="48" />
+      </div>
     </div>
     <div v-else-if="!isError" class="d-flex flex-column mt-8">
-      <h2 class="align-self-center text-center mb-4 text-h3 font-weight-bold">下载 ClassIsland 1.x</h2>
-      <p class="text-center align-self-center mb-12">首先，选择适合您的平台和打包方式</p>
-      <v-alert type="warning" variant="outlined"
-               class="mb-4 fill-height"
-               v-if="downloadIndex.Channels[selectedChannel].Warning"
-               :text="downloadIndex.Channels[selectedChannel].Warning"></v-alert>
-      <v-alert type="info" variant="outlined"
-               class="mb-4 fill-height"
-               icon="mdi-bullhorn"
-               color="blue-lighten-3"
-               text="ClassIsland 2 现已可用。">
-        <template v-slot:append>
-          <v-btn variant="text" style="margin: -8px 0;"
-                 to="/download/v2">前往下载</v-btn>
-        </template>
-      </v-alert>
+      <h2 class="align-self-center text-center mb-4 text-h3 font-weight-bold fluent-title">下载 ClassIsland 1.x</h2>
+      <p class="text-center align-self-center mb-12 fluent-subtitle">首先，选择适合您的平台和打包方式</p>
+      
+      <div class="mb-4 fill-height" v-if="downloadIndex.Channels[selectedChannel].Warning">
+        <FluentInfoBar severity="warning" :message="downloadIndex.Channels[selectedChannel].Warning" />
+      </div>
+      
+      <div class="mb-4 fill-height">
+        <FluentInfoBar severity="info" title="ClassIsland 2 现已可用。" closable>
+          <template #actions>
+            <FluentButton variant="hyperlink" to="/download/v2">前往下载</FluentButton>
+          </template>
+        </FluentInfoBar>
+      </div>
+
       <div class="align-self-stretch d-flex ga-4 justify-center platforms-container flex-column flex-md-row flex-row
                    align-content-start">
         <DownloadPlatformCard platform-name="Windows 10+"
@@ -223,6 +235,7 @@ onMounted(() => init());
                                  title="下载便携版"
                                  :is-selected='selectedPlatform === "windows10"'
                                  :selectedDownloadInfo="selectedDownloadInfoId"
+                                 variant="primary"
                                  :download-route-root='"/download/thank_you/main/" + latestVersionInfo.Version + "/"'/>
           </div>
 
@@ -237,6 +250,7 @@ onMounted(() => init());
                                  title="下载便携版"
                                  :is-selected='selectedPlatform === "windows7"'
                                  :selectedDownloadInfo="selectedDownloadInfoId"
+                                 variant="primary"
                                  :download-route-root='"/download/thank_you/net-6/" + latestVersionInfoNet6.Version + "/"'/>
           </div>
         </DownloadPlatformCard>
@@ -244,83 +258,104 @@ onMounted(() => init());
                               platform-icon="mdi-linux"
                               class="platform"
                               description="ClassIsland 2 现已支持 Linux 系统，您可以点击下方链接了解更多信息。">
-          <v-btn color="blue-lighten-3" prepend-icon="mdi-download" variant="text"
-                 to="/download/v2" >下载 ClassIsland 2</v-btn>
+          <FluentButton variant="hyperlink" to="/download/v2">
+            <template #prepend><span class="mdi mdi-download"></span></template>
+            下载 ClassIsland 2
+          </FluentButton>
         </DownloadPlatformCard>
       </div>
       <div class="d-flex flex-row flex-wrap ga-4 justify-center align-self-center align-content-center mt-8">
-        <v-select
+        <FluentComboBox
           v-model="selectedChannel"
-          label="发行通道"
-          :items="channels"
-          variant="outlined"
+          :items="comboBoxItems"
+          item-text="text"
+          item-value="value"
+          placeholder="发行通道"
           width="250px"
-          item-title="props.Name"
-          item-value="id"
           @update:model-value="updateChannelSelection"
-        >
-        </v-select>
+        />
       </div>
       <div class="d-flex flex-row flex-wrap ga-4 justify-center align-self-center align-content-center mb-4">
-        <v-btn color="blue-lighten-3" variant="text" prepend-icon="mdi-help-circle"
-               @click="showHelpDialog">完整版 vs 精简版</v-btn>
-        <v-btn color="blue-lighten-3" variant="text" prepend-icon="mdi-download"
-               href="https://github.com/ClassIsland/ClassIsland/releases/"
-               target="_blank">查看全部下载</v-btn>
-        <v-btn color="blue-lighten-3" variant="text" prepend-icon="mdi-wrench"
-               href="https://github.com/ClassIsland/ClassIsland/actions/workflows/build_release.yml"
-               target="_blank">下载 CI 构建</v-btn>
+        <FluentButton variant="hyperlink" @click="showHelpDialog">
+          <template #prepend><span class="mdi mdi-help-circle"></span></template>
+          完整版 vs 精简版
+        </FluentButton>
+        <FluentButton variant="hyperlink" href="https://github.com/ClassIsland/ClassIsland/releases/" target="_blank">
+          <template #prepend><span class="mdi mdi-download"></span></template>
+          查看全部下载
+        </FluentButton>
+        <FluentButton variant="hyperlink" href="https://github.com/ClassIsland/ClassIsland/actions/workflows/build_release.yml" target="_blank">
+          <template #prepend><span class="mdi mdi-wrench"></span></template>
+          下载 CI 构建
+        </FluentButton>
       </div>
     </div>
     <div v-else-if="isError" class="flex-column mt-12 ">
       <div class="page-margin-x">
-        <h2 class="align-self-center text-center mb-6 text-h3 font-weight-bold">Σ(っ °Д °;)っ</h2>
-        <h2 class="align-self-center text-center mb-6 text-h4 font-weight-bold">出错啦！</h2>
-        <p class="text-center align-self-center mb-16">无法获取下载信息，可能是下载服务器目前不可用。</p>
+        <h2 class="align-self-center text-center mb-6 text-h3 font-weight-bold fluent-title">Σ(っ °Д °;)っ</h2>
+        <h2 class="align-self-center text-center mb-6 text-h4 font-weight-bold fluent-title">出错啦！</h2>
+        <p class="text-center align-self-center mb-16 fluent-description">无法获取下载信息，可能是下载服务器目前不可用。</p>
 
         <div class="justify-center d-flex flex-row flex-wrap ga-4">
-          <v-btn color="blue-lighten-3" prepend-icon="mdi-refresh" @click="refreshPage">刷新页面</v-btn>
-          <v-btn prepend-icon="mdi-github" href="https://github.com/ClassIsland/ClassIsland/releases"
-                 target="_blank">前往 GitHub 下载</v-btn>
+          <FluentButton variant="primary" @click="refreshPage">
+            <template #prepend><span class="mdi mdi-refresh"></span></template>
+            刷新页面
+          </FluentButton>
+          <FluentButton href="https://github.com/ClassIsland/ClassIsland/releases" target="_blank">
+            <template #prepend><span class="mdi mdi-github"></span></template>
+            前往 GitHub 下载
+          </FluentButton>
         </div>
       </div>
-
-
     </div>
 
-    <v-dialog max-width="500" v-model="isDialogActive">
-      <v-card title="完整版 vs 精简版">
-        <v-card-text>
-          精简版与完整版相比，移除了不必要的资源文件（字体、文档等）以缩小应用体积，同时功能保持不变。您可以根据需要选择要使用的版本。
-        </v-card-text>
-
-        <v-card-actions>
-          <v-spacer></v-spacer>
-
-          <v-btn
-            text="关闭"
-            @click="isDialogActive = false"
-          ></v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
+    <FluentDialog v-model="isDialogActive" title="完整版 vs 精简版">
+      <div class="fluent-dialog-body">
+        精简版与完整版相比，移除了不必要的资源文件（字体、文档等）以缩小应用体积，同时功能保持不变。您可以根据需要选择要使用的版本。
+      </div>
+      <template #footer>
+        <FluentButton @click="isDialogActive = false">关闭</FluentButton>
+      </template>
+    </FluentDialog>
   </div>
-
-
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .loading-mask {
   align-self: center;
   height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .download-container {
   height: 100%;
 }
 
-
 .platform {
   flex-basis: 33.3333%;
+}
+
+.fluent-title {
+  font-family: var(--font-family-base);
+  color: var(--fill-color-text-primary);
+}
+
+.fluent-subtitle {
+  font-family: var(--font-family-base);
+  color: var(--fill-color-text-secondary);
+}
+
+.fluent-description {
+  font-family: var(--font-family-base);
+  color: var(--fill-color-text-secondary);
+}
+
+.fluent-dialog-body {
+  font-family: var(--font-family-base);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--fill-color-text-primary);
 }
 </style>

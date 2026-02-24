@@ -1,39 +1,140 @@
+<template>
+  <a :href="url" target="_blank" class="plugin-card-link">
+    <div class="fluent-card plugin-card">
+      <div class="fluent-card__header">
+        <div class="fluent-card__icon-container">
+          <v-img :src="icon" v-if="icon" class="fluent-card__icon" alt="Plugin Icon" cover />
+          <span v-else class="mdi mdi-toy-brick fluent-card__icon-fallback"></span>
+        </div>
+        <div class="fluent-card__title-group">
+          <h3 class="fluent-card__title">{{ title }}</h3>
+          <span class="fluent-card__subtitle">{{ author }}</span>
+        </div>
+      </div>
+      <div class="fluent-card__content">
+        {{ description }}
+      </div>
+    </div>
+  </a>
+</template>
+
 <script setup lang="ts">
+import { defineProps } from 'vue';
+
 const props = defineProps({
   title: String,
   author: String,
   description: String,
   url: String,
-  icon: String
-})
+  icon: String,
+});
 </script>
 
-<template>
-  <v-card
-    class="plugin-card"
-    :title="props.title"
-    :subtitle="props.author"
-    :text="props.description"
-    variant="tonal"
-    :href="props.url"
-    target="_blank"
-  >
-    <template v-slot:prepend>
-      <v-img :src="props.icon" v-if="props.icon" width="48px" height="48px" class="plugin-icon" alt="插件图标"/>
-      <v-icon icon="mdi-toy-brick" v-else class="plugin-icon"/>
-    </template>
-  </v-card>
-</template>
-
-<style scoped>
-.plugin-card {
+<style scoped lang="scss">
+.plugin-card-link {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
   flex-basis: 292px;
   flex-grow: 1;
+  /* Ensure max-width isn't unbounded */
+  max-width: 100%;
+  
+  @media (min-width: 600px) {
+      max-width: calc(50% - 8px); /* 2 per row minus gap approximation */
+  }
+  @media (min-width: 960px) {
+      max-width: calc(33.333% - 8px); /* 3 per row */
+  }
+  @media (min-width: 1280px) {
+      max-width: calc(25% - 8px); /* 4 per row */
+  }
 }
 
-.plugin-icon {
-  width: 48px;
-  height: 48px;
-  font-size: 48px;
+.plugin-card {
+  width: 100%;
+  height: 100%; /* Fill the link container */
+  background: var(--background-fill-color-layer-alt);
+  border: 1px solid var(--stroke-color-control-stroke-default);
+  border-radius: 8px;
+  padding: 16px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    background: var(--background-fill-color-layer-default);
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  &__icon-container {
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--fill-color-control-alt-secondary);
+    border-radius: 4px;
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+
+  &__icon {
+    width: 100%;
+    height: 100%;
+  }
+
+  &__icon-fallback {
+    font-size: 24px;
+    color: var(--fill-color-text-secondary);
+  }
+
+  &__title-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 0; /* Allow text truncation */
+  }
+
+  &__title {
+    font-family: var(--font-family-base);
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+    color: var(--fill-color-text-primary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__subtitle {
+    font-family: var(--font-family-base);
+    font-size: 12px;
+    color: var(--fill-color-text-secondary);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__content {
+    font-family: var(--font-family-base);
+    font-size: 14px;
+    line-height: 20px;
+    color: var(--fill-color-text-secondary);
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 }
 </style>
