@@ -205,17 +205,17 @@ const comboBoxItems = computed(() => {
     <div class="loading-mask d-flex"
          v-if="isLoading">
       <div class="align-self-center">
-        <FluentProgressRing size="48" />
+        <v-progress-circular size="48" indeterminate color="fill-color-accent-default"/>
       </div>
     </div>
     <div v-else-if="!isError" class="d-flex flex-column mt-8">
       <h2 class="align-self-center text-center mb-4 text-h3 font-weight-bold fluent-title">下载 ClassIsland 1.x</h2>
       <p class="text-center align-self-center mb-12 fluent-subtitle">首先，选择适合您的平台和打包方式</p>
-      
+
       <div class="mb-4 fill-height" v-if="downloadIndex.Channels[selectedChannel].Warning">
         <FluentInfoBar severity="warning" :message="downloadIndex.Channels[selectedChannel].Warning" />
       </div>
-      
+
       <div class="mb-4 fill-height">
         <FluentInfoBar severity="info" title="ClassIsland 2 现已可用。" closable>
           <template #actions>

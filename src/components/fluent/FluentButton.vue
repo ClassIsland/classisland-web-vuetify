@@ -166,10 +166,9 @@ const props = defineProps({
     background: var(--fill-color-control-default);
     color: var(--fill-color-text-primary);
     border-color: var(--stroke-color-control-stroke-default);
-    border-bottom-color: var(--stroke-color-control-strong-stroke-default);
 
     &:hover:not(.fluent-button--disabled) {
-      background: var(--fill-color-control-secondary); 
+      background: var(--fill-color-control-secondary);
     }
 
     &:active:not(.fluent-button--disabled) {
@@ -200,9 +199,9 @@ const props = defineProps({
     color: var(--fill-color-accent-text-primary);
     border-color: transparent;
     padding: 5px 0 7px; /* Often hyperlinks have less padding or no padding, but keeping consistent height */
-    /* HyperlinkButton in FDS usually has no background on hover/active, just text color change or underline. 
+    /* HyperlinkButton in FDS usually has no background on hover/active, just text color change or underline.
        But screenshot 175001_2563 is just text.
-       However, FDS HyperlinkButton often behaves like a link. 
+       However, FDS HyperlinkButton often behaves like a link.
        Let's keep it simple: text color is accent.
     */
     padding: 5px 12px 7px; /* Keep padding for click target */

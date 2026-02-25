@@ -198,6 +198,8 @@ onMounted(() => init());
 const segmentedControlItems = computed(() => {
   return channels.value.map(c => ({
     label: c.props.title,
+    subtitle: c.props.subtitle,
+    version: downloadIndex.value.channels?.[c.id]?.latestVersion ?? '',
     value: c.id
   }));
 });
@@ -218,19 +220,24 @@ const comboBoxItems = computed(() => {
       <p class="text-center align-self-center mb-12 fluent-subtitle">首先，选择适合您的平台和打包方式</p>
 
       <div class="mb-2 align-self-center d-none d-md-block ">
-        <v-skeleton-loader v-if="isLoading" width="450px" height="48px"
+        <v-skeleton-loader v-if="isLoading" width="273px" height="40px"
                            rounded="xl"/>
         <FluentSegmentedControl
           v-else
           v-model="selectedChannel"
           :items="segmentedControlItems"
-          @update:model-value="updateChannelSelection"
-        />
+          @update:model-value="updateChannelSelection">
+          <template #item="{ item, selected }">
+            <div class="channel-segment-item" :class="{ 'channel-segment-item--selected': selected }">
+              <span class="channel-segment-item__title">{{ item.label }}</span>
+              <span v-if="item.version" class="channel-segment-item__meta">v{{ item.version }}</span>
+            </div>
+          </template>
+        </FluentSegmentedControl>
       </div>
 
       <div class="align-self-center d-block d-md-none ">
-        <v-skeleton-loader v-if="isLoading" class="mb-5" width="250px" height="56px"
-                           rounded="xl"/>
+        <v-skeleton-loader v-if="isLoading" class="mb-5" width="273px" height="40px"/>
         <FluentComboBox
           v-else
           v-model="selectedChannel"
@@ -255,10 +262,9 @@ const comboBoxItems = computed(() => {
         <DownloadPlatformCard platform-name="Windows"
                               platform-icon="windows"
                               description="Windows 10 及更高版本"
-                              :version="latestVersionInfo?.latestVersion"
                               class="flex-grow-1 platform">
           <div class="d-flex flex-row flex-wrap align-center justify-center mt-2 ga-1">
-            <v-skeleton-loader v-if="isLoading" width="200px" height="48px"/>
+            <v-skeleton-loader v-if="isLoading" width="138.65px" height="48px"/>
             <SplitDownloadButton v-else
                                  variant="primary"
                                  :download-infos="downloadInfosPortable.windows"
@@ -277,11 +283,10 @@ const comboBoxItems = computed(() => {
         <DownloadPlatformCard platform-name="Linux"
                               platform-icon="linux"
                               description="Debian 10 或其衍生版"
-                              :version="latestVersionInfo?.latestVersion"
                               class="flex-grow-1 platform"
         >
           <div class="d-flex flex-row flex-wrap align-center justify-center mt-2 ga-1">
-            <v-skeleton-loader v-if="isLoading" width="200px" height="48px"/>
+            <v-skeleton-loader v-if="isLoading" width="138.65px" height="48px"/>
             <SplitDownloadButton v-else
                                  :download-infos="downloadInfosPortable.linux"
                                  title="下载便携版"
@@ -289,7 +294,7 @@ const comboBoxItems = computed(() => {
                                  :is-selected='selectedPlatform === "linux"'
                                  :selectedDownloadInfo="selectedDownloadInfoIds.linuxPortable"
                                  :download-route-root='"/download/thank_you/v2/" + latestVersionInfo.latestVersionId + "/"'/>
-            <v-skeleton-loader v-if="isLoading" width="200px" height="48px"/>
+            <v-skeleton-loader v-if="isLoading" width="138.65px" height="48px"/>
             <SplitDownloadButton v-else
                                  :download-infos="downloadInfosInstaller.linux"
                                  title="下载安装版"
@@ -302,10 +307,9 @@ const comboBoxItems = computed(() => {
         <DownloadPlatformCard platform-name="Mac"
                               platform-icon="macos"
                               description="MacOS Big Sur 11 及更高版本"
-                              :version="latestVersionInfo?.latestVersion"
                               class="flex-grow-1 platform">
           <div class="d-flex flex-row flex-wrap align-center justify-center mt-2">
-            <v-skeleton-loader v-if="isLoading" width="275px" height="48px"/>
+            <v-skeleton-loader v-if="isLoading" width="190.25px" height="48px"/>
             <SplitDownloadButton v-else
                                  :download-infos="downloadInfosInstaller.macOS"
                                  title="下载安装版"
@@ -437,5 +441,28 @@ const comboBoxItems = computed(() => {
   font-size: 14px;
   line-height: 20px;
   color: var(--fill-color-text-primary);
+}
+
+.channel-segment-item {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  line-height: 1.2;
+  gap: 4px;
+}
+
+.channel-segment-item__title {
+  white-space: nowrap;
+}
+
+.channel-segment-item__meta {
+  margin-top: 2px;
+  font-size: 11px;
+  opacity: 0.75;
+  white-space: nowrap;
+}
+
+.channel-segment-item--selected .channel-segment-item__meta {
+  opacity: 0.95;
 }
 </style>

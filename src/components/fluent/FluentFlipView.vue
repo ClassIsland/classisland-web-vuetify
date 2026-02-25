@@ -6,9 +6,9 @@
           <img :src="items[currentIndex]" class="fluent-flip-view__image" />
         </div>
       </transition>
-      
-      <button 
-        class="fluent-flip-view__nav fluent-flip-view__nav--prev" 
+
+      <button
+        class="fluent-flip-view__nav fluent-flip-view__nav--prev"
         @click="prev"
         :disabled="currentIndex === 0 && !loop"
       >
@@ -16,9 +16,9 @@
           <path d="M10 3L5 8L10 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
-      
-      <button 
-        class="fluent-flip-view__nav fluent-flip-view__nav--next" 
+
+      <button
+        class="fluent-flip-view__nav fluent-flip-view__nav--next"
         @click="next"
         :disabled="currentIndex === items.length - 1 && !loop"
       >
@@ -26,10 +26,10 @@
           <path d="M6 3L11 8L6 13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         </svg>
       </button>
-      
+
       <div class="fluent-flip-view__indicators">
-        <div 
-          v-for="(item, index) in items" 
+        <div
+          v-for="(item, index) in items"
           :key="index"
           class="fluent-flip-view__indicator"
           :class="{ 'fluent-flip-view__indicator--active': index === currentIndex }"
@@ -129,8 +129,12 @@ const next = () => {
     z-index: 10;
 
     &:hover:not(:disabled) {
-      background: var(--fill-color-control-alt-secondary); /* Darker/lighter depending on theme */
+      background: var(--fill-color-control-secondary); /* Darker/lighter depending on theme */
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    &:active:not(:disabled) {
+      background: var(--fill-color-control-tertiary);
     }
 
     &:disabled {
@@ -169,7 +173,7 @@ const next = () => {
       background: var(--fill-color-accent-default);
     }
   }
-  
+
   &__empty {
       display: flex;
       align-items: center;

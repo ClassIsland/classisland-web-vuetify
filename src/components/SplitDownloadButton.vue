@@ -245,7 +245,7 @@ onUnmounted(() => {
     min-width: 160px;
     margin-top: 4px;
     background: var(--background-fill-color-layer-alt);
-    border: 1px solid var(--stroke-color-control-stroke-default);
+    border: 1px solid var(--stroke-color-surface-stroke-flyout);
     border-radius: 4px;
     box-shadow: var(--shadow-flyout);
     z-index: 2;

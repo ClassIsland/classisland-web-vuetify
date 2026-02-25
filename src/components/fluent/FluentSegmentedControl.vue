@@ -1,20 +1,33 @@
 <template>
   <div class="fluent-segmented-control">
     <div
-      v-for="item in items"
+      v-for="(item, index) in items"
       :key="item.value"
       class="fluent-segmented-control__item"
       :class="{ 'fluent-segmented-control__item--selected': modelValue === item.value }"
       @click="select(item.value)"
     >
-      <span class="fluent-segmented-control__label">{{ item.label }}</span>
+      <slot
+        name="item"
+        :item="item"
+        :selected="modelValue === item.value"
+        :index="index"
+      >
+        <span class="fluent-segmented-control__label">{{ item.label }}</span>
+      </slot>
       <div v-if="modelValue === item.value" class="fluent-segmented-control__pill"></div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue';
+import { type PropType, defineProps, defineEmits } from 'vue';
+
+type SegmentedControlItem = {
+  label?: string;
+  value: string | number;
+  [key: string]: unknown;
+};
 
 const props = defineProps({
   modelValue: {
@@ -22,7 +35,7 @@ const props = defineProps({
     required: true,
   },
   items: {
-    type: Array as () => Array<{ label: string; value: string | number }>,
+    type: Array as PropType<SegmentedControlItem[]>,
     default: () => [],
   },
 });

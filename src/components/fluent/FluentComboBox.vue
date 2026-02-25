@@ -1,5 +1,5 @@
 <template>
-  <div class="fluent-combobox" :class="{ 'fluent-combobox--open': isOpen }" ref="container">
+  <div class="fluent-combobox" ref="container">
     <div
       class="fluent-combobox__trigger"
       :class="{ 'fluent-combobox__trigger--open': isOpen, 'fluent-combobox__trigger--disabled': disabled }"
@@ -14,8 +14,16 @@
         </svg>
       </span>
     </div>
+  </div>
+  <teleport :to="teleportTarget">
     <transition name="fluent-flyout">
-      <div v-if="isOpen" class="fluent-combobox__dropdown">
+      <div
+        v-if="isOpen"
+        ref="dropdown"
+        class="fluent-combobox__dropdown"
+        :class="`fluent-combobox__dropdown--${dropdownPlacement}`"
+        :style="dropdownStyle"
+      >
         <div
           v-for="(item, index) in items"
           :key="index"
@@ -27,11 +35,11 @@
         </div>
       </div>
     </transition>
-  </div>
+  </teleport>
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted, defineProps, defineEmits } from 'vue';
+import { ref, computed, onMounted, onUnmounted, nextTick, watch, type CSSProperties, defineProps, defineEmits } from 'vue';
 
 const props = defineProps({
   modelValue: {
@@ -64,6 +72,14 @@ const emit = defineEmits(['update:modelValue']);
 
 const isOpen = ref(false);
 const container = ref<HTMLElement | null>(null);
+const dropdown = ref<HTMLElement | null>(null);
+const dropdownStyle = ref<CSSProperties>({});
+const dropdownPlacement = ref<'top' | 'bottom'>('bottom');
+const teleportTarget = ref<string | HTMLElement>('body');
+
+const VIEWPORT_PADDING = 8;
+const DROPDOWN_GAP = 4;
+const MAX_DROPDOWN_HEIGHT = 200;
 
 const getItemLabel = (item: any) => {
   if (typeof item === 'object' && item !== null) {
@@ -100,33 +116,94 @@ const select = (item: any) => {
 };
 
 const close = (e: MouseEvent) => {
-  if (container.value && !container.value.contains(e.target as Node)) {
-    isOpen.value = false;
+  const target = e.target as Node;
+  if (!target) return;
+
+  if (container.value?.contains(target)) return;
+  if (dropdown.value?.contains(target)) return;
+
+  isOpen.value = false;
+};
+
+const updateDropdownPosition = () => {
+  if (!isOpen.value || !container.value) return;
+
+  const trigger = container.value.querySelector('.fluent-combobox__trigger') as HTMLElement | null;
+  const anchor = trigger ?? container.value;
+  const rect = anchor.getBoundingClientRect();
+  const spaceBelow = window.innerHeight - rect.bottom - VIEWPORT_PADDING;
+  const spaceAbove = rect.top - VIEWPORT_PADDING;
+
+  const dropdownHeight = dropdown.value
+    ? Math.min(dropdown.value.scrollHeight, MAX_DROPDOWN_HEIGHT)
+    : MAX_DROPDOWN_HEIGHT;
+  const openOnTop = spaceBelow < dropdownHeight && spaceAbove > spaceBelow;
+  const maxHeight = Math.max(
+    80,
+    Math.min(MAX_DROPDOWN_HEIGHT, (openOnTop ? spaceAbove : spaceBelow) - DROPDOWN_GAP),
+  );
+  const renderedHeight = Math.min(dropdownHeight, maxHeight);
+
+  const top = openOnTop
+    ? rect.top - DROPDOWN_GAP - renderedHeight
+    : rect.bottom + DROPDOWN_GAP;
+  const left = Math.max(
+    VIEWPORT_PADDING,
+    Math.min(rect.left, window.innerWidth - rect.width - VIEWPORT_PADDING),
+  );
+
+  dropdownPlacement.value = openOnTop ? 'top' : 'bottom';
+  dropdownStyle.value = {
+    top: `${Math.max(VIEWPORT_PADDING, top)}px`,
+    left: `${left}px`,
+    width: `${rect.width}px`,
+    maxHeight: `${maxHeight}px`,
+  };
+};
+
+const onViewportChange = () => {
+  if (isOpen.value) {
+    updateDropdownPosition();
   }
 };
 
+const resolveTeleportTarget = () => {
+  if (!container.value) return;
+
+  const themeRoot = container.value.closest('.v-theme--dark, .v-theme--light') as HTMLElement | null;
+  const appRoot = container.value.closest('.v-application') as HTMLElement | null;
+  teleportTarget.value = themeRoot ?? appRoot ?? document.body;
+};
+
 onMounted(() => {
+  resolveTeleportTarget();
   window.addEventListener('click', close);
+  window.addEventListener('resize', onViewportChange);
+  window.addEventListener('scroll', onViewportChange, true);
 });
 
 onUnmounted(() => {
   window.removeEventListener('click', close);
+  window.removeEventListener('resize', onViewportChange);
+  window.removeEventListener('scroll', onViewportChange, true);
+});
+
+watch(isOpen, async (open) => {
+  if (!open) return;
+  await nextTick();
+  updateDropdownPosition();
+  requestAnimationFrame(updateDropdownPosition);
 });
 </script>
 
 <style scoped lang="scss">
 .fluent-combobox {
   position: relative;
-  z-index: 0;
   display: inline-block;
   width: 200px; /* Default width */
   font-family: var(--font-family-base);
   font-size: 14px;
   line-height: 20px;
-
-  &--open {
-    z-index: 1200;
-  }
 
   &__trigger {
     display: flex;
@@ -177,21 +254,23 @@ onUnmounted(() => {
   }
 
   &__dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    margin-top: 4px;
+    position: fixed;
     background: var(--background-fill-color-layer-alt);
-    border: 1px solid #e5e5e5;
+    border: 1px solid var(--stroke-color-surface-stroke-flyout);
     border-radius: 4px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1;
-    max-height: 200px;
+    box-shadow: var(--shadow-flyout);
+    z-index: 1250;
     overflow-y: auto;
     padding: 4px;
-    transform-origin: top left;
     will-change: transform, opacity;
+
+    &--bottom {
+      transform-origin: top left;
+    }
+
+    &--top {
+      transform-origin: bottom left;
+    }
   }
 
   &__item {
@@ -207,7 +286,7 @@ onUnmounted(() => {
 
     &--selected {
       background: var(--fill-color-control-alt-secondary);
-      font-weight: 600;
+      //font-weight: 600;
       position: relative;
 
       &::before {
@@ -233,7 +312,14 @@ onUnmounted(() => {
 
 .fluent-flyout-enter-from {
   opacity: 0;
+}
+
+.fluent-flyout-enter-from.fluent-combobox__dropdown--bottom {
   transform: translateY(-6px) scale(0.96);
+}
+
+.fluent-flyout-enter-from.fluent-combobox__dropdown--top {
+  transform: translateY(6px) scale(0.96);
 }
 
 .fluent-flyout-leave-active {
@@ -244,6 +330,13 @@ onUnmounted(() => {
 
 .fluent-flyout-leave-to {
   opacity: 0;
+}
+
+.fluent-flyout-leave-to.fluent-combobox__dropdown--bottom {
   transform: translateY(-2px) scale(0.98);
+}
+
+.fluent-flyout-leave-to.fluent-combobox__dropdown--top {
+  transform: translateY(2px) scale(0.98);
 }
 </style>

@@ -136,7 +136,9 @@
   --fill-color-text-on-accent-primary: #000000;
   --fill-color-text-on-accent-secondary: #00000080;
   --fill-color-text-on-accent-tertiary: rgba(0, 0, 0, 0.22);;
-  --fill-color-control-default: #2d2d2d;
+  --fill-color-control-default: rgba(255, 255, 255, 0.06);
+  --fill-color-control-secondary: rgba(255, 255, 255, 0.08);
+  --fill-color-control-tertiary: rgba(255, 255, 255, 0.03);
   --fill-color-control-alt-secondary: #ffffff0f;
   --fill-color-text-primary: #ffffff;
   --fill-color-text-secondary: #ffffff8b;
@@ -146,8 +148,11 @@
   
   --stroke-color-control-strong-stroke-default: #ffffff8b;
   --stroke-color-control-stroke-default: #ffffff12;
+  --stroke-color-control-stroke-secondary: #ffffff12;
   --stroke-color-surface-stroke-default: #ffffff12;
+  --stroke-color-surface-stroke-flyout: rgba(0, 0, 0, 0.06);
   --stroke-color-accent-border: linear-gradient(180deg, rgba(255, 255, 255, 0.08) 90.67%, rgba(0, 0, 0, 0.14) 100%);
+  --stroke-color-border: linear-gradient(180deg, rgba(255, 255, 255, 0.09) 0%, rgba(255, 255, 255, 0.07) 9.57%);
 
   --background-fill-color-smoke-default: #0000004d;
   --background-fill-color-solid-background-base: #202020;
@@ -178,4 +183,9 @@
 .v-application {
   background: var(--background-fill-color-solid-background-base) !important;
   color: var(--fill-color-text-primary) !important;
+}
+
+.v-application {
+  --firefly-gradient: linear-gradient(135deg, #26c4ce, #b3f3c6);
+  --cyrene-gradient: linear-gradient(83deg, #A2FFE1 0%, #8BA0FB 20.08%, #EBA2FD 78.51%);
 }

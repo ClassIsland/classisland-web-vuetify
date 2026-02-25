@@ -169,9 +169,9 @@ onMounted(() => init());
             <p class="fluent-text">大功告成，开始您的 ClassIsland 之旅吧！</p>
           </div>
         </div>
-        
+
         <div v-if="scPackage=='folder'" class="mb-4">
-          <FluentInfoBar severity="info" title="💡 便携版说明">
+          <FluentInfoBar severity="info" title="便携版说明">
             <p class="mb-1">• 您下载的是便携版 ClassIsland，会在程序文件夹中储存所有配置和数据</p>
             <p class="mb-1">• 配置完成后，您可以直接将整个文件夹复制到学校使用</p>
             <p v-if="scBuildType=='full'" class="mb-0">• 由于您下载的版本不包含运行时，您在学校安装本应用时可能需要一并安装 .NET 桌面运行时</p>
@@ -182,19 +182,19 @@ onMounted(() => init());
       </div>
 
       <div class="page-margin-x py-4 mt-8">
-        <h2 class="fluent-h2">🚀 快速上手 ClassIsland</h2>
+        <h2 class="fluent-h2">快速上手 ClassIsland</h2>
         <p class="mt-2 fluent-text">通过以下资源快速上手 ClassIsland，编排/导入您的第一个课表。</p>
 
         <div class="d-flex flex-row my-4 ga-6 flex-wrap">
           <a href="https://www.bilibili.com/video/BV1fA4m1A7uZ/" target="_blank" class="card-link setup-step">
-            <FluentCard title="🎬 观看入门教程视频"
+            <FluentCard title="观看入门教程视频"
                       icon-name="video">
               <div class="text-yellow-darken-2 font-weight-medium">推荐新用户优先观看</div>
               在 BiliBili 上观看 ClassIsland 入门教程视频，十分钟入门 ClassIsland。
             </FluentCard>
           </a>
           <a href="https://docs.classisland.tech/app/" target="_blank" class="card-link setup-step">
-            <FluentCard title="📚 浏览帮助文档"
+            <FluentCard title="浏览帮助文档"
                       icon-name="bookOpen">
               深入了解 ClassIsland。
             </FluentCard>
@@ -271,7 +271,7 @@ onMounted(() => init());
 
 <style scoped lang="scss">
 .download-main-title {
-  background-image: linear-gradient(135deg, #26c4ce, #b3f3c6);
+  background-image: var(--cyrene-gradient);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
