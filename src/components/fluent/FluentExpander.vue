@@ -2,7 +2,7 @@
   <div class="fluent-expander" :class="{ 'fluent-expander--expanded': isExpanded }">
     <div class="fluent-expander__header" @click="toggle">
       <div class="fluent-expander__icon-container">
-        <span :class="['mdi', icon]" v-if="icon" class="fluent-expander__icon"></span>
+        <FluentSystemIcon :name="icon" v-if="icon" class="fluent-expander__icon" :size="20" />
       </div>
       <div class="fluent-expander__title-container">
         <div class="fluent-expander__title">{{ title }}</div>
@@ -11,7 +11,7 @@
         </div>
       </div>
       <div class="fluent-expander__chevron">
-        <span class="mdi mdi-chevron-down"></span>
+        <FluentSystemIcon name="chevronDown" :size="20" />
       </div>
     </div>
     <transition name="expand">
@@ -26,6 +26,7 @@
 
 <script setup lang="ts">
 import { ref, defineProps } from 'vue';
+import FluentSystemIcon from '@/components/FluentSystemIcon.vue';
 
 const props = defineProps({
   title: {
@@ -85,7 +86,7 @@ const toggle = () => {
   }
 
   &__icon {
-    font-size: 20px;
+    color: inherit;
   }
 
   &__title-container {

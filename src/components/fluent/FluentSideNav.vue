@@ -17,7 +17,7 @@
           @click="onRouterItemClick($event, item, navigate)"
         >
           <div class="fluent-side-nav__item-base">
-            <span v-if="item.icon" :class="['mdi', item.icon, 'fluent-side-nav__icon']"></span>
+            <FluentSystemIcon v-if="item.icon" :name="item.icon" class="fluent-side-nav__icon" :size="16" />
             <span class="fluent-side-nav__text">{{ item.title }}</span>
           </div>
           <div class="fluent-side-nav__selector" v-if="isSelected(item)"></div>
@@ -33,7 +33,7 @@
         @click="onAnchorItemClick(item)"
       >
         <div class="fluent-side-nav__item-base">
-          <span v-if="item.icon" :class="['mdi', item.icon, 'fluent-side-nav__icon']"></span>
+          <FluentSystemIcon v-if="item.icon" :name="item.icon" class="fluent-side-nav__icon" :size="16" />
           <span class="fluent-side-nav__text">{{ item.title }}</span>
         </div>
         <div class="fluent-side-nav__selector" v-if="isSelected(item)"></div>
@@ -45,6 +45,7 @@
 <script setup lang="ts">
 import { defineProps, defineEmits } from 'vue';
 import { useRoute, useRouter, type RouteLocationRaw } from 'vue-router';
+import FluentSystemIcon from '@/components/FluentSystemIcon.vue';
 
 const props = defineProps({
   items: {
@@ -140,7 +141,6 @@ const onAnchorItemClick = (item: any) => {
     justify-content: center;
     width: 16px;
     height: 16px;
-    font-size: 16px;
     color: var(--fill-color-text-primary);
   }
 

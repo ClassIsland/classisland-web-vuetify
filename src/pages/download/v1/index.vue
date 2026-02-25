@@ -9,6 +9,7 @@ import FluentComboBox from '../../../components/fluent/FluentComboBox.vue';
 import FluentDialog from '../../../components/fluent/FluentDialog.vue';
 import FluentInfoBar from '../../../components/fluent/FluentInfoBar.vue';
 import FluentProgressRing from '../../../components/fluent/FluentProgressRing.vue';
+import FluentSystemIcon from '../../../components/FluentSystemIcon.vue';
 
 const isLoading = ref(true);
 const downloadIndex = ref();
@@ -226,7 +227,7 @@ const comboBoxItems = computed(() => {
       <div class="align-self-stretch d-flex ga-4 justify-center platforms-container flex-column flex-md-row flex-row
                    align-content-start">
         <DownloadPlatformCard platform-name="Windows 10+"
-                              platform-icon="mdi-microsoft-windows"
+                              platform-icon="windows"
                               description="适用于 Windows 10 以及以上的版本。"
                               class="platform"
                               :version="latestVersionInfo.Title">
@@ -241,7 +242,7 @@ const comboBoxItems = computed(() => {
 
         </DownloadPlatformCard>
         <DownloadPlatformCard platform-name="Windows 7"
-                              platform-icon="mdi-microsoft-windows"
+                              platform-icon="windows"
                               description="适用于 Windows 7 SP1 ~ 8.1 版本。部分功能可能不可用。"
                               class="platform"
                               :version="latestVersionInfoNet6.Title">
@@ -255,11 +256,11 @@ const comboBoxItems = computed(() => {
           </div>
         </DownloadPlatformCard>
         <DownloadPlatformCard platform-name="Linux"
-                              platform-icon="mdi-linux"
+                              platform-icon="linux"
                               class="platform"
                               description="ClassIsland 2 现已支持 Linux 系统，您可以点击下方链接了解更多信息。">
           <FluentButton variant="hyperlink" to="/download/v2">
-            <template #prepend><span class="mdi mdi-download"></span></template>
+            <template #prepend><FluentSystemIcon name="arrowDownload" /></template>
             下载 ClassIsland 2
           </FluentButton>
         </DownloadPlatformCard>
@@ -277,15 +278,15 @@ const comboBoxItems = computed(() => {
       </div>
       <div class="d-flex flex-row flex-wrap ga-4 justify-center align-self-center align-content-center mb-4">
         <FluentButton variant="hyperlink" @click="showHelpDialog">
-          <template #prepend><span class="mdi mdi-help-circle"></span></template>
+          <template #prepend><FluentSystemIcon name="questionCircle" /></template>
           完整版 vs 精简版
         </FluentButton>
         <FluentButton variant="hyperlink" href="https://github.com/ClassIsland/ClassIsland/releases/" target="_blank">
-          <template #prepend><span class="mdi mdi-download"></span></template>
+          <template #prepend><FluentSystemIcon name="arrowDownload" /></template>
           查看全部下载
         </FluentButton>
         <FluentButton variant="hyperlink" href="https://github.com/ClassIsland/ClassIsland/actions/workflows/build_release.yml" target="_blank">
-          <template #prepend><span class="mdi mdi-wrench"></span></template>
+          <template #prepend><FluentSystemIcon name="settings" /></template>
           下载 CI 构建
         </FluentButton>
       </div>
@@ -298,11 +299,11 @@ const comboBoxItems = computed(() => {
 
         <div class="justify-center d-flex flex-row flex-wrap ga-4">
           <FluentButton variant="primary" @click="refreshPage">
-            <template #prepend><span class="mdi mdi-refresh"></span></template>
+            <template #prepend><FluentSystemIcon name="arrowClockwise" /></template>
             刷新页面
           </FluentButton>
           <FluentButton href="https://github.com/ClassIsland/ClassIsland/releases" target="_blank">
-            <template #prepend><span class="mdi mdi-github"></span></template>
+            <template #prepend><FluentSystemIcon name="github" /></template>
             前往 GitHub 下载
           </FluentButton>
         </div>

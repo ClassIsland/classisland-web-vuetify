@@ -35,7 +35,7 @@
           rel="noopener noreferrer"
           target="_blank"
         >
-          <span :class="`mdi ${item.icon}`" style="font-size: 16px;"></span>
+          <FluentSystemIcon :name="item.icon" :size="16" />
         </a>
       </div>
     </div>
@@ -43,22 +43,22 @@
 </template>
 
 <script setup lang="ts">
-import { defineComponent } from 'vue';
+import FluentSystemIcon from './FluentSystemIcon.vue';
 
 const items = [
   {
     title: 'QQ群',
-    icon: 'mdi-qqchat',
+    icon: 'qq',
     href: 'https://qm.qq.com/q/4NsDQKiAuQ'
   },
   {
     title: 'GitHub',
-    icon: `mdi-github`,
+    icon: 'github',
     href: 'https://github.com/ClassIsland/ClassIsland'
   },
   {
     title: '电子邮件',
-    icon: `mdi-email-outline`,
+    icon: 'mail',
     href: 'mailto:wrc@classisland.tech'
   }
 ];

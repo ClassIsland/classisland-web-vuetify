@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import FluentButton from '../components/fluent/FluentButton.vue';
+import FluentSystemIcon from '../components/FluentSystemIcon.vue';
 </script>
 
 <template>
@@ -10,7 +11,7 @@ import FluentButton from '../components/fluent/FluentButton.vue';
 
     <div class="justify-center d-flex flex-row flex-wrap">
       <FluentButton variant="primary" to="/">
-        <template #prepend><span class="mdi mdi-home"></span></template>
+        <template #prepend><FluentSystemIcon name="home" /></template>
         返回首页
       </FluentButton>
     </div>

@@ -14,7 +14,9 @@
     "commitlint": "commitlint --config commitlint.config.cjs -e -V"
   },
   "dependencies": {
-    "@mdi/font": "6.2.95",
+    "@fluentui/svg-icons": "^1.1.319",
+    "@fortawesome/fontawesome-svg-core": "^7.2.0",
+    "@fortawesome/free-brands-svg-icons": "^7.2.0",
     "@sentry/vue": "^9.5.0",
     "chalk": "^5.4.1",
     "core-js": "^3.34.0",

@@ -10,6 +10,7 @@ import FluentSegmentedControl from '../../../components/fluent/FluentSegmentedCo
 import FluentComboBox from '../../../components/fluent/FluentComboBox.vue';
 import FluentDialog from '../../../components/fluent/FluentDialog.vue';
 import FluentCard from '../../../components/fluent/FluentCard.vue';
+import FluentSystemIcon from '../../../components/FluentSystemIcon.vue';
 
 const isLoading = ref(true);
 const downloadIndex = ref<any>({ channels: {} });
@@ -252,7 +253,7 @@ const comboBoxItems = computed(() => {
       <div class="align-self-stretch d-flex ga-4 justify-center platforms-container flex-column flex-md-row flex-row
                    align-content-start">
         <DownloadPlatformCard platform-name="Windows"
-                              platform-icon="mdi-microsoft-windows"
+                              platform-icon="windows"
                               description="Windows 10 及更高版本"
                               :version="latestVersionInfo?.latestVersion"
                               class="flex-grow-1 platform">
@@ -274,7 +275,7 @@ const comboBoxItems = computed(() => {
 
         </DownloadPlatformCard>
         <DownloadPlatformCard platform-name="Linux"
-                              platform-icon="mdi-linux"
+                              platform-icon="linux"
                               description="Debian 10 或其衍生版"
                               :version="latestVersionInfo?.latestVersion"
                               class="flex-grow-1 platform"
@@ -299,7 +300,7 @@ const comboBoxItems = computed(() => {
           </div>
         </DownloadPlatformCard>
         <DownloadPlatformCard platform-name="Mac"
-                              platform-icon="mdi-apple"
+                              platform-icon="macos"
                               description="MacOS Big Sur 11 及更高版本"
                               :version="latestVersionInfo?.latestVersion"
                               class="flex-grow-1 platform">
@@ -322,18 +323,18 @@ const comboBoxItems = computed(() => {
           <FluentButton variant="hyperlink"
                  href="https://github.com/ClassIsland/ClassIsland/releases/"
                  target="_blank">
-            <template #prepend><span class="mdi mdi-download"></span></template>
+            <template #prepend><FluentSystemIcon name="arrowDownload" /></template>
             查看全部下载
           </FluentButton>
           <FluentButton variant="hyperlink"
                  href="https://github.com/ClassIsland/ClassIsland/actions/workflows/build_release.yml"
                  target="_blank">
-            <template #prepend><span class="mdi mdi-wrench"></span></template>
+            <template #prepend><FluentSystemIcon name="settings" /></template>
             下载 CI 构建
           </FluentButton>
           <FluentButton variant="hyperlink"
                  to="/download/v1">
-            <template #prepend><span class="mdi mdi-archive-arrow-down"></span></template>
+            <template #prepend><FluentSystemIcon name="archive" /></template>
             下载 ClassIsland 1
           </FluentButton>
         </div>
@@ -349,11 +350,11 @@ const comboBoxItems = computed(() => {
 
         <div class="justify-center d-flex flex-row flex-wrap ga-4">
           <FluentButton variant="primary" @click="refreshPage">
-            <template #prepend><span class="mdi mdi-refresh"></span></template>
+            <template #prepend><FluentSystemIcon name="arrowClockwise" /></template>
             刷新页面
           </FluentButton>
           <FluentButton href="https://github.com/ClassIsland/ClassIsland/releases" target="_blank">
-            <template #prepend><span class="mdi mdi-github"></span></template>
+            <template #prepend><FluentSystemIcon name="github" /></template>
             前往 GitHub 下载
           </FluentButton>
         </div>

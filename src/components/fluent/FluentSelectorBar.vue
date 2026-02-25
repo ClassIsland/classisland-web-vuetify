@@ -21,7 +21,12 @@
         >
           <div class="fluent-selector-bar__content">
             <span class="fluent-selector-bar__text">{{ item.title }}</span>
-            <span v-if="item.icon && showIcon" :class="['mdi', item.icon, 'fluent-selector-bar__icon']"></span>
+            <FluentSystemIcon
+              v-if="item.icon && showIcon"
+              :name="item.icon"
+              class="fluent-selector-bar__icon"
+              :size="16"
+            />
           </div>
           <div class="fluent-selector-bar__pill"></div>
         </a>
@@ -35,7 +40,12 @@
       >
         <div class="fluent-selector-bar__content">
           <span class="fluent-selector-bar__text">{{ item.title }}</span>
-          <span v-if="item.icon && showIcon" :class="['mdi', item.icon, 'fluent-selector-bar__icon']"></span>
+          <FluentSystemIcon
+            v-if="item.icon && showIcon"
+            :name="item.icon"
+            class="fluent-selector-bar__icon"
+            :size="16"
+          />
         </div>
         <div class="fluent-selector-bar__pill"></div>
       </a>
@@ -45,6 +55,7 @@
 
 <script setup lang="ts">
 import { defineProps } from 'vue';
+import FluentSystemIcon from '@/components/FluentSystemIcon.vue';
 
 defineProps({
   items: {

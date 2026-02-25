@@ -2,7 +2,7 @@
   <div class="fluent-info-bar" :class="[`fluent-info-bar--${severity}`, { 'fluent-info-bar--closable': closable }]">
     <div class="fluent-info-bar__content">
       <div class="fluent-info-bar__icon-container">
-        <span :class="['mdi', iconName, 'fluent-info-bar__icon']"></span>
+        <FluentSystemIcon :name="iconName" class="fluent-info-bar__icon" :size="20" />
       </div>
       <div class="fluent-info-bar__text">
         <span class="fluent-info-bar__title" v-if="title">{{ title }}</span>
@@ -14,7 +14,7 @@
     <div class="fluent-info-bar__actions">
       <slot name="actions"></slot>
       <button v-if="closable" class="fluent-info-bar__close-button" @click="$emit('close')">
-        <span class="mdi mdi-close"></span>
+        <FluentSystemIcon name="dismiss" :size="16" />
       </button>
     </div>
   </div>
@@ -22,6 +22,7 @@
 
 <script setup lang="ts">
 import { computed, defineProps } from 'vue';
+import FluentSystemIcon from '@/components/FluentSystemIcon.vue';
 
 const props = defineProps({
   severity: {
@@ -46,13 +47,13 @@ const props = defineProps({
 const iconName = computed(() => {
   switch (props.severity) {
     case 'success':
-      return 'mdi-check-circle';
+      return 'checkmarkCircle';
     case 'warning':
-      return 'mdi-alert';
+      return 'warning';
     case 'error':
-      return 'mdi-close-circle';
+      return 'dismissCircle';
     default:
-      return 'mdi-information';
+      return 'info';
   }
 });
 </script>
@@ -132,9 +133,6 @@ const iconName = computed(() => {
       background-color: var(--fill-color-control-alt-secondary);
     }
 
-    .mdi {
-      font-size: 16px;
-    }
   }
 
   /* Severities */

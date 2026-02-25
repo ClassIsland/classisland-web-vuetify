@@ -4,7 +4,7 @@
       <div class="fluent-card__header">
         <div class="fluent-card__icon-container">
           <v-img :src="icon" v-if="icon" class="fluent-card__icon" alt="Plugin Icon" cover />
-          <span v-else class="mdi mdi-toy-brick fluent-card__icon-fallback"></span>
+          <FluentSystemIcon v-else name="box" class="fluent-card__icon-fallback" :size="24" />
         </div>
         <div class="fluent-card__title-group">
           <h3 class="fluent-card__title">{{ title }}</h3>
@@ -20,6 +20,7 @@
 
 <script setup lang="ts">
 import { defineProps } from 'vue';
+import FluentSystemIcon from './FluentSystemIcon.vue';
 
 const props = defineProps({
   title: String,

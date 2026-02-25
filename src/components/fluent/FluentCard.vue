@@ -1,9 +1,9 @@
 <template>
   <div class="fluent-card">
     <div class="fluent-card__header" v-if="title || $slots.header">
-      <div class="fluent-card__icon" v-if="icon || iconClass">
+      <div class="fluent-card__icon" v-if="icon || iconName">
         <v-img :src="icon" v-if="icon" alt="" />
-        <span :class="iconClass" v-else-if="iconClass"></span>
+        <FluentSystemIcon :name="iconName" v-else-if="iconName" :size="24" />
       </div>
       <slot name="header">
         <h3 class="fluent-card__title">{{ title }}</h3>
@@ -20,6 +20,7 @@
 
 <script setup lang="ts">
 import { defineProps } from 'vue';
+import FluentSystemIcon from '@/components/FluentSystemIcon.vue';
 
 const props = defineProps({
   title: {
@@ -34,7 +35,7 @@ const props = defineProps({
     type: String,
     default: '',
   },
-  iconClass: {
+  iconName: {
     type: String,
     default: '',
   }
@@ -77,10 +78,7 @@ const props = defineProps({
       object-fit: contain;
     }
 
-    span {
-      font-size: 24px;
-      color: var(--fill-color-accent-default);
-    }
+    color: var(--fill-color-accent-default);
   }
 
   &__title {

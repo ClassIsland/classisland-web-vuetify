@@ -3,11 +3,11 @@
     <div class="fluent-app-bar__content">
       <div class="fluent-app-bar__left">
         <FluentButton variant="text" class="nav-icon" @click="isNavDrawerOpen = !isNavDrawerOpen">
-          <span class="mdi mdi-menu"></span>
+          <FluentSystemIcon name="navigation" />
         </FluentButton>
         <!-- Desktop Back Button (Optional, if navigation history exists) -->
         <!-- <FluentButton variant="text" class="back-icon" @click="goBack" v-if="canGoBack">
-          <span class="mdi mdi-arrow-left"></span>
+          <FluentSystemIcon name="arrowLeft" />
         </FluentButton> -->
 
         <RouterLink to="/" class="fluent-app-bar__title-link">
@@ -19,7 +19,7 @@
       </div>
       <div class="fluent-app-bar__right">
         <FluentButton variant="primary" to="/download">
-          <template #prepend><span class="mdi mdi-download"></span></template>
+          <template #prepend><FluentSystemIcon name="arrowDownload" /></template>
           立即下载
         </FluentButton>
       </div>
@@ -33,7 +33,7 @@
         <div class="fluent-drawer__header">
           <div class="fluent-drawer__header-left">
             <FluentButton variant="text" @click="isNavDrawerOpen = false">
-              <span class="mdi mdi-menu"></span>
+              <FluentSystemIcon name="navigation" />
             </FluentButton>
             <!-- Search bar could go here if requested later -->
           </div>
@@ -53,6 +53,7 @@
 import { ref, watch } from 'vue';
 import { useRoute } from 'vue-router';
 import FluentButton from './fluent/FluentButton.vue';
+import FluentSystemIcon from './FluentSystemIcon.vue';
 import FluentSelectorBar from './fluent/FluentSelectorBar.vue';
 import FluentSideNav from './fluent/FluentSideNav.vue';
 
@@ -68,23 +69,23 @@ watch(
 
 const navItems = [
   {
-    icon: "mdi-home-outline", // Using outline icons for FDS style usually
+    icon: 'home',
     title: "首页",
     to: "/"
   },
   {
-    icon: "mdi-download-outline",
+    icon: 'arrowDownload',
     title: "下载",
     to: "/download"
   },
   {
-    icon: "mdi-book-open-page-variant-outline",
+    icon: 'bookOpen',
     title: "文档",
     href: "https://docs.classisland.tech/",
     target: "_blank"
   },
   {
-    icon: "mdi-github",
+    icon: 'github',
     title: "GitHub 仓库",
     href: "https://github.com/ClassIsland/ClassIsland",
     target: "_blank"

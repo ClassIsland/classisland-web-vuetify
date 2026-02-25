@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { defineProps } from 'vue';
 import FluentCard from './fluent/FluentCard.vue';
+import FluentSystemIcon from './FluentSystemIcon.vue';
 
 const props = defineProps({
   platformName: String,
@@ -14,7 +15,7 @@ const props = defineProps({
   <FluentCard class="download-platform-card">
     <div class="download-card-content">
       <div class="icon-container">
-        <span :class="['mdi', props.platformIcon]" class="platform-icon"></span>
+        <FluentSystemIcon :name="props.platformIcon" class="platform-icon" :size="56" />
       </div>
       <h3 class="platform-name">{{ props.platformName }}</h3>
       <p class="description">{{ props.description }}</p>

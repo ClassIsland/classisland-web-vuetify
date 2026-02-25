@@ -9,6 +9,7 @@ import FluentInfoBar from '../../../../../../components/fluent/FluentInfoBar.vue
 import FluentCard from '../../../../../../components/fluent/FluentCard.vue';
 import FluentExpander from '../../../../../../components/fluent/FluentExpander.vue';
 import FluentSnackbar from '../../../../../../components/fluent/FluentSnackbar.vue';
+import FluentSystemIcon from '../../../../../../components/FluentSystemIcon.vue';
 
 const pageMeta = [
   {
@@ -109,11 +110,11 @@ onMounted(() => init());
           <div class="d-flex flex-column gap-4 mb-4">
             <div class="input-group">
               <label class="fluent-label">直接下载链接</label>
-              <FluentTextBox readonly :model-value="downloadInfo.archiveUrl" append-icon="mdi-content-copy" @click:append="copyDownloadUrl"/>
+              <FluentTextBox readonly :model-value="downloadInfo.archiveUrl" append-icon-name="documentCopy" @click:append="copyDownloadUrl"/>
             </div>
             <div class="input-group">
               <label class="fluent-label">校验和（SHA512）</label>
-              <FluentTextBox readonly :model-value="downloadInfo.archiveSHA512" append-icon="mdi-content-copy" @click:append="copyChecksum"/>
+              <FluentTextBox readonly :model-value="downloadInfo.archiveSHA512" append-icon-name="documentCopy" @click:append="copyChecksum"/>
             </div>
           </div>
         </div>
@@ -138,7 +139,7 @@ onMounted(() => init());
             <h3 class="fluent-h3">第一步：解压应用</h3>
             <p class="fluent-text">在一个合适的地方<span v-if="scOs == 'windows'">（比如 D 盘等）</span><span v-else>（比如用户目录等）</span>新建一个文件夹，将下载的压缩包中的文件解压到文件夹中。</p>
             <p class="text-caption text-orange-darken-2 mt-2 fluent-text-caption warning-text">
-              <span class="mdi mdi-alert-circle mr-1"></span>
+              <FluentSystemIcon name="warning" class="mr-1" />
               注意：请选择有读写权限的位置，避免中文路径，程序所有数据将存储在此目录中。
             </p>
           </div>
@@ -187,14 +188,14 @@ onMounted(() => init());
         <div class="d-flex flex-row my-4 ga-6 flex-wrap">
           <a href="https://www.bilibili.com/video/BV1fA4m1A7uZ/" target="_blank" class="card-link setup-step">
             <FluentCard title="🎬 观看入门教程视频"
-                      icon="mdi mdi-video">
+                      icon-name="video">
               <div class="text-yellow-darken-2 font-weight-medium">推荐新用户优先观看</div>
               在 BiliBili 上观看 ClassIsland 入门教程视频，十分钟入门 ClassIsland。
             </FluentCard>
           </a>
           <a href="https://docs.classisland.tech/app/" target="_blank" class="card-link setup-step">
             <FluentCard title="📚 浏览帮助文档"
-                      icon="mdi mdi-book-open-variant">
+                      icon-name="bookOpen">
               深入了解 ClassIsland。
             </FluentCard>
           </a>
@@ -234,15 +235,15 @@ onMounted(() => init());
         <h2 class="text-center mb-2 fluent-h2">了解更多</h2>
         <div class="d-flex flex-row justify-center ga-2 flex-wrap mb-4">
           <FluentButton variant="standard" href="https://github.com/ClassIsland/ClassIsland" target="_blank">
-            <template #prepend><span class="mdi mdi-github"></span></template>
+            <template #prepend><FluentSystemIcon name="github" /></template>
             查看 GitHub 仓库
           </FluentButton>
           <FluentButton variant="standard" href="https://docs.classisland.tech" target="_blank">
-            <template #prepend><span class="mdi mdi-book-open-variant"></span></template>
+            <template #prepend><FluentSystemIcon name="bookOpen" /></template>
             浏览应用文档
           </FluentButton>
           <FluentButton variant="standard" href="https://docs.classisland.tech/community/" target="_blank">
-            <template #prepend><span class="mdi mdi-message-outline"></span></template>
+            <template #prepend><FluentSystemIcon name="chat" /></template>
             加入讨论社区
           </FluentButton>
         </div>
@@ -257,7 +258,7 @@ onMounted(() => init());
 
         <div class="justify-center d-flex flex-row flex-wrap">
           <FluentButton variant="primary" to="/download">
-            <template #prepend><span class="mdi mdi-home"></span></template>
+            <template #prepend><FluentSystemIcon name="home" /></template>
             返回下载首页
           </FluentButton>
         </div>

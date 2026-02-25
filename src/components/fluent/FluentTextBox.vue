@@ -8,8 +8,8 @@
       :readonly="readonly"
       @input="updateValue"
     />
-    <div v-if="appendIcon" class="fluent-text-box__append-icon" @click="onAppendIconClick">
-      <span :class="['mdi', appendIcon]"></span>
+    <div v-if="appendIconName" class="fluent-text-box__append-icon" @click="onAppendIconClick">
+      <FluentSystemIcon :name="appendIconName" :size="16" />
     </div>
     <div class="fluent-text-box__border-line"></div>
   </div>
@@ -17,6 +17,7 @@
 
 <script setup lang="ts">
 import { defineProps, defineEmits } from 'vue';
+import FluentSystemIcon from '@/components/FluentSystemIcon.vue';
 
 const props = defineProps({
   modelValue: {
@@ -35,7 +36,7 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-  appendIcon: {
+  appendIconName: {
     type: String,
     default: '',
   }

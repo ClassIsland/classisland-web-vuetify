@@ -5,8 +5,6 @@
  */
 
 // 样式
-// 导入Material Design Icons字体样式
-import '@mdi/font/css/materialdesignicons.css';
 // 导入Vuetify样式
 import 'vuetify/styles';
 

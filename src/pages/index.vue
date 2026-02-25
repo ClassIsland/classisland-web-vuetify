@@ -26,11 +26,11 @@
         </div>
         <div class="d-flex ga-4 flex-wrap mt-2">
           <FluentButton to="/download" variant="primary" size="large">
-            <template #prepend><span class="mdi mdi-download"></span></template>
+            <template #prepend><FluentSystemIcon name="arrowDownload" /></template>
             立即下载
           </FluentButton>
           <FluentButton href="https://github.com/ClassIsland/ClassIsland" variant="text" target="_blank" size="large">
-            <template #prepend><span class="mdi mdi-github"></span></template>
+            <template #prepend><FluentSystemIcon name="github" /></template>
             GitHub 仓库
           </FluentButton>
         </div>
@@ -72,7 +72,7 @@
                 @click="unmute_video"
                 v-show="!isVideoSoundRestored"
               >
-                <span class="mdi mdi-volume-off"></span>
+                <FluentSystemIcon name="speakerMute" />
               </FluentButton>
             </transition>
           </div>
@@ -87,7 +87,7 @@
         </p>
         <div class="content-flex-layout ga-4 flex-wrap">
           <template v-for="feature in notificationFeatures" :key="feature.title" >
-            <FluentCard :title="feature.title" :text="feature.description" :iconClass="feature.icon">
+            <FluentCard :title="feature.title" :text="feature.description" :icon-name="feature.icon">
             </FluentCard>
           </template>
         </div>
@@ -108,14 +108,14 @@
         <div class="d-flex flex-column ga-4" >
           <FluentCard
             title="灵活的课表启用规则"
-            iconClass="mdi mdi-tag-multiple-outline"
+            icon-name="tagMultiple"
             text="ClassIsland 支持为课表设置多周（最高 4 周）轮换启用规则，也支持使用【课表群】分批启用课表。"
             class="flex-grow-1"
           >
           </FluentCard>
           <FluentCard
             title="课表导入"
-            iconClass="mdi mdi-file-import-outline"
+            icon-name="arrowUpload"
             class="flex-grow-1"
           >
             <template #default>
@@ -126,7 +126,7 @@
           </FluentCard>
           <FluentCard
             title=" 简洁直观的课表编辑工具"
-            iconClass="mdi mdi-file-document-edit-outline"
+            icon-name="documentEdit"
             text="ClassIsland 具有简洁直观的课表编辑工具，可以便利地编辑课表、时间表和科目等信息。"
             class="flex-grow-1"
           >
@@ -232,28 +232,28 @@
         <div class="d-flex ga-4 flex-wrap" >
           <FluentCard
             title="健壮的程序设计"
-            iconClass="mdi mdi-xml"
+            icon-name="codeText"
             text="ClassIsland 具有较强的稳定性，尽力减少在运行时发生崩溃错误的概率。同时支持在发生崩溃时自动退出，不影响教学任务。"
             class="feature-card-divided"
           >
           </FluentCard>
           <FluentCard
             title="自动时间同步"
-            iconClass="mdi mdi-clock-check-outline"
+            icon-name="clock"
             text="ClassIsland 支持自动从公开的 NTP 服务器或学校广播服务器的 NTP 服务同步时间，提高提醒等功能与学校铃声的同步性。同时支持自定义时间偏移和自动调整时间偏移。"
             class="feature-card-divided"
           >
           </FluentCard>
           <FluentCard
             title="密码保护"
-            iconClass="mdi mdi-lock-outline"
+            icon-name="lockClosed"
             text="ClassIsland 支持为部分功能设置密码，比如编辑应用设置、档案等，减小应用配置被篡改的可能性。"
             class="feature-card-divided"
           >
           </FluentCard>
           <FluentCard
             title="集控管理（即将发布）"
-            iconClass="mdi mdi-briefcase-outline"
+            icon-name="briefcase"
             text="ClassIsland 支持通过集控统一下发档案配置、集控策略等，提高管理多个 ClassIsland 实例的便利性。"
             class="feature-card-divided"
           >
@@ -268,11 +268,11 @@
       <span class="text-h5 align-self-center">更多功能留给您自行探索！</span>
       <div class="d-flex flex-row ga-2 align-self-center">
         <FluentButton variant="primary" to="/download">
-          <template #prepend><span class="mdi mdi-download"></span></template>
+          <template #prepend><FluentSystemIcon name="arrowDownload" /></template>
           立即下载 ClassIsland
         </FluentButton>
         <FluentButton href="https://github.com/ClassIsland/ClassIsland" target="_blank">
-          <template #prepend><span class="mdi mdi-github"></span></template>
+          <template #prepend><FluentSystemIcon name="github" /></template>
           了解更多
         </FluentButton>
       </div>
@@ -503,6 +503,7 @@ import { useHead } from '@unhead/vue'
 import FluentButton from '../components/fluent/FluentButton.vue';
 import FluentCard from '../components/fluent/FluentCard.vue';
 import FluentFlipView from '../components/fluent/FluentFlipView.vue';
+import FluentSystemIcon from '../components/FluentSystemIcon.vue';
 
 import screenshot1 from '../assets/screenshots/1.png';
 import screenshot2 from '../assets/screenshots/2.png';
@@ -571,22 +572,22 @@ const featureTags = ref([
 const notificationFeatures: Array<IFeature> = [
   {
     title: '横幅',
-    icon: 'mdi mdi-forum',
+    icon: 'peopleCommunity',
     description: '屏幕上方横幅显示'
   },
   {
     title: '全屏特效',
-    icon: 'mdi mdi-layers',
+    icon: 'layer',
     description: '炫酷显眼波浪特效'
   },
   {
     title: '语音播报',
-    icon: 'mdi mdi-account-voice',
+    icon: 'personVoice',
     description: '支持离线的系统 TTS、EdgeTTS 和 GPT-SoVITS'
   },
   {
     title: '音效',
-    icon: 'mdi mdi-volume-high',
+    icon: 'speaker2',
     description: '清新提醒音效，还可以自定义哦'
   }
 ];
