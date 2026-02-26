@@ -1,6 +1,12 @@
 :root {
   --font-family-base: "Segoe UI Variable", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
   --font-family-icon: "Segoe Fluent Icons", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", SimHei, Arial, Helvetica, sans-serif;
+  --v-font-family: var(--font-family-base);
+}
+
+html,
+body {
+  font-family: var(--font-family-base);
 }
 
 /* Light Theme (Default fallback or explicit class) */
@@ -105,4 +111,12 @@
 .v-application {
   background: var(--background-fill-color-solid-background-base) !important;
   color: var(--fill-color-text-primary) !important;
+  font-family: var(--font-family-base) !important;
+}
+
+button,
+input,
+select,
+textarea {
+  font-family: inherit;
 }

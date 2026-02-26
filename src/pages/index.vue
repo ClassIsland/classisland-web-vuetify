@@ -486,6 +486,8 @@ h1 {
   @media (max-width: 675px) {
     font-size: 36px;
   }
+
+  font-weight: 600;
 }
 
 .headline-feature {
