@@ -273,7 +273,7 @@
       </div>
     </div>
 
-    <div class="d-flex flex-1-1 align-content-center margin-x flex-wrap ga-8">
+    <div class="d-flex flex-1-1 align-content-center margin-x flex-wrap ga-8 mt-16">
       <div class="d-flex flex-column ga-4 flex-grow-1 flex-wrap">
         <FeatureTitle header="可靠的运行保障" tag="可靠" color="#FF7900"/>
         <p class="opacity-75">ClassIsland 在设计时充分考虑了在教学环境下，用户维护应用时间不足的情况。因此 ClassIsland 在开发时尽可能地提升了应用的可靠性，并添加了一系列提升维护效率的功能，减轻用户维护压力。</p>
