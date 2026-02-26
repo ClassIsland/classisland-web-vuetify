@@ -220,7 +220,7 @@ const comboBoxItems = computed(() => {
       <p class="text-center align-self-center mb-12 fluent-subtitle">首先，选择适合您的平台和打包方式</p>
 
       <div class="mb-2 align-self-center d-none d-md-block ">
-        <v-skeleton-loader v-if="isLoading" width="273px" height="40px"
+        <v-skeleton-loader v-if="isLoading" width="408px" height="40px"
                            rounded="xl"/>
         <FluentSegmentedControl
           v-else
