@@ -336,6 +336,12 @@ const comboBoxItems = computed(() => {
 
 .platform {
   flex-basis: 33.3333%;
+  position: relative;
+  z-index: 1;
+}
+
+.platform:hover {
+  z-index: 10;
 }
 
 .fluent-title {
