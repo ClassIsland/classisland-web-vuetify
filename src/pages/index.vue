@@ -126,7 +126,7 @@
     </div>
 
     <div class="margin-x mt-16 align-self-stretch d-flex gc-4 gr-8 justify-center platforms-container flex-column flex-md-row flex-row
-                   align-content-start items-center">
+                   align-content-start items-start">
       <div class="flex-grow-1 d-flex flex-column gap-4 basis-1/3">
         <FeatureTitle header="临时启用课表" tag="临时课表" color="#01FFFD"/>
         <p class="opacity-75">ClassIsland 支持设置在当日或未来某一天临时启用某个课表，以应对调休或换课等场景。</p>
@@ -228,6 +228,16 @@
     <h2 class="headline-feature text-center" >
           除了这些…</h2>
 
+    <div class="d-flex flex-1-1 align-content-center items-center margin-x flex-wrap ga-8 mt-16">
+      <div class="d-flex flex-column ga-4 flex-grow-1 flex-wrap" style="flex-basis: 375px">
+        <FeatureTitle header="手把手的入门教程" tag="教程" color="#66ccff"/>
+        <p class="opacity-75">ClassIsland 内置了完善的入门教程，可以手把手地助您上手应用。</p>
+      </div>
+      <div class="flex-grow-1 align-self-center" style="flex-basis: 375px; width: 100%">
+        <img src="../assets/app-v2/tutorial.webp" style="width: 100%"/>
+      </div>
+    </div>
+
     <div class="d-flex flex-1-1 align-content-center margin-x flex-wrap ga-8">
       <div class="d-flex flex-column ga-4 flex-grow-1 flex-wrap">
         <FeatureTitle header="可靠的运行保障" tag="可靠" color="#FF7900"/>
@@ -263,16 +273,6 @@
           >
           </FluentCard>
         </div>
-      </div>
-    </div>
-
-    <div class="d-flex flex-1-1 align-content-center items-center margin-x flex-wrap ga-8 mt-16">
-      <div class="d-flex flex-column ga-4 flex-grow-1 flex-wrap" style="flex-basis: 375px">
-        <FeatureTitle header="手把手的入门教程" tag="教程" color="#66ccff"/>
-        <p class="opacity-75">ClassIsland 内置了完善的入门教程，可以手把手地助您上手应用。</p>
-      </div>
-      <div class="flex-grow-1 align-self-center" style="flex-basis: 375px; width: 100%">
-        <img src="../assets/app-v2/tutorial.webp" style="width: 100%"/>
       </div>
     </div>
   </div>
@@ -607,8 +607,10 @@ h1 {
 </style>
 
 <script lang="ts" setup>
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import IFeature from '../interfaces/IFeature';
-import { onMounted, ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import PluginCard from "../components/PluginCard.vue";
 
@@ -644,6 +646,8 @@ useHead({
 })
 
 const router = useRouter();
+let featureTagInterval: ReturnType<typeof setInterval> | null = null;
+let scrollRevealContext: gsap.Context | null = null;
 
 function unmute_video(event: Event) {
   const video = document.getElementById('notification-demo') as HTMLVideoElement;
@@ -714,7 +718,7 @@ const notificationFeatures: Array<IFeature> = [
 ];
 
 onMounted(() => {
-  setInterval(() =>{
+  featureTagInterval = setInterval(() => {
     // console.log(featureTags);
     let ft = featureTags.value;
     let b = false;
@@ -735,5 +739,37 @@ onMounted(() => {
     }
     featureTags.value = ft;
   }, 2250);
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    return;
+  }
+
+  gsap.registerPlugin(ScrollTrigger);
+  scrollRevealContext = gsap.context(() => {
+    const contentBlocks = gsap.utils.toArray<HTMLElement>('.content > *');
+    contentBlocks.forEach((block) => {
+      gsap.from(block, {
+        y: 50,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: block,
+          start: 'top 88%',
+          once: true,
+        },
+      });
+    });
+  });
+});
+
+onBeforeUnmount(() => {
+  if (featureTagInterval) {
+    clearInterval(featureTagInterval);
+    featureTagInterval = null;
+  }
+
+  scrollRevealContext?.revert();
+  scrollRevealContext = null;
 });
 </script>
