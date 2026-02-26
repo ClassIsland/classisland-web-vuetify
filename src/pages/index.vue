@@ -74,7 +74,7 @@
                 @click="unmute_video"
                 v-show="!isVideoSoundRestored"
               >
-                <FluentSystemIcon name="speakerMute" />
+                <FluentSystemIcon name="speakerMute" class="mt-1"/>
               </FluentButton>
             </transition>
           </div>

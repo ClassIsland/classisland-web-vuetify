@@ -3,7 +3,7 @@
     <div class="fluent-app-bar__content">
       <div class="fluent-app-bar__left">
         <FluentButton variant="text" class="nav-icon" @click="isNavDrawerOpen = !isNavDrawerOpen">
-          <FluentSystemIcon name="navigation" />
+          <FluentSystemIcon name="navigation" class="mt-1"/>
         </FluentButton>
         <!-- Desktop Back Button (Optional, if navigation history exists) -->
         <!-- <FluentButton variant="text" class="back-icon" @click="goBack" v-if="canGoBack">
@@ -33,7 +33,7 @@
         <div class="fluent-drawer__header">
           <div class="fluent-drawer__header-left">
             <FluentButton variant="text" @click="isNavDrawerOpen = false">
-              <FluentSystemIcon name="navigation" />
+              <FluentSystemIcon name="navigation" class="mt-1"/>
             </FluentButton>
             <!-- Search bar could go here if requested later -->
           </div>
@@ -135,6 +135,9 @@ const navItems = [
     width: 100%;
     margin: 0 24px;
     height: 100%;
+    @media (max-width: 750px) {
+      margin: 0 8px;
+    }
   }
 
   &__left {
