@@ -52,7 +52,7 @@
       <div class="flex-grow-1 d-flex" style="flex-basis: 375px">
         <div class="position-relative">
           <video
-            src="../assets/notification-demo.mp4"
+            src="../assets/app-v2/notification-demo.web.mp4"
             muted
             autoplay
             loop
@@ -126,7 +126,7 @@
     </div>
 
     <div class="margin-x mt-16 align-self-stretch d-flex gc-4 gr-8 justify-center platforms-container flex-column flex-md-row flex-row
-                   align-content-start">
+                   align-content-start items-center">
       <div class="flex-grow-1 d-flex flex-column gap-4 basis-1/3">
         <FeatureTitle header="临时启用课表" tag="临时课表" color="#01FFFD"/>
         <p class="opacity-75">ClassIsland 支持设置在当日或未来某一天临时启用某个课表，以应对调休或换课等场景。</p>
@@ -146,12 +146,12 @@
       <div class="flex-grow-1 d-flex flex-column gap-4" style="flex-basis: 375px">
         <FeatureTitle header="灵活的规则系统" tag="规则集" color="#01FFFD"/>
         <p class="opacity-75">ClassIsland 的部分状态可以通过定义自定义的规则实现自动修改，如比如在上课且前台是全屏/最大化窗口时隐藏主界面等。ClassIsland 内置了课程、窗口、天气等规则，同时支持插件扩展规则，灵活应对各种情景。</p>
-        <img src="../assets/screenshots/5.png" style="width: 100%"/>
+        <img src="../assets/app-v2/rules.webp" style="width: 100%"/>
       </div>
       <div class="flex-grow-1 d-flex flex-column gap-4" style="flex-basis: 375px">
         <FeatureTitle header="智能的自动行为" tag="自动化" color="#01FFFD"/>
         <p class="opacity-75">自动化功能可以让 ClassIsland 在一些特定的时间节点执行一些特定的操作，比如切换组件配置，运行程序等，显示提醒等等。总的来说，就是“当 XX 发生”，并且“满足 XX 规则”时“做什么”。</p>
-        <img src="../assets/screenshots/5.png" style="width: 100%"/>
+        <img src="../assets/app-v2/automation.webp" style="width: 100%"/>
       </div>
     </div>
   </div>
@@ -172,7 +172,7 @@
       <div class="flex-grow-1 d-flex flex-column gap-4" style="flex-basis: 375px">
         <FeatureTitle header="海量的自定义选项" tag="自定义" color="#EBA2FD"/>
         <p class="opacity-75">ClassIsland 提供了丰富的自定义选项，支持自定义主界面内容及外观及其它应用功能。</p>
-        <img src="../assets/screenshots/5.png" style="width: 100%"/>
+        <img src="../assets/app-v2/custom.png" style="width: 100%"/>
       </div>
       <div class="flex-grow-1 d-flex flex-column gap-4" style="flex-basis: 375px">
         <FeatureTitle header="自由的主题系统" tag="主题" color="#EBA2FD"/>
@@ -184,7 +184,7 @@
 
     <div class="margin-x mt-16 d-flex flex-column flex-wrap ga-4 flex-lg-wrap">
       <FeatureTitle header="丰富的插件生态" tag="插件" color="#EBA2FD"/>
-      <p>ClassIsland 支持通过安装插件的方式扩展应用的功能，如添加组件、提醒提供方、自动化行动、规则集规则、认证提供方等等，并且已经形成了相对丰富的插件生态。您可以在应用内的插件市场中安装插件。</p>
+      <p class="opacity-75">ClassIsland 支持通过安装插件的方式扩展应用的功能，如添加组件、提醒提供方、自动化行动、规则集规则、认证提供方等等，并且已经形成了相对丰富的插件生态。您可以在应用内的插件市场中安装插件。</p>
       <div class="d-flex ga-2 flex-wrap align-content-start ">
         <PluginCard title="ExtraIsland" author="LiPolymer" url="https://github.com/LiPolymer/ExtraIsland"
                     description="为 ClassIsland 提供多种扩展功能！" icon="https://github.com/LiPolymer/ExtraIsland/raw/master/ExtraIsland/icon.png"/>
@@ -195,7 +195,7 @@
         <PluginCard title="UIAccess 提权" author="HelloWRC, Doubx690i" url="https://github.com/HelloWRC/GrantUiAccess"
                     description="本插件可以为 ClassIsland 提升 UIAccess 令牌，使 ClassIsland 可以置顶到全屏 UWP 应用和系统界面上。"/>
       </div>
-      <p>同时 ClassIsland 也对插件开放了<a href="https://api.docs.classisland.tech/api/ClassIsland.Core.Abstractions.Services.html"
+      <p class="opacity-75">同时 ClassIsland 也对插件开放了<a href="https://api.docs.classisland.tech/api/ClassIsland.Core.Abstractions.Services.html"
                                            target="_blank">丰富的 API</a>，您可以查看<a href="https://docs.classisland.tech/dev" target="_blank">开发文档</a>来了解如何开发插件。</p>
     </div>
 
@@ -231,7 +231,7 @@
     <div class="d-flex flex-1-1 align-content-center margin-x flex-wrap ga-8">
       <div class="d-flex flex-column ga-4 flex-grow-1 flex-wrap">
         <FeatureTitle header="可靠的运行保障" tag="可靠" color="#FF7900"/>
-        <p>ClassIsland 在设计时充分考虑了在教学环境下，用户维护应用时间不足的情况。因此 ClassIsland 在开发时尽可能地提升了应用的可靠性，并添加了一系列提升维护效率的功能，减轻用户维护压力。</p>
+        <p class="opacity-75">ClassIsland 在设计时充分考虑了在教学环境下，用户维护应用时间不足的情况。因此 ClassIsland 在开发时尽可能地提升了应用的可靠性，并添加了一系列提升维护效率的功能，减轻用户维护压力。</p>
 
         <div class="d-flex ga-4 flex-wrap" >
           <FluentCard
@@ -263,6 +263,16 @@
           >
           </FluentCard>
         </div>
+      </div>
+    </div>
+
+    <div class="d-flex flex-1-1 align-content-center items-center margin-x flex-wrap ga-8 mt-16">
+      <div class="d-flex flex-column ga-4 flex-grow-1 flex-wrap" style="flex-basis: 375px">
+        <FeatureTitle header="手把手的入门教程" tag="教程" color="#66ccff"/>
+        <p class="opacity-75">ClassIsland 内置了完善的入门教程，可以手把手地助您上手应用。</p>
+      </div>
+      <div class="flex-grow-1 align-self-center" style="flex-basis: 375px; width: 100%">
+        <img src="../assets/app-v2/tutorial.webp" style="width: 100%"/>
       </div>
     </div>
   </div>
@@ -608,10 +618,11 @@ import FluentCard from '../components/fluent/FluentCard.vue';
 import FluentFlipView from '../components/fluent/FluentFlipView.vue';
 import FluentSystemIcon from '../components/FluentSystemIcon.vue';
 
-import screenshot1 from '../assets/screenshots/1.png';
-import screenshot2 from '../assets/screenshots/2.png';
-import screenshot3 from '../assets/screenshots/3.png';
-import screenshot4 from '../assets/screenshots/4.png';
+import screenshot1 from '../assets/app-v2/profile1.webp';
+import screenshot5 from '../assets/app-v2/profile5.webp';
+import screenshot2 from '../assets/app-v2/profile2.webp';
+import screenshot3 from '../assets/app-v2/profile3.webp';
+import screenshot4 from '../assets/app-v2/profile4.webp';
 import desktopArch from '../assets/app-v2/platforms/arch.png';
 import desktopMac from '../assets/app-v2/platforms/mac.png';
 import desktopUos from '../assets/app-v2/platforms/uos.png';
@@ -619,7 +630,7 @@ import desktopWindows from '../assets/app-v2/platforms/windows.png';
 import Subtitle from '../components/Subtitle.vue';
 import FeatureTitle from '../components/FeatureTitle.vue';
 
-const screenshots = [screenshot1, screenshot2, screenshot3, screenshot4];
+const screenshots = [screenshot1, screenshot5, screenshot2, screenshot3, screenshot4];
 const screenshotsPlatforms = [desktopWindows, desktopUos, desktopArch, desktopMac];
 
 useHead({
@@ -725,5 +736,4 @@ onMounted(() => {
     featureTags.value = ft;
   }, 2250);
 });
-
 </script>

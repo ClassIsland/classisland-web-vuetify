@@ -4,6 +4,7 @@
 
 // 导入Vuetify插件
 import vuetify from './vuetify';
+import { gsap } from "gsap";
 
 
 /**

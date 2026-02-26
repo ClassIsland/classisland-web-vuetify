@@ -1,6 +1,13 @@
 <template>
   <div class="fluent-flip-view">
-    <div class="fluent-flip-view__container" v-if="items.length > 0">
+    <div
+      class="fluent-flip-view__container"
+      v-if="items.length > 0"
+      @touchstart.passive="handleTouchStart"
+      @touchmove.passive="handleTouchMove"
+      @touchend="handleTouchEnd"
+      @touchcancel="handleTouchCancel"
+    >
       <transition name="fade" mode="out-in">
         <div :key="currentIndex" class="fluent-flip-view__item">
           <img :src="items[currentIndex]" class="fluent-flip-view__image" />
@@ -44,7 +51,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps } from 'vue';
+import { ref, defineProps, onMounted, onUnmounted, watch } from 'vue';
 
 const props = defineProps({
   items: {
@@ -58,6 +65,13 @@ const props = defineProps({
 });
 
 const currentIndex = ref(0);
+const AUTOPLAY_INTERVAL = 5000;
+const SWIPE_THRESHOLD = 40;
+
+const autoplayTimer = ref<ReturnType<typeof setInterval> | null>(null);
+const touchStartX = ref(0);
+const touchDeltaX = ref(0);
+const isSwiping = ref(false);
 
 const prev = () => {
   if (currentIndex.value > 0) {
@@ -74,6 +88,89 @@ const next = () => {
     currentIndex.value = 0;
   }
 };
+
+const stopAutoplay = () => {
+  if (!autoplayTimer.value) {
+    return;
+  }
+  clearInterval(autoplayTimer.value);
+  autoplayTimer.value = null;
+};
+
+const startAutoplay = () => {
+  stopAutoplay();
+  if (props.items.length <= 1) {
+    return;
+  }
+  autoplayTimer.value = setInterval(() => {
+    next();
+  }, AUTOPLAY_INTERVAL);
+};
+
+const handleTouchStart = (event: TouchEvent) => {
+  if (event.touches.length !== 1) {
+    return;
+  }
+  touchStartX.value = event.touches[0].clientX;
+  touchDeltaX.value = 0;
+  isSwiping.value = true;
+  stopAutoplay();
+};
+
+const handleTouchMove = (event: TouchEvent) => {
+  if (!isSwiping.value || event.touches.length !== 1) {
+    return;
+  }
+  touchDeltaX.value = event.touches[0].clientX - touchStartX.value;
+};
+
+const handleTouchEnd = () => {
+  if (!isSwiping.value) {
+    return;
+  }
+  if (Math.abs(touchDeltaX.value) >= SWIPE_THRESHOLD) {
+    if (touchDeltaX.value > 0) {
+      prev();
+    } else {
+      next();
+    }
+  }
+  isSwiping.value = false;
+  touchStartX.value = 0;
+  touchDeltaX.value = 0;
+  startAutoplay();
+};
+
+const handleTouchCancel = () => {
+  isSwiping.value = false;
+  touchStartX.value = 0;
+  touchDeltaX.value = 0;
+  startAutoplay();
+};
+
+onMounted(() => {
+  startAutoplay();
+});
+
+onUnmounted(() => {
+  stopAutoplay();
+});
+
+watch(
+  () => props.items.length,
+  (length) => {
+    if (length === 0) {
+      currentIndex.value = 0;
+      stopAutoplay();
+      return;
+    }
+    if (currentIndex.value >= length) {
+      currentIndex.value = length - 1;
+    }
+    startAutoplay();
+  },
+  { immediate: true },
+);
 </script>
 
 <style scoped lang="scss">

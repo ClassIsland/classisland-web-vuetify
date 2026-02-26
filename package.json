@@ -21,6 +21,7 @@
     "@tailwindcss/vite": "^4.2.1",
     "chalk": "^5.4.1",
     "core-js": "^3.34.0",
+    "gsap": "^3.14.2",
     "lunisolar": "^2.5.1",
     "roboto-fontface": "*",
     "source-map-support": "^0.5.21",
