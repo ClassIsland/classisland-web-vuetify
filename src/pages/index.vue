@@ -45,7 +45,13 @@
     <div class="margin-x ga-4 d-flex flex-column">
       <FeatureTitle header="直观的信息显示" tag="主界面" color="#01FFFD"/>
       <p class="opacity-75">自动直观地显示今日的课程安排和当前进行的课程等信息，并支持通过【组件】自定义主界面上显示的内容。</p>
-      <v-img src="../assets/app-v2/mainwindow.png" height="90px" alt="组件演示图"/>
+      <div class="w-full">
+        <v-img src="../assets/app-v2/mainwindow.png" height="90px" alt="组件演示图">
+          <template #placeholder>
+            <v-skeleton-loader class="w-full h-full" />
+          </template>
+        </v-img>
+      </div>
     </div>
 
     <div class="mt-16 d-flex flex-1-1 margin-x ga-8 flex-wrap-reverse items-center">
@@ -146,12 +152,24 @@
       <div class="flex-grow-1 d-flex flex-column gap-4" style="flex-basis: 375px">
         <FeatureTitle header="灵活的规则系统" tag="规则集" color="#01FFFD"/>
         <p class="opacity-75">ClassIsland 的部分状态可以通过定义自定义的规则实现自动修改，如比如在上课且前台是全屏/最大化窗口时隐藏主界面等。ClassIsland 内置了课程、窗口、天气等规则，同时支持插件扩展规则，灵活应对各种情景。</p>
-        <img src="../assets/app-v2/rules.webp" style="width: 100%"/>
+        <div class="w-full aspect-video">
+          <v-img src="../assets/app-v2/rules.webp" class="w-full h-full" cover alt="规则系统演示图">
+            <template #placeholder>
+              <v-skeleton-loader class="w-full h-full" />
+            </template>
+          </v-img>
+        </div>
       </div>
       <div class="flex-grow-1 d-flex flex-column gap-4" style="flex-basis: 375px">
         <FeatureTitle header="智能的自动行为" tag="自动化" color="#01FFFD"/>
         <p class="opacity-75">自动化功能可以让 ClassIsland 在一些特定的时间节点执行一些特定的操作，比如切换组件配置，运行程序等，显示提醒等等。总的来说，就是“当 XX 发生”，并且“满足 XX 规则”时“做什么”。</p>
-        <img src="../assets/app-v2/automation.webp" style="width: 100%"/>
+        <div class="w-full aspect-video">
+          <v-img src="../assets/app-v2/automation.webp" class="w-full h-full" cover alt="自动化演示图">
+            <template #placeholder>
+              <v-skeleton-loader class="w-full h-full" />
+            </template>
+          </v-img>
+        </div>
       </div>
     </div>
   </div>
@@ -172,12 +190,24 @@
       <div class="flex-grow-1 d-flex flex-column gap-4" style="flex-basis: 375px">
         <FeatureTitle header="海量的自定义选项" tag="自定义" color="#EBA2FD"/>
         <p class="opacity-75">ClassIsland 提供了丰富的自定义选项，支持自定义主界面内容及外观及其它应用功能。</p>
-        <img src="../assets/app-v2/custom.png" style="width: 100%"/>
+        <div class="w-full aspect-video">
+          <v-img src="../assets/app-v2/custom.png" class="w-full h-full" cover alt="自定义选项演示图">
+            <template #placeholder>
+              <v-skeleton-loader class="w-full h-full" />
+            </template>
+          </v-img>
+        </div>
       </div>
       <div class="flex-grow-1 d-flex flex-column gap-4" style="flex-basis: 375px">
         <FeatureTitle header="自由的主题系统" tag="主题" color="#EBA2FD"/>
         <p class="opacity-75">ClassIsland 支持通过主题功能自定义主界面的外观，甚至完全覆盖原来的主界面样式，高度个性化您的界面。</p>
-        <img src="../assets/screenshots/themes.png" style="width: 100%"/>
+        <div class="w-full ">
+          <v-img src="../assets/screenshots/themes.png" class="w-full h-full" cover alt="主题系统演示图">
+            <template #placeholder>
+              <v-skeleton-loader class="w-full h-full" />
+            </template>
+          </v-img>
+        </div>
 
       </div>
     </div>
@@ -234,7 +264,13 @@
         <p class="opacity-75">ClassIsland 内置了完善的入门教程，可以手把手地助您上手应用。</p>
       </div>
       <div class="flex-grow-1 align-self-center" style="flex-basis: 375px; width: 100%">
-        <img src="../assets/app-v2/tutorial.webp" style="width: 100%"/>
+        <div class="w-full aspect-video">
+          <v-img src="../assets/app-v2/tutorial.webp" class="w-full h-full" cover alt="入门教程演示图">
+            <template #placeholder>
+              <v-skeleton-loader class="w-full h-full" />
+            </template>
+          </v-img>
+        </div>
       </div>
     </div>
 
