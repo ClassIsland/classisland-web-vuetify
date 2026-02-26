@@ -100,33 +100,12 @@ const navItems = [
   left: 0;
   right: 0;
   height: 48px; /* Adjusted height to match FDS Top Nav (was 64px) */
-  background: var(--background-fill-color-layer-alt);
-  background-color: color-mix(in srgb, var(--background-fill-color-layer-alt), transparent 100%); /* Fallback if variable is solid */
+  background-color: color-mix(in srgb, var(--background-fill-color-layer-default), transparent 30%);
   backdrop-filter: blur(20px);
   border-bottom: 1px solid var(--stroke-color-control-stroke-default);
   z-index: 1000;
   display: flex;
   align-items: center;
-
-  /* Ensure background variable has some transparency if needed, or override here */
-  /* Assuming --background-fill-color-layer-alt is solid, we can use rgba or just rely on the variable if it's already translucent in theme.
-     If it's solid #ffffff / #2c2c2c, we need to make it translucent for backdrop-filter to work.
-  */
-  background: var(--fill-color-control-default); /* Use control default which is usually translucent */
-  /* Or manually set based on theme if variable isn't translucent enough */
-  background: rgba(255, 255, 255, 0.8);
-  @media (prefers-color-scheme: dark) {
-      background: rgba(44, 44, 44, 0.8);
-  }
-  /* Better yet, use a dedicated acrylic variable if available, or construct it */
-  background: var(--background-fill-color-smoke-default); /* Smoke is usually dark overlay, not acrylic base */
-
-  /* Let's try to use the layer-alt but with opacity override */
-  background-color: rgba(255, 255, 255, 0.7);
-
-  :root.v-theme--dark & {
-      background-color: rgba(32, 32, 32, 0.7);
-  }
 
   &__content {
     display: flex;
@@ -168,13 +147,6 @@ const navItems = [
     gap: 4px;
     height: 100%;
     align-items: center;
-  }
-}
-
-/* Dark mode override within the component style block for specificity if not using global class */
-@media (prefers-color-scheme: dark) {
-  .fluent-app-bar {
-    background-color: rgba(32, 32, 32, 0.7);
   }
 }
 
