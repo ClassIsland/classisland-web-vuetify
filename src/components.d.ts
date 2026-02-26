@@ -12,6 +12,7 @@ declare module 'vue' {
     DownloadDialog: typeof import('./components/DownloadDialog.vue')['default']
     DownloadPlatformCard: typeof import('./components/DownloadPlatformCard.vue')['default']
     FeatureCard: typeof import('./components/FeatureCard.vue')['default']
+    FeatureTitle: typeof import('./components/FeatureTitle.vue')['default']
     FluentButton: typeof import('./components/fluent/FluentButton.vue')['default']
     FluentCard: typeof import('./components/fluent/FluentCard.vue')['default']
     FluentCheckbox: typeof import('./components/fluent/FluentCheckbox.vue')['default']
@@ -34,6 +35,7 @@ declare module 'vue' {
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     SplitDownloadButton: typeof import('./components/SplitDownloadButton.vue')['default']
+    Subtitle: typeof import('./components/Subtitle.vue')['default']
     SvgIcon: typeof import('./components/SvgIcon.vue')['default']
   }
 }

@@ -15,6 +15,7 @@ import App from './App.vue';
 //导入虚拟模块以注册SVG图标
 import 'virtual:svg-icons-register';
 
+import './styles/tailwind.css';
 import './styles/main.scss';
 import {ViteSSG} from "vite-ssg";
 import {routes} from "vue-router/auto-routes";

@@ -1,0 +1,5 @@
+@import "tailwindcss";
+
+/* Explicit sources improve watch reliability for class generation in dev. */
+@source "../**/*.{vue,js,ts,jsx,tsx}";
+@source "../../index.html";

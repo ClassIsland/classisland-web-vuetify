@@ -13,6 +13,7 @@ import vueDevTools from 'vite-plugin-vue-devtools'
 import { defineConfig } from 'vite';
 import { fileURLToPath, URL } from 'node:url';
 import { execSync } from 'node:child_process';
+import tailwindcss from '@tailwindcss/vite'
 
 function getGitTag() {
   try {
@@ -26,6 +27,7 @@ function getGitTag() {
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [
+    tailwindcss(),
     VueRouter({
       dts: 'src/typed-router.d.ts'
     }),
@@ -86,7 +88,7 @@ export default defineConfig({
     }),
     vueDevTools({
       launchEditor: 'webstorm'
-    })
+    }),
   ],
   define: {
     'process.env': {},

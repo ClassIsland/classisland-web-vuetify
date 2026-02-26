@@ -1,17 +1,17 @@
 <template>
   <a :href="url" target="_blank" class="plugin-card-link">
     <div class="fluent-card plugin-card">
-      <div class="fluent-card__header">
+      <div class="fluent-card__header d-flex flex-row gc-4">
         <div class="fluent-card__icon-container">
-          <v-img :src="icon" v-if="icon" class="fluent-card__icon" alt="Plugin Icon" cover />
-          <FluentSystemIcon v-else name="box" class="fluent-card__icon-fallback" :size="24" />
+          <v-img :src="icon" v-if="icon" class="fluent-card__icon" alt="Plugin Icon" width="48px" height="48px" />
+          <FluentSystemIcon v-else name="box" class="fluent-card__icon-fallback" :size="48" />
         </div>
         <div class="fluent-card__title-group">
           <h3 class="fluent-card__title">{{ title }}</h3>
           <span class="fluent-card__subtitle">{{ author }}</span>
         </div>
       </div>
-      <div class="fluent-card__content">
+      <div class="fluent-card__content opacity-75 text-sm">
         {{ description }}
       </div>
     </div>
@@ -40,7 +40,7 @@ const props = defineProps({
   flex-grow: 1;
   /* Ensure max-width isn't unbounded */
   max-width: 100%;
-  
+
   @media (min-width: 600px) {
       max-width: calc(50% - 8px); /* 2 per row minus gap approximation */
   }

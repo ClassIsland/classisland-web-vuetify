@@ -103,7 +103,7 @@ onMounted(() => init());
           <div class="skeleton-loader" style="height: 56px; width: 100%; border-radius: 4px;"></div>
           <div class="skeleton-loader" style="height: 56px; width: 100%; border-radius: 4px;"></div>
         </div>
-        <div v-else>
+        <div v-else class="d-flex flex-column">
           <h2 class="align-self-center text-center mb-6 text-h2 font-weight-bold download-main-title fluent-title">感谢下载 ClassIsland {{ downloadInfo.version }} ！</h2>
           <p class="text-center align-self-center mb-16 fluent-text">您的下载即将开始。如果下载在 30 秒内没有开始，请点击<a :href="downloadInfo.archiveUrl" id="downloadLink" :download='"ClassIsland_" + appSubChannel + "_" + downloadInfo.version + ".zip"'>此处</a>手动开始下载。</p>
 
@@ -134,8 +134,8 @@ onMounted(() => init());
         <h2 class="fluent-h2">三步安装 ClassIsland</h2>
         <div class="d-flex flex-row my-4 ga-6 flex-wrap">
           <div class="setup-step" v-if="scPackage == 'folder'">
-            <img v-if="scOs == 'windows'" src="../../../../../../assets/setup/windows/1.png" class="mb-4 step-img"/>
-            <img v-if="scOs == 'linux'" src="../../../../../../assets/setup/linux/6.png" class="mb-4 step-img"/>
+            <v-img v-if="scOs == 'windows'" src="../../../../../../assets/setup/windows/1.png" class="mb-4 step-img"/>
+            <v-img v-if="scOs == 'linux'" src="../../../../../../assets/setup/linux/6.png" class="mb-4 step-img"/>
             <h3 class="fluent-h3">第一步：解压应用</h3>
             <p class="fluent-text">在一个合适的地方<span v-if="scOs == 'windows'">（比如 D 盘等）</span><span v-else>（比如用户目录等）</span>新建一个文件夹，将下载的压缩包中的文件解压到文件夹中。</p>
             <p class="text-caption text-orange-darken-2 mt-2 fluent-text-caption warning-text">
@@ -144,27 +144,27 @@ onMounted(() => init());
             </p>
           </div>
           <div class="setup-step" v-else>
-            <img v-if="scOs == 'macos'" src="../../../../../../assets/setup/macos/7.png" class="mb-4 step-img"/>
-            <img v-if="scOs == 'linux'" src="../../../../../../assets/setup/linux/4.png" class="mb-4 step-img"/>
+            <v-img v-if="scOs == 'macos'" src="../../../../../../assets/setup/macos/7.png" class="mb-4 step-img"/>
+            <v-img v-if="scOs == 'linux'" src="../../../../../../assets/setup/linux/4.png" class="mb-4 step-img"/>
             <h3 class="fluent-h3">第一步：安装应用</h3>
             <p class="fluent-text">下载完成后，运行刚刚下载的安装包并按照提示完成安装。</p>
           </div>
           <div class="setup-step" v-if="scBuildType == 'full'">
-            <img v-if="scOs == 'windows'" src="../../../../../../assets/setup/windows/2.png" class="mb-4 step-img"/>
+            <v-img v-if="scOs == 'windows'" src="../../../../../../assets/setup/windows/2.png" class="mb-4 step-img"/>
             <h3 class="fluent-h3">第二步：安装 .NET 运行时</h3>
             <p class="fluent-text">运行应用，如果您的设备没有安装 .NET 运行时，可以根据启动应用后的弹窗的指示安装 .NET 运行时。</p>
           </div>
           <div class="setup-step">
-            <img v-if="scOs == 'windows'" src="../../../../../../assets/setup/windows/3.png" class="mb-4 step-img"/>
-            <img v-if="scOs == 'linux'" src="../../../../../../assets/setup/linux/5.png" class="mb-4 step-img"/>
-            <img v-if="scOs == 'macos'" src="../../../../../../assets/setup/macos/8.png" class="mb-4 step-img"/>
+            <v-img v-if="scOs == 'windows'" src="../../../../../../assets/setup/windows/3.png" class="mb-4 step-img"/>
+            <v-img v-if="scOs == 'linux'" src="../../../../../../assets/setup/linux/5.png" class="mb-4 step-img"/>
+            <v-img v-if="scOs == 'macos'" src="../../../../../../assets/setup/macos/8.png" class="mb-4 step-img"/>
             <h3 class="fluent-h3" v-if="scBuildType == 'full'">第三步：开始使用</h3>
             <h3 class="fluent-h3" v-else>第二步：开始使用</h3>
             <p class="fluent-text" v-if="scBuildType == 'full'">完成上述步骤后，再次运行应用，根据应用弹出的欢迎向导即可完成应用设置。</p>
             <p class="fluent-text" v-else>完成上述步骤后运行应用，根据应用弹出的欢迎向导即可完成应用设置。</p>
           </div>
           <div class="setup-step" v-if="scBuildType != 'full'">
-            <img src="../../../../../../assets/setup/completed.png" class="mb-4 step-img"/>
+            <v-img src="../../../../../../assets/setup/completed.png" class="mb-4 step-img"/>
             <h3 class="fluent-h3">第三步：大功告成</h3>
             <p class="fluent-text">大功告成，开始您的 ClassIsland 之旅吧！</p>
           </div>
@@ -271,10 +271,7 @@ onMounted(() => init());
 
 <style scoped lang="scss">
 .download-main-title {
-  background-image: var(--cyrene-gradient);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: var(--fill-color-accent-default) !important;
 }
 
 .download-container {
