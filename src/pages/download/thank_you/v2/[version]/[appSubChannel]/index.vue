@@ -97,11 +97,11 @@ onMounted(() => init());
   <div class="d-flex download-container flex-column">
     <div v-if="!isError" class="flex-column mt-12 ">
       <div class="page-margin-x">
-        <div v-if="isLoading" class="d-flex flex-column gap-4">
-          <div class="skeleton-loader" style="height: 60px; width: 100%; border-radius: 4px;"></div>
-          <div class="skeleton-loader" style="height: 24px; width: 100%; border-radius: 4px;"></div>
-          <div class="skeleton-loader" style="height: 56px; width: 100%; border-radius: 4px;"></div>
-          <div class="skeleton-loader" style="height: 56px; width: 100%; border-radius: 4px;"></div>
+        <div v-if="isLoading" class="d-flex flex-column ">
+          <v-skeleton-loader height="60px" class="mb-6"/>
+          <v-skeleton-loader height="24px" class="mb-16"/>
+          <v-skeleton-loader height="57px" class="mb-4"/>
+          <v-skeleton-loader height="57px" class="mb-4"/>
         </div>
         <div v-else class="d-flex flex-column">
           <h2 class="align-self-center text-center mb-6 text-h2 font-weight-bold download-main-title fluent-title">感谢下载 ClassIsland {{ downloadInfo.version }} ！</h2>
