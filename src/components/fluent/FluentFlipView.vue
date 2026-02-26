@@ -10,7 +10,16 @@
     >
       <transition name="fade" mode="out-in">
         <div :key="currentIndex" class="fluent-flip-view__item">
-          <img :src="items[currentIndex]" class="fluent-flip-view__image" />
+          <v-img
+            :src="items[currentIndex]"
+            :aspect-ratio="16 / 9"
+            class="fluent-flip-view__image w-full"
+            :alt="`轮播截图 ${currentIndex + 1}`"
+          >
+            <template #placeholder>
+              <v-skeleton-loader class="w-full h-full" />
+            </template>
+          </v-img>
         </div>
       </transition>
 
@@ -201,10 +210,13 @@ watch(
   }
 
   &__image {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
+    width: 100%;
     border-radius: 4px;
+    overflow: hidden;
+
+    :deep(.v-img__img) {
+      object-fit: contain;
+    }
   }
 
   &__nav {

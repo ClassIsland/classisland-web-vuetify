@@ -134,9 +134,7 @@ onMounted(() => init());
     <div class="loading-mask d-flex"
          v-if="isLoading">
       <div class="align-self-center">
-        <!-- Reusing FluentProgressRing is not strictly necessary if we just use a div spinner or skeleton, but let's be consistent if I imported it. 
-             Wait, I didn't import FluentProgressRing in this file. I'll use skeleton loaders as per v2. -->
-        <div class="skeleton-loader" style="width: 48px; height: 48px; border-radius: 50%;"></div>
+        <v-progress-circular size="48" indeterminate color="fill-color-accent-default"/>
       </div>
     </div>
     <div v-show="!isLoading && !isError" class="flex-column mt-12 ">

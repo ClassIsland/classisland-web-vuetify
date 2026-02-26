@@ -8,11 +8,10 @@
         </div>
         <div class="fluent-card__title-group">
           <h3 class="fluent-card__title">{{ title }}</h3>
-          <span class="fluent-card__subtitle">{{ author }}</span>
+          <div class="fluent-card__content opacity-75 text-sm">
+            {{ description }}
+          </div>
         </div>
-      </div>
-      <div class="fluent-card__content opacity-75 text-sm">
-        {{ description }}
       </div>
     </div>
   </a>
@@ -72,41 +71,42 @@ const props = defineProps({
     background: var(--background-fill-color-layer-default);
   }
 
-  &__header {
+  .fluent-card__header {
     display: flex;
     align-items: center;
     gap: 12px;
   }
 
-  &__icon-container {
+  .fluent-card__icon-container {
     width: 48px;
     height: 48px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--fill-color-control-alt-secondary);
+    align-self: start;
+    //background: var(--fill-color-control-alt-secondary);
     border-radius: 4px;
     overflow: hidden;
     flex-shrink: 0;
   }
 
-  &__icon {
+  .fluent-card__icon {
     width: 100%;
     height: 100%;
   }
 
-  &__icon-fallback {
+  .fluent-card__icon-fallback {
     font-size: 24px;
     color: var(--fill-color-text-secondary);
   }
 
-  &__title-group {
+  .fluent-card__title-group {
     display: flex;
     flex-direction: column;
     min-width: 0; /* Allow text truncation */
   }
 
-  &__title {
+  .fluent-card__title {
     font-family: var(--font-family-base);
     font-size: 16px;
     font-weight: 600;
@@ -117,25 +117,32 @@ const props = defineProps({
     text-overflow: ellipsis;
   }
 
-  &__subtitle {
-    font-family: var(--font-family-base);
-    font-size: 12px;
-    color: var(--fill-color-text-secondary);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  &__content {
+  .fluent-card__content {
     font-family: var(--font-family-base);
     font-size: 14px;
     line-height: 20px;
     color: var(--fill-color-text-secondary);
-    flex-grow: 1;
+    margin-top: 4px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
+  }
+
+  @media (max-width: 750px) {
+    padding: 12px;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+
+    .fluent-card__header {
+      justify-content: center;
+    }
+
+    .fluent-card__title-group,
+    .fluent-card__content {
+      display: none;
+    }
   }
 }
 </style>

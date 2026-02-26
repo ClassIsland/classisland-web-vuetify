@@ -35,7 +35,9 @@ export const FLUENT_ICON_NAMES = [
   'tagMultiple',
   'speaker2',
   'speakerMute',
-  'codeText'
+  'codeText',
+  'alertBadge',
+  'documentSparkle'
 ] as const;
 
 export type FluentIconName = (typeof FLUENT_ICON_NAMES)[number];

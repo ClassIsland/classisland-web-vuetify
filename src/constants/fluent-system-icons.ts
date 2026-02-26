@@ -72,6 +72,10 @@ import speakerMuteRegular from '@fluentui/svg-icons/icons/speaker_mute_24_regula
 import speakerMuteFilled from '@fluentui/svg-icons/icons/speaker_mute_24_filled.svg?raw';
 import codeTextRegular from '@fluentui/svg-icons/icons/code_text_20_regular.svg?raw';
 import codeTextFilled from '@fluentui/svg-icons/icons/code_text_20_filled.svg?raw';
+import alertBadgeRegular from '@fluentui/svg-icons/icons/alert_badge_24_regular.svg?raw';
+import alertBadgeFilled from '@fluentui/svg-icons/icons/alert_badge_24_filled.svg?raw';
+import documentSparkleRegular from '@fluentui/svg-icons/icons/document_sparkle_24_regular.svg?raw';
+import documentSparkleFilled from '@fluentui/svg-icons/icons/document_sparkle_24_filled.svg?raw';
 
 interface FluentSystemIconVariant {
   regular: string;
@@ -119,5 +123,7 @@ export const FLUENT_SYSTEM_ICONS: Record<FluentIconName, FluentSystemIconVariant
   tagMultiple: { regular: tagMultipleRegular, filled: tagMultipleFilled },
   speaker2: { regular: speaker2Regular, filled: speaker2Filled },
   speakerMute: { regular: speakerMuteRegular, filled: speakerMuteFilled },
-  codeText: { regular: codeTextRegular, filled: codeTextFilled }
+  codeText: { regular: codeTextRegular, filled: codeTextFilled },
+  alertBadge: { regular: alertBadgeRegular, filled: alertBadgeFilled },
+  documentSparkle: { regular: documentSparkleRegular, filled: documentSparkleFilled }
 };

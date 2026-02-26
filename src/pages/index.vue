@@ -1,7 +1,7 @@
 <template>
   <!-- 主要介绍 -->
-  <div class="introduction-container">
-    <div class="introduction-bg intro-bg-enter"/>
+  <div class="introduction-container" :class="{ 'intro-enter-active': shouldPlayIntroAnimation }">
+    <div class="introduction-bg"/>
     <div class="introduction d-flex flex-column margin-x">
       <div class="introduction-col description">
         <div class="brand-home d-flex flex-row flex-wrap intro-seq" style="--intro-delay: 80ms">
@@ -54,8 +54,8 @@
       </div>
     </div>
 
-    <div class="mt-16 d-flex flex-1-1 margin-x ga-8 flex-wrap-reverse items-center">
-      <div class="flex-grow-1 d-flex" style="flex-basis: 375px">
+    <div class="mt-16 d-flex margin-x ga-8 flex-wrap-reverse items-center ">
+      <div class="flex-grow-2 d-flex" style="flex-basis: 375px">
         <div class="position-relative">
           <video
             src="../assets/app-v2/notification-demo.web.mp4"
@@ -81,13 +81,13 @@
         </div>
       </div>
 
-      <div class="d-flex flex-column ga-4 flex-grow-1" style="flex-basis: 375px  ">
+      <div class="d-flex flex-column ga-4 flex-grow-1 " style="flex-basis: 375px; container-type: inline-size  ">
         <FeatureTitle header="醒目的提醒系统" tag="提醒" color="#01FFFD"/>
         <p class="opacity-75">
           ClassIsland
           可以在上课、下课等重要时间点发出提醒。除此之外，ClassIsland支持使用一系列方法强调提醒效果。
         </p>
-        <div class="content-flex-layout ga-4 flex-wrap">
+        <div class="content-flex-layout">
           <template v-for="feature in notificationFeatures" :key="feature.title" >
             <FluentCard :title="feature.title" :text="feature.description" :icon-name="feature.icon">
             </FluentCard>
@@ -110,7 +110,7 @@
           </FluentCard>
           <FluentCard
             title="时间与科目的自由定制"
-            icon-name="arrowUpload"
+            icon-name="documentSparkle"
             class="flex-grow-1"
           >
             <template #default>
@@ -126,7 +126,7 @@
           </FluentCard>
         </div>
       </div>
-      <div class="flex-grow-1 align-self-center" style="flex-basis: 375px; width: 100%">
+      <div class="flex-grow-2 align-self-center" style="flex-basis: 375px; width: 100%">
         <FluentFlipView :items="screenshots" />
       </div>
     </div>
@@ -212,36 +212,35 @@
       </div>
     </div>
 
-    <div class="margin-x mt-16 d-flex flex-column flex-wrap ga-4 flex-lg-wrap">
-      <FeatureTitle header="丰富的插件生态" tag="插件" color="#EBA2FD"/>
-      <p class="opacity-75">ClassIsland 支持通过安装插件的方式扩展应用的功能，如添加组件、提醒提供方、自动化行动、规则集规则、认证提供方等等，并且已经形成了相对丰富的插件生态。您可以在应用内的插件市场中安装插件。</p>
-      <div class="d-flex ga-2 flex-wrap align-content-start ">
-        <PluginCard title="ExtraIsland" author="LiPolymer" url="https://github.com/LiPolymer/ExtraIsland"
-                    description="为 ClassIsland 提供多种扩展功能！" icon="https://github.com/LiPolymer/ExtraIsland/raw/master/ExtraIsland/icon.png"/>
-        <PluginCard title="ClassIsland 主题加载器" author="ClassIsland" url="https://github.com/ClassIsland/ClassIsland.ThemeLoader/"
-                    description="向 ClassIsland 加载自定义的主题，个性化您的界面。" icon="https://github.com/ClassIsland/ClassIsland.ThemeLoader/raw/master/ClassIsland.ThemeLoader/icon.png"/>
-        <PluginCard title="地震预警" author="电排骨" url="https://github.com/denglihong2007/EarthquakeWarningForClassIsLand"
-                    description="防范于未然，争取宝贵的避险时间" icon="https://github.com/denglihong2007/EarthquakeWarningForClassIsLand/raw/master/EarthquakeWarning/icon.png"/>
-        <PluginCard title="UIAccess 提权" author="HelloWRC, Doubx690i" url="https://github.com/HelloWRC/GrantUiAccess"
-                    description="本插件可以为 ClassIsland 提升 UIAccess 令牌，使 ClassIsland 可以置顶到全屏 UWP 应用和系统界面上。"/>
+    <div class="d-flex flex-1-1 align-content-center items-center margin-x flex-wrap flex-md-nowrap ga-8 mt-16">
+      <div class="d-flex flex-column ga-4 flex-grow-1 flex-md-grow-0 flex-wrap basis-1/4" >
+        <FeatureTitle header="丰富的插件生态" tag="插件" color="#EBA2FD"/>
+        <p class="opacity-75">ClassIsland 支持通过安装插件的方式扩展应用的功能，如添加组件、提醒提供方、自动化行动、规则集规则、认证提供方等等，并且已经形成了相对丰富的插件生态。您可以在应用内的插件市场中安装插件。</p>
+        <p class="opacity-75">同时 ClassIsland 也对插件开放了<a href="https://api.docs.classisland.tech/api/ClassIsland.Core.Abstractions.Services.html"
+                                                                target="_blank">丰富的 API</a>，您可以查看<a href="https://docs.classisland.tech/dev" target="_blank">开发文档</a>来了解如何开发插件。</p>
       </div>
-      <p class="opacity-75">同时 ClassIsland 也对插件开放了<a href="https://api.docs.classisland.tech/api/ClassIsland.Core.Abstractions.Services.html"
-                                           target="_blank">丰富的 API</a>，您可以查看<a href="https://docs.classisland.tech/dev" target="_blank">开发文档</a>来了解如何开发插件。</p>
+      <div class="align-self-center basis-3/4 flex-grow-1 flex-md-grow-0" style="">
+        <div class="plugins-grid-fade">
+          <div class="plugins-grid">
+            <PluginCard v-for="plugin in plugins"
+                        :title="plugin.title" :url="plugin.url" :icon="plugin.icon" :description="plugin.description"
+                        class="plugins-grid-item"/>
+          </div>
+        </div>
+      </div>
     </div>
+
 
   </div>
   <div class="content">
     <Subtitle feature-tag="跨平台"
               foreground="linear-gradient(135deg, #ffb802, #ffb802)"/>
 
-    <div class="mt-16 d-flex flex-1-1 margin-x ga-8 flex-wrap-reverse items-center">
-      <div class="flex-grow-1 d-flex" style="flex-basis: 375px">
-        <div class="position-relative">
-          <FluentFlipView :items="screenshotsPlatforms" />
-        </div>
+    <div class="mt-16 d-flex flex-1-1 margin-x ga-8 flex-wrap-reverse flex-md-nowrap items-center">
+      <div class="d-flex basis-3/4 flex-grow-1 " style="flex-basis: 375px">
+        <FluentFlipView :items="screenshotsPlatforms" />
       </div>
-
-      <div class="d-flex flex-column ga-4 flex-grow-1" style="flex-basis: 375px  ">
+      <div class="d-flex flex-column ga-4 flex-grow-1 flex-md-grow-0 flex-wrap basis-1/4" style="flex-basis: 375px  ">
         <FeatureTitle header="优秀的多平台兼容性" tag="多端支持" color="#ffb802"/>
         <p class="opacity-75">
           ClassIsland
@@ -258,12 +257,12 @@
     <h2 class="headline-feature text-center" >
           除了这些…</h2>
 
-    <div class="d-flex flex-1-1 align-content-center items-center margin-x flex-wrap ga-8 mt-16">
-      <div class="d-flex flex-column ga-4 flex-grow-1 flex-wrap" style="flex-basis: 375px">
+    <div class="d-flex flex-1-1 align-content-center items-center margin-x flex-wrap flex-md-nowrap ga-8 mt-16">
+      <div class="d-flex flex-column ga-4 flex-grow-1 flex-md-grow-0 basis-1/4 flex-wrap" style="flex-basis: 375px">
         <FeatureTitle header="手把手的入门教程" tag="教程" color="#66ccff"/>
         <p class="opacity-75">ClassIsland 内置了完善的入门教程，可以手把手地助您上手应用。</p>
       </div>
-      <div class="flex-grow-1 align-self-center" style="flex-basis: 375px; width: 100%">
+      <div class="align-self-center basis-3/4 flex-grow-1" style="flex-basis: 375px; width: 100%">
         <div class="w-full aspect-video">
           <v-img src="../assets/app-v2/tutorial.webp" class="w-full h-full" cover alt="入门教程演示图">
             <template #placeholder>
@@ -338,13 +337,44 @@ h1 {
 
 .content-flex-layout {
   display: flex;
-  flex-wrap: wrap;
+  @container (max-width: 632px) {
+    flex-wrap: wrap;
+  }
   gap: 16px;
 }
 
 .content-flex-layout > * {
   flex-grow: 1;
-  flex-basis: 250px;
+  flex-basis: 200px;
+}
+
+.plugins-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.plugins-grid-fade {
+  position: relative;
+}
+
+.plugins-grid-fade::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 160px;
+  pointer-events: none;
+  background-color: var(--background-fill-color-solid-background-base, #fff);
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000);
+  mask-image: linear-gradient(to bottom, transparent, #000);
+}
+
+.plugins-grid > :deep(.plugin-card-link) {
+  width: 100%;
+  max-width: none;
+  flex-basis: auto;
 }
 
 .content {
@@ -445,7 +475,7 @@ h1 {
   flex-basis: 480px;
 }
 
-.intro-seq {
+.intro-enter-active .intro-seq {
   @apply motion-safe:animate-[introColFadeInLeft_.72s_cubic-bezier(0.16,1,0.3,1)_both];
   animation-delay: var(--intro-delay, 0ms);
 }
@@ -582,7 +612,7 @@ h1 {
 
 }
 
-.intro-bg-enter {
+.intro-enter-active .introduction-bg {
   @apply motion-safe:[transform-origin:right_center] motion-safe:[will-change:transform,opacity] motion-safe:animate-[introBgFlyInRightExpand_0.75s_cubic-bezier(0.16,1,0.3,1)_60ms_both];
 }
 
@@ -667,6 +697,7 @@ import desktopUos from '../assets/app-v2/platforms/uos.png';
 import desktopWindows from '../assets/app-v2/platforms/windows.png';
 import Subtitle from '../components/Subtitle.vue';
 import FeatureTitle from '../components/FeatureTitle.vue';
+import IPluginInfo from '../interfaces/IPluginInfo';
 
 const screenshots = [screenshot1, screenshot5, screenshot2, screenshot3, screenshot4];
 const screenshotsPlatforms = [desktopWindows, desktopUos, desktopArch, desktopMac];
@@ -682,8 +713,10 @@ useHead({
 })
 
 const router = useRouter();
-let featureTagInterval: ReturnType<typeof setInterval> | null = null;
 let scrollRevealContext: gsap.Context | null = null;
+let introAnimationTimeout: ReturnType<typeof setTimeout> | null = null;
+
+const shouldPlayIntroAnimation = ref(false);
 
 function unmute_video(event: Event) {
   const video = document.getElementById('notification-demo') as HTMLVideoElement;
@@ -697,43 +730,10 @@ function gotoDownload() {
 
 const isVideoSoundRestored = ref(false);
 
-const featureTags = ref([
-  {
-    selected: true,
-    title: "直观",
-    gradientStart: "#00FFED",
-    gradientEnd: "#00bdfd",
-  },
-  {
-    selected: false,
-    title: "灵活",
-    gradientStart: "#00FFC9",
-    gradientEnd: "#82FF8F",
-  },
-  {
-    selected: false,
-    title: "智能",
-    gradientStart: "#C93BFF",
-    gradientEnd: "#8B3BFF",
-  },
-  {
-    selected: false,
-    title: "可定制",
-    gradientStart: "#FCF33A",
-    gradientEnd: "#FFDD3B",
-  },
-  {
-    selected: false,
-    title: "可靠",
-    gradientStart: "#FF7900",
-    gradientEnd: "#FFA100",
-  }
-]);
-
 const notificationFeatures: Array<IFeature> = [
   {
     title: '横幅',
-    icon: 'peopleCommunity',
+    icon: 'alertBadge',
     description: '屏幕上方横幅显示'
   },
   {
@@ -753,30 +753,77 @@ const notificationFeatures: Array<IFeature> = [
   }
 ];
 
+const plugins: Array<IPluginInfo> = [
+  {
+    title: 'ExtraIsland',
+    icon: 'https://github.com/LiPolymer/ExtraIsland/raw/master/ExtraIsland/icon.png',
+    description: '为 ClassIsland 提供多种扩展功能！',
+    url: "https://github.com/LiPolymer/ExtraIsland"
+  },
+  {
+    title: '地震预警',
+    icon: 'https://github.com/denglihong2007/EarthquakeWarningForClassIsLand/raw/master/EarthquakeWarning/icon.png',
+    description: '防范于未然，争取宝贵的避险时间',
+    url: "https://github.com/denglihong2007/EarthquakeWarningForClassIsLand"
+  },
+  {
+    title: 'SystemTools',
+    icon: 'https://github.com/Programmer-MrWang/SystemTools/raw/main/icon.png',
+    description: '提供多彩而丰富的更多 行动/触发器/实用工具',
+    url: "https://github.com/Programmer-MrWang/SystemTools"
+  },
+  {
+    title: 'MediaIsland',
+    icon: 'https://github.com/bywhite0/MediaIsland/raw/master/MediaIsland/icon.png',
+    description: '在 ClassIsland 显示 SMTC 媒体信息。',
+    url: "https://github.com/bywhite0/MediaIsland"
+  },
+  {
+    title: 'DutyIsland',
+    icon: 'https://github.com/lrsgzs/DutyIsland/raw/master/DutyIsland/icon.png',
+    description: '给 ClassIsland 加上值日表。',
+    url: "https://github.com/lrsgzs/DutyIsland"
+  },
+  {
+    title: 'MonitorIsland',
+    icon: 'https://github.com/LiuYan-xwx/MonitorIsland/raw/master/MonitorIsland/icon.png',
+    description: '在主界面实时监控系统硬件资源使用状态',
+    url: "https://github.com/LiuYan-xwx/MonitorIsland"
+  },
+  {
+    title: '以管理员身份自启动',
+    icon: 'https://github.com/ClassIsland/StartUpAsAdmin/raw/master/icon.ico',
+    description: '通过计划任务，让 ClassIsland 在开机时以管理员身份自启动。',
+    url: "https://github.com/ClassIsland/StartUpAsAdmin"
+  },
+  {
+    title: 'SuperAutoIsland',
+    icon: 'https://github.com/lrsgzs/SuperAutoIsland/raw/master/SuperAutoIsland/icon.png',
+    description: '自动化进化',
+    url: "https://github.com/lrsgzs/SuperAutoIsland"
+  },
+  {
+    title: 'UIAccess 提权',
+    icon: 'https://github.com/HelloWRC/GrantUiAccess/raw/master/GrantUiAccess/icon.png',
+    description: '本插件可以为 ClassIsland 提升 UIAccess 令牌，使 ClassIsland 可以置顶到全屏 UWP 应用和系统界面上。',
+    url: "https://github.com/HelloWRC/GrantUiAccess"
+  },
+];
+
 onMounted(() => {
-  featureTagInterval = setInterval(() => {
-    // console.log(featureTags);
-    let ft = featureTags.value;
-    let b = false;
-    for (let i in ft) {
-      if (b == true) {
-        b = false;
-        ft[i].selected = true;
-        break;
-      }
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-      if (ft[i].selected) {
-        b = true;
-        ft[i].selected = false;
-      }
-    }
-    if (b) {
-      ft[0].selected = true;
-    }
-    featureTags.value = ft;
-  }, 2250);
+  if (!prefersReducedMotion) {
+    requestAnimationFrame(() => {
+      shouldPlayIntroAnimation.value = true;
+      introAnimationTimeout = setTimeout(() => {
+        shouldPlayIntroAnimation.value = false;
+        introAnimationTimeout = null;
+      }, 1400);
+    });
+  }
 
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (prefersReducedMotion) {
     return;
   }
 
@@ -800,9 +847,9 @@ onMounted(() => {
 });
 
 onBeforeUnmount(() => {
-  if (featureTagInterval) {
-    clearInterval(featureTagInterval);
-    featureTagInterval = null;
+  if (introAnimationTimeout) {
+    clearTimeout(introAnimationTimeout);
+    introAnimationTimeout = null;
   }
 
   scrollRevealContext?.revert();
