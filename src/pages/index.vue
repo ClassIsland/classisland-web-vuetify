@@ -758,55 +758,55 @@ const notificationFeatures: Array<IFeature> = [
 const plugins: Array<IPluginInfo> = [
   {
     title: 'ExtraIsland',
-    icon: 'https://github.com/LiPolymer/ExtraIsland/raw/master/ExtraIsland/icon.png',
+    icon: 'https://cdn.jsdelivr.net/gh/LiPolymer/ExtraIsland@master/ExtraIsland/icon.png',
     description: '为 ClassIsland 提供多种扩展功能！',
     url: "https://github.com/LiPolymer/ExtraIsland"
   },
   {
     title: '地震预警',
-    icon: 'https://github.com/denglihong2007/EarthquakeWarningForClassIsLand/raw/master/EarthquakeWarning/icon.png',
+    icon: 'https://cdn.jsdelivr.net/gh/denglihong2007/EarthquakeWarningForClassIsLand@master/EarthquakeWarning/icon.png',
     description: '防范于未然，争取宝贵的避险时间',
     url: "https://github.com/denglihong2007/EarthquakeWarningForClassIsLand"
   },
   {
     title: 'SystemTools',
-    icon: 'https://github.com/Programmer-MrWang/SystemTools/raw/main/icon.png',
+    icon: 'https://cdn.jsdelivr.net/gh/Programmer-MrWang/SystemTools@main/icon.png',
     description: '提供多彩而丰富的更多 行动/触发器/实用工具',
     url: "https://github.com/Programmer-MrWang/SystemTools"
   },
   {
     title: 'MediaIsland',
-    icon: 'https://github.com/bywhite0/MediaIsland/raw/master/MediaIsland/icon.png',
+    icon: 'https://cdn.jsdelivr.net/gh/bywhite0/MediaIsland@master/MediaIsland/icon.png',
     description: '在 ClassIsland 显示 SMTC 媒体信息。',
     url: "https://github.com/bywhite0/MediaIsland"
   },
   {
     title: 'DutyIsland',
-    icon: 'https://github.com/lrsgzs/DutyIsland/raw/master/DutyIsland/icon.png',
+    icon: 'https://cdn.jsdelivr.net/gh/lrsgzs/DutyIsland@master/DutyIsland/icon.png',
     description: '给 ClassIsland 加上值日表。',
     url: "https://github.com/lrsgzs/DutyIsland"
   },
   {
     title: 'MonitorIsland',
-    icon: 'https://github.com/LiuYan-xwx/MonitorIsland/raw/master/MonitorIsland/icon.png',
+    icon: 'https://cdn.jsdelivr.net/gh/LiuYan-xwx/MonitorIsland@master/MonitorIsland/icon.png',
     description: '在主界面实时监控系统硬件资源使用状态',
     url: "https://github.com/LiuYan-xwx/MonitorIsland"
   },
   {
     title: '以管理员身份自启动',
-    icon: 'https://github.com/ClassIsland/StartUpAsAdmin/raw/master/icon.ico',
+    icon: 'https://cdn.jsdelivr.net/gh/ClassIsland/StartUpAsAdmin@master/icon.ico',
     description: '通过计划任务，让 ClassIsland 在开机时以管理员身份自启动。',
     url: "https://github.com/ClassIsland/StartUpAsAdmin"
   },
   {
     title: 'SuperAutoIsland',
-    icon: 'https://github.com/lrsgzs/SuperAutoIsland/raw/master/SuperAutoIsland/icon.png',
+    icon: 'https://cdn.jsdelivr.net/gh/lrsgzs/SuperAutoIsland@master/SuperAutoIsland/icon.png',
     description: '自动化进化',
     url: "https://github.com/lrsgzs/SuperAutoIsland"
   },
   {
     title: 'UIAccess 提权',
-    icon: 'https://github.com/HelloWRC/GrantUiAccess/raw/master/GrantUiAccess/icon.png',
+    icon: 'https://cdn.jsdelivr.net/gh/HelloWRC/GrantUiAccess@master/GrantUiAccess/icon.png',
     description: '本插件可以为 ClassIsland 提升 UIAccess 令牌，使 ClassIsland 可以置顶到全屏 UWP 应用和系统界面上。',
     url: "https://github.com/HelloWRC/GrantUiAccess"
   },
