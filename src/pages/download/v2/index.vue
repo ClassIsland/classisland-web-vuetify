@@ -337,6 +337,11 @@ const comboBoxItems = computed(() => {
             下载 CI 构建
           </FluentButton>
           <FluentButton variant="hyperlink"
+                        to="/download/mirrors">
+            <template #prepend><FluentSystemIcon name="arrowDownload" /></template>
+            下载镜像
+          </FluentButton>
+          <FluentButton variant="hyperlink"
                  to="/download/v1">
             <template #prepend><FluentSystemIcon name="archive" /></template>
             下载 ClassIsland 1
@@ -360,6 +365,10 @@ const comboBoxItems = computed(() => {
           <FluentButton href="https://github.com/ClassIsland/ClassIsland/releases" target="_blank">
             <template #prepend><FluentSystemIcon name="github" /></template>
             前往 GitHub 下载
+          </FluentButton>
+          <FluentButton to="/download/mirrors">
+            <template #prepend><FluentSystemIcon name="arrowDownload" /></template>
+            前往镜像站下载
           </FluentButton>
         </div>
       </div>
