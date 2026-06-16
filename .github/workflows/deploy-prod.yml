@@ -46,7 +46,7 @@ jobs:
           cmd: build
 
       - name: Deploy
-        uses: easingthemes/ssh-deploy@5.1.0
+        uses: easingthemes/ssh-deploy@v5.1.0
         with:
           SSH_PRIVATE_KEY: ${{ secrets.DEPLOY_WEB_PRIVATEKEY }}
           # 复制操作的参数。"-avzr --delete"意味部署时清空服务器目标目录下的文件
