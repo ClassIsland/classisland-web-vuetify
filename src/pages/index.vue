@@ -426,19 +426,17 @@
     </div>
   </div>
 
-  <div class="">
-    <div class="content d-flex flex-column ga-8 margin-x">
-      <span class="text-h5 align-self-center">更多功能留给您自行探索！</span>
-      <div class="d-flex flex-row ga-2 align-self-center">
-        <FluentButton variant="primary" to="/download">
-          <template #prepend><FluentSystemIcon name="arrowDownload" /></template>
-          立即下载 ClassIsland
-        </FluentButton>
-        <FluentButton href="https://github.com/ClassIsland/ClassIsland" target="_blank">
-          <template #prepend><FluentSystemIcon name="github" /></template>
-          了解更多
-        </FluentButton>
-      </div>
+  <div class="content d-flex flex-column ga-8 margin-x">
+    <span class="text-h5 align-self-center">更多功能留给您自行探索！</span>
+    <div class="d-flex flex-row ga-2 align-self-center">
+      <FluentButton variant="primary" to="/download">
+        <template #prepend><FluentSystemIcon name="arrowDownload" /></template>
+        立即下载 ClassIsland
+      </FluentButton>
+      <FluentButton href="https://github.com/ClassIsland/ClassIsland" target="_blank">
+        <template #prepend><FluentSystemIcon name="github" /></template>
+        了解更多
+      </FluentButton>
     </div>
   </div>
 </template>
@@ -797,7 +795,7 @@ h1 {
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import IFeature from '../interfaces/IFeature';
-import { onBeforeUnmount, onMounted, ref } from 'vue';
+import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
 import PluginCard from '../components/PluginCard.vue';
 
@@ -836,6 +834,9 @@ useHead({
 const router = useRouter();
 let scrollRevealContext: gsap.Context | null = null;
 let introAnimationTimeout: ReturnType<typeof setTimeout> | null = null;
+let scrollTriggerRefreshFrame: number | null = null;
+let scrollTriggerResizeObserver: ResizeObserver | null = null;
+let scrollTriggerLoadHandler: (() => void) | null = null;
 
 const shouldPlayIntroAnimation = ref(false);
 
@@ -850,6 +851,17 @@ function gotoDownload() {
 }
 
 const isVideoSoundRestored = ref(false);
+
+function scheduleScrollTriggerRefresh() {
+  if (scrollTriggerRefreshFrame !== null) {
+    cancelAnimationFrame(scrollTriggerRefreshFrame);
+  }
+
+  scrollTriggerRefreshFrame = requestAnimationFrame(() => {
+    scrollTriggerRefreshFrame = null;
+    ScrollTrigger.refresh();
+  });
+}
 
 const notificationFeatures: Array<IFeature> = [
   {
@@ -953,19 +965,42 @@ onMounted(() => {
   scrollRevealContext = gsap.context(() => {
     const contentBlocks = gsap.utils.toArray<HTMLElement>('.content > *');
     contentBlocks.forEach((block) => {
-      gsap.from(block, {
-        y: 50,
-        opacity: 0,
-        duration: 0.8,
-        ease: 'power2.out',
-        scrollTrigger: {
-          trigger: block,
-          start: 'top 88%',
-          once: true
+      ScrollTrigger.create({
+        trigger: block,
+        start: 'top 88%',
+        once: true,
+        onEnter: () => {
+          gsap.fromTo(
+            block,
+            { y: 50, opacity: 0 },
+            {
+              y: 0,
+              opacity: 1,
+              duration: 0.8,
+              ease: 'power2.out',
+              clearProps: 'transform,opacity'
+            }
+          );
         }
       });
     });
   });
+
+  nextTick(() => {
+    scheduleScrollTriggerRefresh();
+
+    if ('ResizeObserver' in window) {
+      scrollTriggerResizeObserver = new ResizeObserver(scheduleScrollTriggerRefresh);
+      scrollTriggerResizeObserver.observe(document.body);
+    }
+  });
+
+  scrollTriggerLoadHandler = scheduleScrollTriggerRefresh;
+  if (document.readyState === 'complete') {
+    scheduleScrollTriggerRefresh();
+  } else {
+    window.addEventListener('load', scrollTriggerLoadHandler, { once: true });
+  }
 });
 
 onBeforeUnmount(() => {
@@ -973,6 +1008,19 @@ onBeforeUnmount(() => {
     clearTimeout(introAnimationTimeout);
     introAnimationTimeout = null;
   }
+
+  if (scrollTriggerRefreshFrame !== null) {
+    cancelAnimationFrame(scrollTriggerRefreshFrame);
+    scrollTriggerRefreshFrame = null;
+  }
+
+  if (scrollTriggerLoadHandler) {
+    window.removeEventListener('load', scrollTriggerLoadHandler);
+    scrollTriggerLoadHandler = null;
+  }
+
+  scrollTriggerResizeObserver?.disconnect();
+  scrollTriggerResizeObserver = null;
 
   scrollRevealContext?.revert();
   scrollRevealContext = null;
