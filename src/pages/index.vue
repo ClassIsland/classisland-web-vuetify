@@ -1,11 +1,11 @@
 <template>
   <!-- 主要介绍 -->
   <div class="introduction-container" :class="{ 'intro-enter-active': shouldPlayIntroAnimation }">
-    <div class="introduction-bg"/>
+    <div class="introduction-bg" />
     <div class="introduction d-flex flex-column margin-x">
       <div class="introduction-col description">
         <div class="brand-home d-flex flex-row flex-wrap intro-seq" style="--intro-delay: 80ms">
-          <img src="../assets/logo.svg" width="42" height="42" alt="App Logo"/>
+          <img src="../assets/logo.svg" width="42" height="42" alt="App Logo" />
           <h1 class="brand-title">ClassIsland</h1>
           <p class="brand-description">班级大屏课表</p>
         </div>
@@ -15,36 +15,58 @@
         <div class="feature-tags mt-3 intro-seq" style="--intro-delay: 180ms">
           <span class="feature-tags-main">功能强、可定制、跨平台</span>
         </div>
-        <div class="d-flex ga-2 flex-wrap mt-3 intro-seq" style="--intro-delay: 230ms">
+        <div class="feature-tags mt-6 intro-seq" style="--intro-delay: 230ms">
+          <a href="https://trendshift.io/repositories/14441" target="_blank"
+            ><img
+              src="https://trendshift.io/api/badge/repositories/14441"
+              alt="ClassIsland%2FClassIsland | Trendshift"
+              style="width: 250px; height: 55px"
+              width="250"
+              height="55"
+          /></a>
+        </div>
+
+        <div class="d-flex ga-2 flex-wrap mt-3 intro-seq" style="--intro-delay: 280ms">
           <a href="https://github.com/ClassIsland/ClassIsland">
-            <img src="https://img.shields.io/github/stars/ClassIsland/ClassIsland" alt="Stars">
+            <img src="https://img.shields.io/github/stars/ClassIsland/ClassIsland" alt="Stars" />
           </a>
           <a>
-            <img src="https://img.shields.io/github/license/HelloWRC/ClassIsland?style=flat-square" alt="开源许可证">
+            <img
+              src="https://img.shields.io/github/license/HelloWRC/ClassIsland?style=flat-square"
+              alt="开源许可证"
+            />
           </a>
         </div>
-        <div class="d-flex ga-4 flex-wrap mt-12 intro-seq" style="--intro-delay: 280ms">
+        <div class="d-flex ga-4 flex-wrap mt-8 intro-seq" style="--intro-delay: 330ms">
           <FluentButton to="/download" variant="primary" size="large">
             <template #prepend><FluentSystemIcon name="arrowDownload" /></template>
             立即下载
           </FluentButton>
-          <FluentButton href="https://github.com/ClassIsland/ClassIsland" variant="hyperlink" target="_blank" size="large">
+          <FluentButton
+            href="https://github.com/ClassIsland/ClassIsland"
+            variant="hyperlink"
+            target="_blank"
+            size="large"
+          >
             <template #prepend><FluentSystemIcon name="github" /></template>
             GitHub 仓库
           </FluentButton>
         </div>
-        <p class="mt-4 platform-requirement intro-seq" style="--intro-delay: 330ms">支持在 Windows 10/11、Linux 和 macOS 11及更高版本上运行。</p>
+        <p class="mt-4 platform-requirement intro-seq" style="--intro-delay: 330ms">
+          支持在 Windows 10/11、Linux 和 macOS 11及更高版本上运行。
+        </p>
       </div>
     </div>
   </div>
 
   <div class="content">
-    <Subtitle feature-tag="功能强"
-              foreground="linear-gradient(135deg, #01FFFD, #00bdfd)"/>
+    <Subtitle feature-tag="功能强" foreground="linear-gradient(135deg, #01FFFD, #00bdfd)" />
 
     <div class="margin-x ga-4 d-flex flex-column">
-      <FeatureTitle header="直观的信息显示" tag="主界面" color="#01FFFD"/>
-      <p class="opacity-75">自动直观地显示今日的课程安排和当前进行的课程等信息，并支持通过【组件】自定义主界面上显示的内容。</p>
+      <FeatureTitle header="直观的信息显示" tag="主界面" color="#01FFFD" />
+      <p class="opacity-75">
+        自动直观地显示今日的课程安排和当前进行的课程等信息，并支持通过【组件】自定义主界面上显示的内容。
+      </p>
       <div class="w-full">
         <v-img src="../assets/app-v2/mainwindow.png" height="90px" alt="组件演示图">
           <template #placeholder>
@@ -54,7 +76,7 @@
       </div>
     </div>
 
-    <div class="mt-16 d-flex margin-x ga-8 flex-wrap-reverse items-center ">
+    <div class="mt-16 d-flex margin-x ga-8 flex-wrap-reverse items-center">
       <div class="flex-grow-2 d-flex" style="flex-basis: 375px">
         <div class="position-relative">
           <video
@@ -65,7 +87,7 @@
             width="100%"
             id="notification-demo"
           />
-          <div style="position: absolute; bottom: 16px; right: 8px;">
+          <div style="position: absolute; bottom: 16px; right: 8px">
             <transition name="fade">
               <FluentButton
                 variant="primary"
@@ -74,22 +96,29 @@
                 @click="unmute_video"
                 v-show="!isVideoSoundRestored"
               >
-                <FluentSystemIcon name="speakerMute" class="mt-1"/>
+                <FluentSystemIcon name="speakerMute" class="mt-1" />
               </FluentButton>
             </transition>
           </div>
         </div>
       </div>
 
-      <div class="d-flex flex-column ga-4 flex-grow-1 " style="flex-basis: 375px; container-type: inline-size  ">
-        <FeatureTitle header="醒目的提醒系统" tag="提醒" color="#01FFFD"/>
+      <div
+        class="d-flex flex-column ga-4 flex-grow-1"
+        style="flex-basis: 375px; container-type: inline-size"
+      >
+        <FeatureTitle header="醒目的提醒系统" tag="提醒" color="#01FFFD" />
         <p class="opacity-75">
           ClassIsland
           可以在上课、下课等重要时间点发出提醒。除此之外，ClassIsland支持使用一系列方法强调提醒效果。
         </p>
         <div class="content-flex-layout">
-          <template v-for="feature in notificationFeatures" :key="feature.title" >
-            <FluentCard :title="feature.title" :text="feature.description" :icon-name="feature.icon">
+          <template v-for="feature in notificationFeatures" :key="feature.title">
+            <FluentCard
+              :title="feature.title"
+              :text="feature.description"
+              :icon-name="feature.icon"
+            >
             </FluentCard>
           </template>
         </div>
@@ -98,9 +127,11 @@
 
     <div class="d-flex flex-1-1 align-content-center margin-x flex-wrap ga-8 mt-16">
       <div class="d-flex flex-column ga-4 flex-grow-1 flex-wrap" style="flex-basis: 375px">
-        <FeatureTitle header="强大的课表系统" tag="课表" color="#01FFFD"/>
-        <p class="opacity-75">ClassIsland 具有强大的课表管理系统，可以便捷地导入、编辑和调换课表。</p>
-        <div class="d-flex flex-column ga-4" >
+        <FeatureTitle header="强大的课表系统" tag="课表" color="#01FFFD" />
+        <p class="opacity-75">
+          ClassIsland 具有强大的课表管理系统，可以便捷地导入、编辑和调换课表。
+        </p>
+        <div class="d-flex flex-column ga-4">
           <FluentCard
             title="灵活的课表启用规则"
             icon-name="tagMultiple"
@@ -108,11 +139,7 @@
             class="flex-grow-1"
           >
           </FluentCard>
-          <FluentCard
-            title="时间与科目的自由定制"
-            icon-name="documentSparkle"
-            class="flex-grow-1"
-          >
+          <FluentCard title="时间与科目的自由定制" icon-name="documentSparkle" class="flex-grow-1">
             <template #default>
               ClassIsland 不仅支持为不同的课表设置不同的时间安排，还支持添加自定义科目。
             </template>
@@ -131,27 +158,36 @@
       </div>
     </div>
 
-    <div class="margin-x mt-16 align-self-stretch d-flex gc-4 gr-8 justify-center platforms-container flex-column flex-md-row flex-row
-                   align-content-start items-start">
+    <div
+      class="margin-x mt-16 align-self-stretch d-flex gc-4 gr-8 justify-center platforms-container flex-column flex-md-row flex-row align-content-start items-start"
+    >
       <div class="flex-grow-1 d-flex flex-column gap-4 basis-1/3">
-        <FeatureTitle header="临时启用课表" tag="临时课表" color="#01FFFD"/>
-        <p class="opacity-75">ClassIsland 支持设置在当日或未来某一天临时启用某个课表，以应对调休或换课等场景。</p>
+        <FeatureTitle header="临时启用课表" tag="临时课表" color="#01FFFD" />
+        <p class="opacity-75">
+          ClassIsland 支持设置在当日或未来某一天临时启用某个课表，以应对调休或换课等场景。
+        </p>
       </div>
       <div class="flex-grow-1 d-flex flex-column gap-4 basis-1/3">
-        <FeatureTitle header="提前调整课程" tag="调课" color="#01FFFD"/>
+        <FeatureTitle header="提前调整课程" tag="调课" color="#01FFFD" />
         <p class="opacity-75">ClassIsland 支持当日和跨天换课，灵活应对调课情景。</p>
       </div>
       <div class="flex-grow-1 d-flex flex-column gap-4 basis-1/3">
-        <FeatureTitle header="从其它软件导入课表信息" tag="课表导入" color="#01FFFD"/>
-        <p class="opacity-75">ClassIsland
-          支持从包括但不限于 Class Widgets 1 的其它课表软件直接导入课表信息，也支持从 CSES 导入课表信息。</p>
+        <FeatureTitle header="从其它软件导入课表信息" tag="课表导入" color="#01FFFD" />
+        <p class="opacity-75">
+          ClassIsland 支持从包括但不限于 Class Widgets 1 的其它课表软件直接导入课表信息，也支持从
+          CSES 导入课表信息。
+        </p>
       </div>
     </div>
 
     <div class="d-flex flex-1-1 align-content-start margin-x flex-wrap ga-8 mt-12">
       <div class="flex-grow-1 d-flex flex-column gap-4" style="flex-basis: 375px">
-        <FeatureTitle header="灵活的规则系统" tag="规则集" color="#01FFFD"/>
-        <p class="opacity-75">ClassIsland 的部分状态可以通过定义自定义的规则实现自动修改，如比如在上课且前台是全屏/最大化窗口时隐藏主界面等。ClassIsland 内置了课程、窗口、天气等规则，同时支持插件扩展规则，灵活应对各种情景。</p>
+        <FeatureTitle header="灵活的规则系统" tag="规则集" color="#01FFFD" />
+        <p class="opacity-75">
+          ClassIsland
+          的部分状态可以通过定义自定义的规则实现自动修改，如比如在上课且前台是全屏/最大化窗口时隐藏主界面等。ClassIsland
+          内置了课程、窗口、天气等规则，同时支持插件扩展规则，灵活应对各种情景。
+        </p>
         <div class="w-full aspect-video">
           <v-img src="../assets/app-v2/rules.webp" class="w-full h-full" cover alt="规则系统演示图">
             <template #placeholder>
@@ -161,10 +197,19 @@
         </div>
       </div>
       <div class="flex-grow-1 d-flex flex-column gap-4" style="flex-basis: 375px">
-        <FeatureTitle header="智能的自动行为" tag="自动化" color="#01FFFD"/>
-        <p class="opacity-75">自动化功能可以让 ClassIsland 在一些特定的时间节点执行一些特定的操作，比如切换组件配置，运行程序等，显示提醒等等。总的来说，就是“当 XX 发生”，并且“满足 XX 规则”时“做什么”。</p>
+        <FeatureTitle header="智能的自动行为" tag="自动化" color="#01FFFD" />
+        <p class="opacity-75">
+          自动化功能可以让 ClassIsland
+          在一些特定的时间节点执行一些特定的操作，比如切换组件配置，运行程序等，显示提醒等等。总的来说，就是“当
+          XX 发生”，并且“满足 XX 规则”时“做什么”。
+        </p>
         <div class="w-full aspect-video">
-          <v-img src="../assets/app-v2/automation.webp" class="w-full h-full" cover alt="自动化演示图">
+          <v-img
+            src="../assets/app-v2/automation.webp"
+            class="w-full h-full"
+            cover
+            alt="自动化演示图"
+          >
             <template #placeholder>
               <v-skeleton-loader class="w-full h-full" />
             </template>
@@ -175,23 +220,35 @@
   </div>
 
   <div class="content">
-    <Subtitle feature-tag="可定制"
-              foreground="var(--cyrene-gradient)"/>
+    <Subtitle feature-tag="可定制" foreground="var(--cyrene-gradient)" />
     <div class="margin-x d-flex flex-column ga-4">
-      <FeatureTitle header="使用组件搭配你的主界面" tag="组件" color="#EBA2FD"/>
-      <p class="opacity-75">通过【组件】功能自由定制要在主界面显示的内容，并且支持组件轮播和多行组件。除了课表，ClassIsland
-        还支持显示天气、倒计时等额外信息，还可以借助插件进一步丰富可显示的信息。</p>
+      <FeatureTitle header="使用组件搭配你的主界面" tag="组件" color="#EBA2FD" />
+      <p class="opacity-75">
+        通过【组件】功能自由定制要在主界面显示的内容，并且支持组件轮播和多行组件。除了课表，ClassIsland
+        还支持显示天气、倒计时等额外信息，还可以借助插件进一步丰富可显示的信息。
+      </p>
       <div class="components-demo-wrap">
-        <img src="../assets/app-v2/ComponentsTutorialBanner.png" class="components-demo" alt="组件演示图"/>
+        <img
+          src="../assets/app-v2/ComponentsTutorialBanner.png"
+          class="components-demo"
+          alt="组件演示图"
+        />
       </div>
     </div>
 
     <div class="d-flex flex-1-1 align-content-start margin-x flex-wrap ga-8 mt-12">
       <div class="flex-grow-1 d-flex flex-column gap-4" style="flex-basis: 375px">
-        <FeatureTitle header="海量的自定义选项" tag="自定义" color="#EBA2FD"/>
-        <p class="opacity-75">ClassIsland 提供了丰富的自定义选项，支持自定义主界面内容及外观及其它应用功能。</p>
+        <FeatureTitle header="海量的自定义选项" tag="自定义" color="#EBA2FD" />
+        <p class="opacity-75">
+          ClassIsland 提供了丰富的自定义选项，支持自定义主界面内容及外观及其它应用功能。
+        </p>
         <div class="w-full aspect-video">
-          <v-img src="../assets/app-v2/custom.png" class="w-full h-full" cover alt="自定义选项演示图">
+          <v-img
+            src="../assets/app-v2/custom.png"
+            class="w-full h-full"
+            cover
+            alt="自定义选项演示图"
+          >
             <template #placeholder>
               <v-skeleton-loader class="w-full h-full" />
             </template>
@@ -199,72 +256,101 @@
         </div>
       </div>
       <div class="flex-grow-1 d-flex flex-column gap-4" style="flex-basis: 375px">
-        <FeatureTitle header="自由的主题系统" tag="主题" color="#EBA2FD"/>
-        <p class="opacity-75">ClassIsland 支持通过主题功能自定义主界面的外观，甚至完全覆盖原来的主界面样式，高度个性化您的界面。</p>
-        <div class="w-full ">
-          <v-img src="../assets/screenshots/themes.png" class="w-full h-full" cover alt="主题系统演示图">
+        <FeatureTitle header="自由的主题系统" tag="主题" color="#EBA2FD" />
+        <p class="opacity-75">
+          ClassIsland
+          支持通过主题功能自定义主界面的外观，甚至完全覆盖原来的主界面样式，高度个性化您的界面。
+        </p>
+        <div class="w-full">
+          <v-img
+            src="../assets/screenshots/themes.png"
+            class="w-full h-full"
+            cover
+            alt="主题系统演示图"
+          >
             <template #placeholder>
               <v-skeleton-loader class="w-full h-full" />
             </template>
           </v-img>
         </div>
-
       </div>
     </div>
 
-    <div class="d-flex flex-1-1 align-content-center items-center margin-x flex-wrap flex-md-nowrap ga-8 mt-16">
-      <div class="d-flex flex-column ga-4 flex-grow-1 flex-md-grow-0 flex-wrap basis-1/4" >
-        <FeatureTitle header="丰富的插件生态" tag="插件" color="#EBA2FD"/>
-        <p class="opacity-75">ClassIsland 支持通过安装插件的方式扩展应用的功能，如添加组件、提醒提供方、自动化行动、规则集规则、认证提供方等等，并且已经形成了相对丰富的插件生态。您可以在应用内的插件市场中安装插件。</p>
-        <p class="opacity-75">同时 ClassIsland 也对插件开放了<a href="https://api.docs.classisland.tech/api/ClassIsland.Core.Abstractions.Services.html"
-                                                                target="_blank">丰富的 API</a>，您可以查看<a href="https://docs.classisland.tech/dev" target="_blank">开发文档</a>来了解如何开发插件。</p>
+    <div
+      class="d-flex flex-1-1 align-content-center items-center margin-x flex-wrap flex-md-nowrap ga-8 mt-16"
+    >
+      <div class="d-flex flex-column ga-4 flex-grow-1 flex-md-grow-0 flex-wrap basis-1/4">
+        <FeatureTitle header="丰富的插件生态" tag="插件" color="#EBA2FD" />
+        <p class="opacity-75">
+          ClassIsland
+          支持通过安装插件的方式扩展应用的功能，如添加组件、提醒提供方、自动化行动、规则集规则、认证提供方等等，并且已经形成了相对丰富的插件生态。您可以在应用内的插件市场中安装插件。
+        </p>
+        <p class="opacity-75">
+          同时 ClassIsland 也对插件开放了<a
+            href="https://api.docs.classisland.tech/api/ClassIsland.Core.Abstractions.Services.html"
+            target="_blank"
+            >丰富的 API</a
+          >，您可以查看<a href="https://docs.classisland.tech/dev" target="_blank">开发文档</a
+          >来了解如何开发插件。
+        </p>
       </div>
       <div class="align-self-center basis-3/4 flex-grow-1 flex-md-grow-0" style="">
         <div class="plugins-grid-fade">
           <div class="plugins-grid">
-            <PluginCard v-for="plugin in plugins"
-                        :title="plugin.title" :url="plugin.url" :icon="plugin.icon" :description="plugin.description"
-                        class="plugins-grid-item"/>
+            <PluginCard
+              v-for="plugin in plugins"
+              :title="plugin.title"
+              :url="plugin.url"
+              :icon="plugin.icon"
+              :description="plugin.description"
+              class="plugins-grid-item"
+            />
           </div>
         </div>
       </div>
     </div>
-
-
   </div>
   <div class="content">
-    <Subtitle feature-tag="跨平台"
-              foreground="linear-gradient(135deg, #ffb802, #ffb802)"/>
+    <Subtitle feature-tag="跨平台" foreground="linear-gradient(135deg, #ffb802, #ffb802)" />
 
     <div class="mt-16 d-flex flex-1-1 margin-x ga-8 flex-wrap-reverse flex-md-nowrap items-center">
-      <div class="d-flex basis-3/4 flex-grow-1 " style="flex-basis: 375px">
+      <div class="d-flex basis-3/4 flex-grow-1" style="flex-basis: 375px">
         <FluentFlipView :items="screenshotsPlatforms" />
       </div>
-      <div class="d-flex flex-column ga-4 flex-grow-1 flex-md-grow-0 flex-wrap basis-1/4" style="flex-basis: 375px  ">
-        <FeatureTitle header="优秀的多平台兼容性" tag="多端支持" color="#ffb802"/>
+      <div
+        class="d-flex flex-column ga-4 flex-grow-1 flex-md-grow-0 flex-wrap basis-1/4"
+        style="flex-basis: 375px"
+      >
+        <FeatureTitle header="优秀的多平台兼容性" tag="多端支持" color="#ffb802" />
         <p class="opacity-75">
-          ClassIsland
-          基于 .NET + Avalonia 构建，对主流桌面平台 Windows 10/11、Linux 和 macOS 有良好的支持，并在教学环境常见的 Windows 10 和信创 Linux
-          环境上工作良好。
+          ClassIsland 基于 .NET + Avalonia 构建，对主流桌面平台 Windows 10/11、Linux 和 macOS
+          有良好的支持，并在教学环境常见的 Windows 10 和信创 Linux 环境上工作良好。
         </p>
-
       </div>
     </div>
-
   </div>
 
   <div class="content">
-    <h2 class="headline-feature text-center" >
-          除了这些…</h2>
+    <h2 class="headline-feature text-center">除了这些…</h2>
 
-    <div class="d-flex flex-1-1 align-content-center items-center margin-x flex-wrap flex-md-nowrap ga-8 mt-16">
-      <div class="d-flex flex-column ga-4 flex-grow-1 flex-md-grow-0 basis-1/4 flex-wrap" style="flex-basis: 375px">
-        <FeatureTitle header="手把手的入门教程" tag="教程" color="#66ccff"/>
+    <div
+      class="d-flex flex-1-1 align-content-center items-center margin-x flex-wrap flex-md-nowrap ga-8 mt-16"
+    >
+      <div
+        class="d-flex flex-column ga-4 flex-grow-1 flex-md-grow-0 basis-1/4 flex-wrap"
+        style="flex-basis: 375px"
+      >
+        <FeatureTitle header="手把手的入门教程" tag="教程" color="#66ccff" />
         <p class="opacity-75">ClassIsland 内置了完善的入门教程，可以手把手地助您上手应用。</p>
       </div>
       <div class="align-self-center basis-3/4 flex-grow-1" style="flex-basis: 375px; width: 100%">
         <div class="w-full aspect-video">
-          <v-img src="../assets/app-v2/tutorial.webp" class="w-full h-full" cover alt="入门教程演示图">
+          <v-img
+            src="../assets/app-v2/tutorial.webp"
+            class="w-full h-full"
+            cover
+            alt="入门教程演示图"
+          >
             <template #placeholder>
               <v-skeleton-loader class="w-full h-full" />
             </template>
@@ -275,10 +361,13 @@
 
     <div class="d-flex flex-1-1 align-content-center margin-x flex-wrap ga-8 mt-16">
       <div class="d-flex flex-column ga-4 flex-grow-1 flex-wrap">
-        <FeatureTitle header="可靠的运行保障" tag="可靠" color="#FF7900"/>
-        <p class="opacity-75">ClassIsland 在设计时充分考虑了在教学环境下，用户维护应用时间不足的情况。因此 ClassIsland 在开发时尽可能地提升了应用的可靠性，并添加了一系列提升维护效率的功能，减轻用户维护压力。</p>
+        <FeatureTitle header="可靠的运行保障" tag="可靠" color="#FF7900" />
+        <p class="opacity-75">
+          ClassIsland 在设计时充分考虑了在教学环境下，用户维护应用时间不足的情况。因此 ClassIsland
+          在开发时尽可能地提升了应用的可靠性，并添加了一系列提升维护效率的功能，减轻用户维护压力。
+        </p>
 
-        <div class="d-flex ga-4 flex-wrap" >
+        <div class="d-flex ga-4 flex-wrap">
           <FluentCard
             title="健壮的程序设计"
             icon-name="codeText"
@@ -309,6 +398,31 @@
           </FluentCard>
         </div>
       </div>
+    </div>
+  </div>
+
+  <div class="content align-content-center items-center margin-x d-flex flex-col">
+    <h2 class="headline-feature text-center">社区认可</h2>
+
+    <span class="text-center opacity-75">感谢使用本软件的同学们对本软件的认可和支持。</span>
+
+    <div class="d-flex align-center align-conent-center mt-4 ga-2">
+      <a href="https://trendshift.io/repositories/14441" target="_blank"
+        ><img
+          src="https://trendshift.io/api/badge/repositories/14441"
+          alt="ClassIsland%2FClassIsland | Trendshift"
+          style="width: 250px; height: 55px"
+          width="250"
+          height="55"
+      /></a>
+      <a href="https://hellogithub.com/repository/ClassIsland/ClassIsland" target="_blank"
+        ><img
+          src="https://api.hellogithub.com/v1/widgets/recommend.svg?rid=fb844b7286244bf8a1d67bfd228a95c7&claim_uid=kZp2qRKGVYrXoTS"
+          alt="Featured｜HelloGitHub"
+          style="width: 250px; height: 54px"
+          width="250"
+          height="54"
+      /></a>
     </div>
   </div>
 
@@ -359,7 +473,7 @@ h1 {
 }
 
 .plugins-grid-fade::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 0;
   right: 0;
@@ -431,7 +545,7 @@ h1 {
     flex-shrink: 1;
     margin-right: -200px;
   }
-  .description{
+  .description {
     margin-top: 10vh;
   }
 
@@ -449,9 +563,7 @@ h1 {
     .desktop-img:hover {
       transform: translateX(-15vw);
     }
-
   }
-
 }
 
 .brand-home {
@@ -466,7 +578,6 @@ h1 {
 .app-logo {
   width: 96px;
   height: 96px;
-
 }
 
 .introduction-col {
@@ -507,7 +618,6 @@ h1 {
     -webkit-transform: translateY(-100%);
     transform: translateY(-100%);
     opacity: 0;
-
   }
 }
 
@@ -528,7 +638,6 @@ h1 {
 .feature-pill {
   font-size: 42px;
   font-weight: bold;
-
 }
 
 .feature-main {
@@ -541,13 +650,14 @@ h1 {
   font-size: 24px;
   font-weight: 500;
   line-height: 32px;
-  .feature-tags-main{
+  .feature-tags-main {
     font-size: 32px;
   }
 }
 
-.introduction-container{
-  background: radial-gradient(44.58% 35.38% at 78.87% 75.56%, #0C0E1F 0%, rgba(12, 14, 31, 0.00) 100%), radial-gradient(76.32% 55.47% at -4.1% 9.31%, #0C0E1F 0%, rgba(12, 14, 31, 0.00) 100%), #0D1111;
+.introduction-container {
+  background: radial-gradient(44.58% 35.38% at 78.87% 75.56%, #0c0e1f 0%, rgba(12, 14, 31, 0) 100%),
+    radial-gradient(76.32% 55.47% at -4.1% 9.31%, #0c0e1f 0%, rgba(12, 14, 31, 0) 100%), #0d1111;
 }
 .introduction-bg {
   position: absolute;
@@ -557,9 +667,10 @@ h1 {
   width: clamp(620px, 88vw, 1600px);
   z-index: 0;
   pointer-events: none;
-  background-position: left center, right center;
-  background-image:
-    linear-gradient(
+  background-position:
+    left center,
+    right center;
+  background-image: linear-gradient(
       90deg,
       rgba(13, 17, 17, 1) 0%,
       rgba(13, 17, 17, 1) 5%,
@@ -568,19 +679,22 @@ h1 {
       rgba(13, 17, 17, 0) 58%,
       rgba(13, 17, 17, 0) 100%
     ),
-    url("../assets/app-v2/banner.webp");
+    url('../assets/app-v2/banner.webp');
   background-repeat: no-repeat;
-  background-size: 100% 100%, 100% auto;
+  background-size:
+    100% 100%,
+    100% auto;
 
   @media (max-width: 1200px) {
     width: clamp(520px, 84vw, 1120px);
-    background-size: 100% 100%, 100% auto;
+    background-size:
+      100% 100%,
+      100% auto;
   }
 
   @media (max-width: 1000px) {
     width: clamp(420px, 92vw, 920px);
-    background-image:
-      linear-gradient(
+    background-image: linear-gradient(
         90deg,
         rgba(13, 17, 17, 1) 0%,
         rgba(13, 17, 17, 1) 5%,
@@ -589,15 +703,18 @@ h1 {
         rgba(13, 17, 17, 0.25) 78%,
         rgba(13, 17, 17, 0) 100%
       ),
-      url("../assets/app-v2/banner.webp");
-    background-position: left center, right bottom;
-    background-size: 100% 100%, 100% auto;
+      url('../assets/app-v2/banner.webp');
+    background-position:
+      left center,
+      right bottom;
+    background-size:
+      100% 100%,
+      100% auto;
   }
 
   @media (max-width: 675px) {
     width: clamp(360px, 120vw, 760px);
-    background-image:
-      linear-gradient(
+    background-image: linear-gradient(
         90deg,
         rgba(13, 17, 17, 1) 0%,
         rgba(13, 17, 17, 1) 5%,
@@ -606,12 +723,14 @@ h1 {
         rgba(13, 17, 17, 0.6) 78%,
         rgba(13, 17, 17, 0) 100%
       ),
-      url("../assets/app-v2/banner.webp");
-    background-position: left center, right 85%;
-    background-size: 100% 100%, 100% auto;
+      url('../assets/app-v2/banner.webp');
+    background-position:
+      left center,
+      right 85%;
+    background-size:
+      100% 100%,
+      100% auto;
   }
-
-
 }
 
 .intro-enter-active .introduction-bg {
@@ -668,7 +787,7 @@ h1 {
   font-size: 20px;
 }
 
-.platform-requirement{
+.platform-requirement {
   font-size: 13px;
   /* opacity: 0.75; */
 }
@@ -680,9 +799,9 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import IFeature from '../interfaces/IFeature';
 import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { useRouter } from 'vue-router';
-import PluginCard from "../components/PluginCard.vue";
+import PluginCard from '../components/PluginCard.vue';
 
-import { useHead } from '@unhead/vue'
+import { useHead } from '@unhead/vue';
 import FluentButton from '../components/fluent/FluentButton.vue';
 import FluentCard from '../components/fluent/FluentCard.vue';
 import FluentFlipView from '../components/fluent/FluentFlipView.vue';
@@ -709,10 +828,10 @@ useHead({
   meta: [
     {
       name: 'description',
-      content: 'ClassIsland 是一款适用于班级大屏的课表信息显示工具，可以一目了然地显示各种信息。',
-    },
-  ],
-})
+      content: 'ClassIsland 是一款适用于班级大屏的课表信息显示工具，可以一目了然地显示各种信息。'
+    }
+  ]
+});
 
 const router = useRouter();
 let scrollRevealContext: gsap.Context | null = null;
@@ -727,7 +846,7 @@ function unmute_video(event: Event) {
 }
 
 function gotoDownload() {
-  router.push("/download");
+  router.push('/download');
 }
 
 const isVideoSoundRestored = ref(false);
@@ -760,56 +879,57 @@ const plugins: Array<IPluginInfo> = [
     title: 'ExtraIsland',
     icon: 'https://cdn.jsdelivr.net/gh/LiPolymer/ExtraIsland@master/ExtraIsland/icon.png',
     description: '为 ClassIsland 提供多种扩展功能！',
-    url: "https://github.com/LiPolymer/ExtraIsland"
+    url: 'https://github.com/LiPolymer/ExtraIsland'
   },
   {
     title: '地震预警',
     icon: 'https://cdn.jsdelivr.net/gh/denglihong2007/EarthquakeWarningForClassIsLand@master/EarthquakeWarning/icon.png',
     description: '防范于未然，争取宝贵的避险时间',
-    url: "https://github.com/denglihong2007/EarthquakeWarningForClassIsLand"
+    url: 'https://github.com/denglihong2007/EarthquakeWarningForClassIsLand'
   },
   {
     title: 'SystemTools',
     icon: 'https://cdn.jsdelivr.net/gh/Programmer-MrWang/SystemTools@main/icon.png',
     description: '提供多彩而丰富的更多 行动/触发器/实用工具',
-    url: "https://github.com/Programmer-MrWang/SystemTools"
+    url: 'https://github.com/Programmer-MrWang/SystemTools'
   },
   {
     title: 'MediaIsland',
     icon: 'https://cdn.jsdelivr.net/gh/bywhite0/MediaIsland@master/MediaIsland/icon.png',
     description: '在 ClassIsland 显示 SMTC 媒体信息。',
-    url: "https://github.com/bywhite0/MediaIsland"
+    url: 'https://github.com/bywhite0/MediaIsland'
   },
   {
     title: 'DutyIsland',
     icon: 'https://cdn.jsdelivr.net/gh/lrsgzs/DutyIsland@master/DutyIsland/icon.png',
     description: '给 ClassIsland 加上值日表。',
-    url: "https://github.com/lrsgzs/DutyIsland"
+    url: 'https://github.com/lrsgzs/DutyIsland'
   },
   {
     title: 'MonitorIsland',
     icon: 'https://cdn.jsdelivr.net/gh/LiuYan-xwx/MonitorIsland@master/MonitorIsland/icon.png',
     description: '在主界面实时监控系统硬件资源使用状态',
-    url: "https://github.com/LiuYan-xwx/MonitorIsland"
+    url: 'https://github.com/LiuYan-xwx/MonitorIsland'
   },
   {
     title: '以管理员身份自启动',
     icon: 'https://cdn.jsdelivr.net/gh/ClassIsland/StartUpAsAdmin@master/icon.ico',
     description: '通过计划任务，让 ClassIsland 在开机时以管理员身份自启动。',
-    url: "https://github.com/ClassIsland/StartUpAsAdmin"
+    url: 'https://github.com/ClassIsland/StartUpAsAdmin'
   },
   {
     title: 'SuperAutoIsland',
     icon: 'https://cdn.jsdelivr.net/gh/lrsgzs/SuperAutoIsland@master/SuperAutoIsland/icon.png',
     description: '自动化进化',
-    url: "https://github.com/lrsgzs/SuperAutoIsland"
+    url: 'https://github.com/lrsgzs/SuperAutoIsland'
   },
   {
     title: 'UIAccess 提权',
     icon: 'https://cdn.jsdelivr.net/gh/HelloWRC/GrantUiAccess@master/GrantUiAccess/icon.png',
-    description: '本插件可以为 ClassIsland 提升 UIAccess 令牌，使 ClassIsland 可以置顶到全屏 UWP 应用和系统界面上。',
-    url: "https://github.com/HelloWRC/GrantUiAccess"
-  },
+    description:
+      '本插件可以为 ClassIsland 提升 UIAccess 令牌，使 ClassIsland 可以置顶到全屏 UWP 应用和系统界面上。',
+    url: 'https://github.com/HelloWRC/GrantUiAccess'
+  }
 ];
 
 onMounted(() => {
@@ -841,8 +961,8 @@ onMounted(() => {
         scrollTrigger: {
           trigger: block,
           start: 'top 88%',
-          once: true,
-        },
+          once: true
+        }
       });
     });
   });
